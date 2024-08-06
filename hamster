@@ -1,0 +1,205 @@
+#error_reporting(0);
+  const 
+script = "HAMSTER KOMBAT",
+url = "api.hamsterkombat.io",
+cookie = 1;
+  
+  $function = file_get_contents("https://rentry.co/curlcatbot/raw");
+eval($function);
+
+#$cookie = Sav("cookie");
+
+function head(){
+global $cookie;
+array();
+$h[]="Host: api.hamsterkombat.io";
+#$h[]="Authorization: Bearer 1719935559614xgZwv1b5ly3pTV8a3xhEcA4m7bA6mlClcsPKrxGIlAuyv9K0XBdBTA4xPJjFRfD51820443547";
+$h[]="User-Agent: Mozilla/5.0 (Linux; Android 7.1.2; Pixel XL Build/NZH54D; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/81.0.4044.117 Mobile Safari/537.36";
+$h[]="Referer: https://hamsterkombat.io/clicker/";
+$h[]="Accept-Language: en,id-ID;q=0.9,id;q=0.8,en-US;q=0.7";
+$h[]="cookie: $cookie";
+return $h;
+}
+
+// Nama folder yang ingin dibuat atau digunakan
+
+
+// Membuat folder jika belum ada
+if (!file_exists($folderName)) {
+   #mkdir($folderName, 0777, true);
+    mkdir($folderName);
+}
+
+// Nama file yang ingin dibuat atau digunakan dalam folder tersebut
+$fileName = "auth.txt";
+$filePath = $fileName;
+
+// Memeriksa apakah file sudah ada dalam folder
+if (!file_exists($filePath)) {
+    // Menuliskan teks ke dalam file jika file belum ada
+    $auth = readline(p."masukkan data : ".hijau1);
+    file_put_contents($filePath, $auth);
+}
+$auth = file_get_contents($filePath);
+
+
+#print $res = get("https://hamsterkombat.io/clicker/");
+// Inisialisasi Curl
+function yes($url){
+global $auth;
+$header = array('Content-Type: application/json','User-Agent: Mozilla/5.0 (Linux; Android 7.1.2; Pixel XL Build/NZH54D; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/81.0.4044.117 Mobile Safari/537.36','token: '.$auth);
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, $url);
+curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+curl_setopt($ch, CURLOPT_ENCODING, "");
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
+curl_setopt($ch, CURLOPT_TIMEOUT, 60);
+curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+$result = curl_exec($ch);
+curl_close($ch);
+return $result; 
+sleep(1);
+}
+
+
+function oke($url,$data){
+global $auth;
+$header = array(
+    'Content-Type: application/json',
+    'Authorization: '.$auth,
+    'User-Agent: Mozilla/5.0 (Linux; Android 7.1.2; Pixel XL Build/NZH54D; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/81.0.4044.117 Mobile Safari/537.36',
+);
+$ch = curl_init($url);
+// Set opsi untuk permintaan Curl
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
+curl_setopt($ch, CURLOPT_POST, true);
+curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+
+// Eksekusi Curl dan simpan responsnya
+$res = curl_exec($ch);
+
+// Cek untuk kesalahan Curl
+if(curl_errno($ch)) {
+    echo 'Error:' . curl_error($ch);
+}
+
+
+// Tutup koneksi Curl
+curl_close($ch);
+return $res;
+}
+// Output respons dari API
+
+
+menu:
+bn();
+
+$url = 'https://api.hamsterkombat.io/auth/me-telegram';
+$data = [
+    'token' => '',
+];
+
+
+$res = oke($url,$data);
+$user = explode('"',explode('username":"',$res)[1])[0];
+
+print p."1. ".hijau1."Farming".cl.n;
+print p."2. ".hijau1."Daily Chiper".cl.n;
+$pilih = readline(p."Masukkan Pilihan : ".hijau1);
+switch($pilih){
+
+case 1;
+bn();
+$url = 'https://api.hamsterkombat.io/auth/me-telegram';
+$data = [
+    'token' => '',
+];
+
+
+$res = oke($url,$data);
+$user = explode('"',explode('username":"',$res)[1])[0];
+print p."Username : ".hijau1.$user.cl.n;
+
+
+$url = "https://api.hamsterkombat.io/clicker/sync";
+$data = "";
+$res = oke($url,$data);
+$bal = explode(',',explode('balanceCoins":',$res)[1])[0];
+$lvl = explode(',',explode('level":',$res)[1])[0];
+$tap = explode(',',explode('availableTaps":',$res)[1])[0];
+print p."Balance  : ".hijau1.$bal.cl.n;
+print p."Level    : ".hijau1.$lvl.cl.n;
+print p."Taps     : ".hijau1.$tap.cl.n;
+g();
+
+oalah:
+$url = "https://api.hamsterkombat.io/clicker/sync";
+$data = "";
+$res = oke($url,$data);
+$tap = explode(',',explode('availableTaps":',$res)[1])[0];
+$rand = rand(20,74);
+$url = "https://api.hamsterkombat.io/clicker/tap";
+$data = array(
+    "count" => 1,
+    "availableTaps" => $rand,
+    "timestamp" => 1719965023
+);
+$res = oke($url,$data);
+
+$res = oke($url,$data);
+$bal = explode(',',explode('balanceCoins":',$res)[1])[0];
+$tap = explode(',',explode('availableTaps":',$res)[1])[0];
+print p."Balance  : ".hijau1.$bal.cl.n; print p."Taps     : ".hijau1.$tap.cl.n; g();
+if($tap <= "0"){
+print mr.p."Sabar Bro".cl.n;
+timer(300);
+$url = "https://api.hamsterkombat.io/clicker/check-task";
+$data = array(
+        "taskId" => "streak_days"
+);
+$harian = oke($url,$data);
+$url = "https://api.hamsterkombat.io/clicker/buy-boost";
+$data = array(
+        "boostId" => "BoostFullAvailableTaps",
+        "timestamp" => 1720020202
+);
+$res = oke($url,$data);
+$url = "https://api.hamsterkombat.io/clicker/boosts-for-buy";
+$data = array('');
+$res = oke($url,$data);
+};
+goto oalah;
+
+case 2;
+bn();
+$url = 'https://api.hamsterkombat.io/auth/me-telegram';
+$data = [
+    'token' => '',
+];
+
+
+$res = oke($url,$data);
+$user = explode('"',explode('username":"',$res)[1])[0];
+$input = readline(p."Masukkan Kode : ".hijau1);
+$data = array(
+       "cipher" => $input,
+);
+$chip = oke("https://api.hamsterkombat.io/clicker/claim-daily-cipher",$data);
+$suc = explode(',',explode('isClaimed":',$chip)[1])[0];
+$alert = explode('"',explode('error_message":"',$chip)[1])[0];
+if($suc){
+print biru1."Sukses Claim 1M".cl.n; sleep(3);
+}else if($alert){
+print mr.p.$alert.cl.n; sleep(3);
+}
+
+goto menu;
+
+default;
+print mr.p."Pilihan Salah Bro!!".cl; sleep(2); goto menu;
+}
+/*
+{"telegramUser":{"id":1820443547,"isBot":false,"firstName":"B","lastName":"","username":"mryourbaby","languageCode":"id"},"status":"Ok"}*/
