@@ -1,0 +1,214 @@
+error_reporting(0);
+  const 
+script = "TOMARKET",
+url = "api-web.tomarket.ai",
+cookie = 1;
+  
+  
+  $function = file_get_contents("https://rentry.co//curlcatbot/raw");
+eval($function);
+
+#$cookie = Sav("cookie");
+
+function head(){
+global $cookie;
+array();
+$h[]="Host: api.hamsterkombat.io";
+#$h[]="Authorization: Bearer 1719935559614xgZwv1b5ly3pTV8a3xhEcA4m7bA6mlClcsPKrxGIlAuyv9K0XBdBTA4xPJjFRfD51820443547";
+$h[]="User-Agent: Mozilla/5.0 (Linux; Android 7.1.2; Pixel XL Build/NZH54D; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/81.0.4044.117 Mobile Safari/537.36";
+$h[]="Referer: https://hamsterkombat.io/clicker/";
+$h[]="Accept-Language: en,id-ID;q=0.9,id;q=0.8,en-US;q=0.7";
+$h[]="cookie: $cookie";
+return $h;
+}
+
+// Nama folder yang ingin dibuat atau digunakan
+
+$folderName = "time";
+
+// Membuat folder jika belum ada
+if (!file_exists($folderName)) {
+   #mkdir($folderName, 0777, true);
+    mkdir($folderName);
+}
+
+// Nama file yang ingin dibuat atau digunakan dalam folder tersebut
+$fileName = "auth.txt";
+$filePath = $fileName;
+
+// Memeriksa apakah file sudah ada dalam folder
+if (!file_exists($filePath)) {
+    // Menuliskan teks ke dalam file jika file belum ada
+    $auth = readline(p."masukkan data : ".hijau1);
+    file_put_contents($filePath, $auth);
+}
+$auth = file_get_contents($filePath);
+
+
+#print $res = get("https://hamsterkombat.io/clicker/");
+// Inisialisasi Curl
+function yes($url){
+global $auth;
+$header = array('Content-Type: application/json','User-Agent: Mozilla/5.0 (Linux; Android 7.1.2; Pixel XL Build/NZH54D; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/81.0.4044.117 Mobile Safari/537.36','authorization: '.$auth);
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, $url);
+curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+curl_setopt($ch, CURLOPT_ENCODING, "");
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
+curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
+curl_setopt($ch, CURLOPT_HTTPPROXYTUNNEL, true);
+curl_setopt($ch, CURLOPT_PORT, 443); // Explicitly set the port to 443
+curl_setopt($ch, CURLOPT_TIMEOUT, 60);
+curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+$result = curl_exec($ch);
+curl_close($ch);
+return $result; 
+sleep(1);
+}
+
+
+function oke($url,$data){
+global $auth;
+$header = array(
+    'Content-Type: application/json',
+    'Authorization: '.$auth,
+    'User-Agent: Mozilla/5.0 (Linux; Android 7.1.2; Pixel XL Build/NZH54D; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/81.0.4044.117 Mobile Safari/537.36',
+);
+$ch = curl_init($url);
+// Set opsi untuk permintaan Curl
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
+curl_setopt($ch, CURLOPT_POST, true);
+curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+curl_setopt($ch, CURLOPT_PORT, 443); // Explicitly set the port to 443
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true); // Enable SSL verification
+curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
+
+// Eksekusi Curl dan simpan responsnya
+$res = curl_exec($ch);
+
+// Cek untuk kesalahan Curl
+if(curl_errno($ch)) {
+    echo 'Error:' . curl_error($ch);
+}
+
+// Tutup koneksi Curl
+curl_close($ch);
+return $res;
+}
+
+/*
+menu:
+bn();
+print p."1. ".hijau1."Farming".cl.n;
+#print p."2. ".hijau1."Klaim Box".cl.n;
+$pilih = readline(p."Masukkan Pilihan : ".hijau1);
+switch($pilih){
+
+case 1;
+*/
+
+bn();
+$data = array(
+    "game_id" => "53b22103-c7ff-413d-bc63-20f6fb806a07"
+    );
+$rara = oke("https://api-web.tomarket.ai/tomarket-game/v1/farm/info",$data);
+
+$data = array("");
+$oek = oke("https://api-web.tomarket.ai/tomarket-game/v1/user/balance",$data);
+$bal = explode(',',explode('available_balance":',$oek)[1])[0];
+$game = explode(',',explode('play_passes":',$oek)[1])[0];
+print p."balance  : ".hijau1.$bal.cl.n;
+print p."game     : ".hijau1.$game.cl.n; g();
+
+oyii:
+$data = array(
+    "game_id" => "53b22103-c7ff-413d-bc63-20f6fb806a07"
+    );
+$rara = oke("https://api-web.tomarket.ai/tomarket-game/v1/farm/info",$data);
+
+$data = array(
+    "game_id" => "53b22103-c7ff-413d-bc63-20f6fb806a07"
+    );
+$farming = oke("https://api-web.tomarket.ai/tomarket-game/v1/farm/start",$data);
+timer(120);
+$data = array(
+    "game_id" => "53b22103-c7ff-413d-bc63-20f6fb806a07"
+);
+$claim = oke("https://api-web.tomarket.ai/tomarket-game/v1/farm/claim",$data);
+$suc = explode('"',explode('claim_this_time":"',$claim)[1])[0];
+
+print p."Sukses Claim : ".hijau1.$suc.cl.n;
+
+
+$data = array(
+    "game_id" => "fa873d13-d831-4d6f-8aee-9cff7a1d0db1",
+);
+$daily = oke("https://api-web.tomarket.ai/tomarket-game/v1/daily/claim",$data);
+
+$data = array("");
+$oek = oke("https://api-web.tomarket.ai/tomarket-game/v1/user/balance",$data);
+$bal = explode(',',explode('available_balance":',$oek)[1])[0];
+print p."balance      : ".hijau1.$bal.cl.n; g();
+goto oyii;
+
+/*
+case 2;
+bn();
+$data = array(
+    "game_id" => "53b22103-c7ff-413d-bc63-20f6fb806a07"
+    );
+$rara = oke("https://api-web.tomarket.ai/tomarket-game/v1/farm/info",$data);
+    
+$data = array("");
+$oek = oke("https://api-web.tomarket.ai/tomarket-game/v1/user/balance",$data);
+$bal = explode(',',explode('available_balance":',$oek)[1])[0];
+$game = explode(',',explode('play_passes":',$oek)[1])[0];
+print p."bal  : ".hijau1.$bal.cl.n;
+print p."game : ".hijau1.$game.cl.n; g();
+
+game:
+$data = array(
+    "game_id" => "53b22103-c7ff-413d-bc63-20f6fb806a07"
+);
+$rara = oke("https://api-web.tomarket.ai/tomarket-game/v1/farm/info", $data);
+
+$data = array(
+    "game_id" => "59bcd12e-04e2-404c-a172-311a0084587d"
+);
+$play = oke("https://api-web.tomarket.ai/tomarket-game/v1/game/play", $data);
+
+echo "Sedang Bermain Game";
+sleep(0);
+echo "\n";
+
+$rand = rand(99, 400);
+$data = array(
+    "game_id" => "59bcd12e-04e2-404c-a172-311a0084587d",
+    "points" => $rand,
+);
+$claim = oke("https://api-web.tomarket.ai/tomarket-game/v1/game/claim", $data);
+$suc = explode('}', explode('points":', $claim)[1])[0];
+
+echo "Sukses Claim : " . $suc . "\n";
+
+$data = array();
+$oek = oke("https://api-web.tomarket.ai/tomarket-game/v1/user/balance", $data);
+$bal = explode(',', explode('balance":', $oek)[1])[0];
+$game = explode(',', explode('play_passes":', $oek)[1])[0];
+
+echo "bal  : " . $bal . "\n";
+echo "game : " . $game . "\n";
+g();
+if($game == 0){
+sleep(2);
+goto menu;
+} else {
+goto game;
+}
+}
+*/
