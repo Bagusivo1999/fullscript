@@ -1,4 +1,4 @@
-<?php
+
 error_reporting(0);
 date_default_timezone_set("Asia/Jakarta");
 const 
@@ -315,7 +315,7 @@ if (strpos($post, '<i class="fas fa-exclamation-triangle"></i>') !== false) {
 
 if (strpos($post, '<i class="fas fa-money-bill-wave"></i>') !== false) {
     $suc = explode('<', explode('<i class="fas fa-money-bill-wave"></i> ', $post)[1])[0];
-    echo ob.p."✅DOGE $suc FaucetPay".cl.n;
+    echo ob.p."✅DOGE $sucFaucetPay".cl.n;
     g();
 }
 
@@ -376,7 +376,7 @@ if (strpos($post, '<i class="fas fa-exclamation-triangle"></i>') !== false) {
 
 if (strpos($post, '<i class="fas fa-money-bill-wave"></i>') !== false) {
     $suc = explode('<', explode('<i class="fas fa-money-bill-wave"></i> ', $post)[1])[0];
-    echo ob.p."✅TRON $suc FaucetPay".cl.n;
+    echo ob.p."✅TRON $sucFaucetPay".cl.n;
 }
 
 
@@ -436,7 +436,7 @@ if (strpos($post, '<i class="fas fa-exclamation-triangle"></i>') !== false) {
 
 if (strpos($post, '<i class="fas fa-money-bill-wave"></i>') !== false) {
     $suc = explode('<', explode('<i class="fas fa-money-bill-wave"></i> ', $post)[1])[0];
-    echo ob.p."✅FEYORRA $suc FaucetPay".cl.n;
+    echo ob.p."✅FEYORRA $sucFaucetPay".cl.n;
 }
 
 
@@ -496,7 +496,7 @@ if (strpos($post, '<i class="fas fa-exclamation-triangle"></i>') !== false) {
 
 if (strpos($post, '<i class="fas fa-money-bill-wave"></i>') !== false) {
     $suc = explode('<', explode('<i class="fas fa-money-bill-wave"></i> ', $post)[1])[0];
-    echo ob.p."✅ETHEREUM $suc FaucetPay".cl.n;
+    echo ob.p."✅ETHEREUM $sucFaucetPay".cl.n;
 }
 
 
@@ -556,7 +556,7 @@ if (strpos($post, '<i class="fas fa-exclamation-triangle"></i>') !== false) {
 
 if (strpos($post, '<i class="fas fa-money-bill-wave"></i>') !== false) {
     $suc = explode('<', explode('<i class="fas fa-money-bill-wave"></i> ', $post)[1])[0];
-    echo ob.p."✅LITECOIN $suc FaucetPay".cl.n;
+    echo ob.p."✅LITECOIN $sucFaucetPay".cl.n;
 }
 
 
@@ -616,7 +616,7 @@ if (strpos($post, '<i class="fas fa-exclamation-triangle"></i>') !== false) {
 
 if (strpos($post, '<i class="fas fa-money-bill-wave"></i>') !== false) {
     $suc = explode('<', explode('<i class="fas fa-money-bill-wave"></i> ', $post)[1])[0];
-    echo ob.p."✅BITCOIN $suc FaucetPay".cl.n;
+    echo ob.p."✅BITCOIN $sucFaucetPay".cl.n;
 }
 
 
@@ -676,7 +676,7 @@ if (strpos($post, '<i class="fas fa-exclamation-triangle"></i>') !== false) {
 
 if (strpos($post, '<i class="fas fa-money-bill-wave"></i>') !== false) {
     $suc = explode('<', explode('<i class="fas fa-money-bill-wave"></i> ', $post)[1])[0];
-    echo ob.p."✅BNB $suc FaucetPay".cl.n;
+    echo ob.p."✅BNB $sucFaucetPay".cl.n;
 }
 
 
