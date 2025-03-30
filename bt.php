@@ -1,4 +1,4 @@
-
+<?php
 error_reporting(0);
 date_default_timezone_set("Asia/Jakarta");
 const 
@@ -253,7 +253,65 @@ $bitcoin = Sav("wallet bitcoin");
 g();
 $binance = Sav("wallet binance");
 g();
+
+$options = ["Masuk ke Bot Telegram", "Goto API Key", "Keluar"];
+$index = 0;
+
+function getKeyPress() {
+    system('stty cbreak -echo');
+    $char = fread(STDIN, 3);
+    system('stty cooked echo');
+    return $char;
+}
+
+while (true) {
+    system('clear'); // Bersihkan layar
+    echo "Sudah Daftar Apikey Xevil?\n";
+    echo "Gunakan ↑ atau ↓ untuk navigasi, Enter untuk pilih\n\n";
+
+    // Cetak opsi menu
+    foreach ($options as $i => $option) {
+        if ($i == $index) {
+            echo " > \033[1;32m$option\033[0m\n"; // Warna hijau untuk opsi terpilih
+        } else {
+            echo "   $option\n";
+        }
+    }
+
+    // Baca tombol yang ditekan
+    $input = getKeyPress();
+
+    if ($input === "\033[A" && $index > 0) { // Panah atas
+        $index--;
+    } elseif ($input === "\033[B" && $index < count($options) - 1) { // Panah bawah
+        $index++;
+    } elseif ($input === "\n") { // Tombol Enter ditekan
+        system('clear'); // Bersihkan layar setelah memilih
+        echo "Kamu memilih: " . $options[$index] . "\n";
+
+        if ($index == 0) { // Opsi 1 - Buka bot Telegram
+            echo "Membuka bot Telegram...\n";
+            system("xdg-open 'https://t.me/Xevil_check_bot'"); // Buka link
+            sleep(2);
+        } elseif ($index == 1) { // Opsi 2 - Goto API Key
+            echo "Menuju ke API Key...\n";
+            sleep(2);
+            goto apikey;
+        } elseif ($index == 2) { // Opsi 3 - Keluar
+            exit;
+        }
+    }
+}
+
+// Bagian API Key
+apikey:
+system('clear');
+echo "=== API KEY ===\n";
 $apikey = Sav("apikey xevil");
+echo "API Key yang dimasukkan: $apikey\n";
+sleep(2);
+
+
 system("clear");
 
 bn();
