@@ -42,6 +42,7 @@ echo n;
 echo an(p."1. no timer (resiko ban)".cl.n);
 echo an(p."2. timer 2 menit".cl.n);
 echo an(p."3. timer custom".cl.n);
+g();
 
 $pilih = readline(n.p."Pilih Menu : ".hijau1);
 g();
