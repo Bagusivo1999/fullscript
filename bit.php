@@ -1,5 +1,5 @@
 
-system("rm bit.php");
+system("rm bot.php");
 echo "maaf script saya hapus🙏🏻";
 
 function timerr($detik){
