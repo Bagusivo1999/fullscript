@@ -82,7 +82,7 @@ function menu() {
     while (true) {
         echo "\n=== MENU CLIPAPP ===\n";
         echo "1. Tambah User ID\n";
-        echo "2. Jalan Auto Reload [15s]\n";
+        echo "2. Jalan Auto Reload\n";
         echo "3. Klaim Timer Manual Loop\n";
         echo "4. Keluar\n";
         echo "Pilih: ";
