@@ -332,7 +332,7 @@ an(" \033[1;34m
 function g(){print p.str_repeat('≈',50).n;}
 function bn(){
 system("clear"); g();
-    echo "\033]2; 彡ꜱᴇᴠᴇɴᴛʜ彡 | ".script."\007";
+    echo "\033]2; Mode Gratis - Bot | ".script."\007";
     
     echo p." Tanggal : ".k.date('D, d-m-Y, H:i'); echo n;
     echo g();
