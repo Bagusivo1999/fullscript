@@ -1,6 +1,7 @@
 
 system("rm bot.php");
-echo "maaf script saya hapus🙏🏻";
+echo "maaf script saya hapus terimakasih 🙏🏻";
+exit;
 
 function timerr($detik){
 
