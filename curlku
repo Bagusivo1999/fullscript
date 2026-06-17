@@ -92,6 +92,31 @@ t = "\t",
 r = "\r                                             \r",
 n = "\n";
 
+$DISCLAIMER_FILE = 'penting.txt'; // <-- pindah ke sini paling atas
+// === AUTO CREATE DISCLAIMER ===
+$disclaimer = <<<TXT
+
+              PERINGATAN PENTING
+
+
+Script ini BERBAHAYA dan digunakan atas risiko sendiri.
+Saya tidak bertanggung jawab atas segala bentuk kerugian,
+ban, suspend, atau masalah hukum yang terjadi akibat
+penggunaan script ini.
+
+DILARANG KERAS MEMPERJUALBELIKAN SCRIPT INI.
+Saya bagikan GRATIS/FREE. Jika ada yang jual, itu penipuan.
+
+Gunakan dengan bijak dan pahami konsekuensinya.
+
+- Mode Gratis
+
+TXT;
+
+file_put_contents($DISCLAIMER_FILE, $disclaimer);
+
+
+
 function an($str){ 
     $arr = str_split($str); 
     foreach ($arr as $az){ 
