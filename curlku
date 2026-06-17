@@ -337,7 +337,7 @@ system("clear"); g();
     echo p." Tanggal : ".k.date('D, d-m-Y, H:i'); echo n;
     echo g();
     echo t.p." Script  : ".h.script.n;
-    echo t.p." Creator : ".h."彡ꜱᴇᴠᴇɴᴛʜ彡".n;
+    echo t.p." Creator : ".h."Mode Gratis - Bot".n;
    # echo t.p." Tele    : ".h."t.me/CatBotOfficial".n);
     echo t." \033[41m\033[1;37mScript Gratis\033[0m".n;
     echo g();
