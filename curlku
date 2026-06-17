@@ -207,7 +207,7 @@ curl_setopt($ch, CURLOPT_TCP_KEEPINTVL, 60);
         if(!$httpcode) return "Curl Error : ".curl_error($ch); else{
             $header = substr($response, 0, curl_getinfo($ch, CURLINFO_HEADER_SIZE));
             $body = substr($response, curl_getinfo($ch, CURLINFO_HEADER_SIZE));
-            curl_close($ch);
+            ##curl_close($ch);
             return array($header, $body);
         }
     }
@@ -247,7 +247,7 @@ $httpcode = curl_getinfo($ch);
 if(!$httpcode) return "Curl Error : ".curl_error($ch); else{
 $header = substr($response, 0, curl_getinfo($ch, CURLINFO_HEADER_SIZE));
 $body = substr($response, curl_getinfo($ch, CURLINFO_HEADER_SIZE));
-curl_close($ch);
+##curl_close($ch);
 return array($header, $body);}}
 function get($url){return curl($url, null, head())[1];}
 function post($url,$data){return curl($url, $data, head())[1];}
