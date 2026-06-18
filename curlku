@@ -173,47 +173,41 @@ if($res==$res){
       endwhile;
 }
 function curl1($url, $post = 0, $httpheader = 0, $proxy = 0){
-#vpn();
     $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url);
-curl_setopt($ch, CURLOPT_DOH_URL, 'https://dns.google/dns-query');        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-curl_setopt($ch, CURLOPT_PORT, 443);
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
-        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 30);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 30);
-#curl_setopt($ch, CURLOPT_VERBOSE, 1);
-        curl_setopt($ch, CURLOPT_COOKIE,TRUE);
-        curl_setopt($ch, CURLOPT_TCP_KEEPALIVE, true);
-curl_setopt($ch, CURLOPT_TCP_KEEPIDLE, 60); // Waktu dalam detik sebelum mengirim pesan PING
-curl_setopt($ch, CURLOPT_TCP_KEEPINTVL, 60);
-        curl_setopt($ch, CURLOPT_COOKIEFILE,"Cookie.json");
-       curl_setopt($ch, CURLOPT_COOKIEJAR,"Cookie.json");
-        if($post){ 
-            curl_setopt($ch, CURLOPT_POST, true);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
-        }
-        if($httpheader){
-            curl_setopt($ch, CURLOPT_HTTPHEADER, $httpheader);
-        }
-        if($proxy){
-            curl_setopt($ch, CURLOPT_HTTPPROXYTUNNEL, true);
-            curl_setopt($ch, CURLOPT_PROXY, $proxy);
-         }
-        curl_setopt($ch, CURLOPT_HEADER, true);
-        $response = curl_exec($ch);
-        $httpcode = curl_getinfo($ch);
-        if(!$httpcode) return "Curl Error : ".curl_error($ch); else{
-            $header = substr($response, 0, curl_getinfo($ch, CURLINFO_HEADER_SIZE));
-            $body = substr($response, curl_getinfo($ch, CURLINFO_HEADER_SIZE));
-            ##curl_close($ch);
-            return array($header, $body);
-        }
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+    curl_setopt($ch, CURLOPT_HEADER, true);
+
+    // Kunci isolasi: bikin nama file cookie unik per domain
+    $host = parse_url($url, PHP_URL_HOST);
+    $cookie_dir = __DIR__. '/cookies'; // folder khusus
+    if(!is_dir($cookie_dir)) mkdir($cookie_dir, 0777, true);
+
+    $cookie_file = $cookie_dir. '/cookie_'. md5($host). '.txt';
+    curl_setopt($ch, CURLOPT_COOKIEFILE, $cookie_file);
+    curl_setopt($ch, CURLOPT_COOKIEJAR, $cookie_file);
+
+    if($post){
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
     }
-    if(file_exists("Cookie.json")){
-    system("rm Cookie.json");
+    if($httpheader) curl_setopt($ch, CURLOPT_HTTPHEADER, $httpheader);
+    if($proxy){
+        curl_setopt($ch, CURLOPT_HTTPPROXYTUNNEL, true);
+        curl_setopt($ch, CURLOPT_PROXY, $proxy);
     }
+
+    $response = curl_exec($ch);
+    if(curl_errno($ch)) return "Curl Error: ".curl_error($ch);
+
+    $header_size = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
+    curl_close($ch);
+
+    return [substr($response, 0, $header_size), substr($response, $header_size)];
+}
 function get1($url){return curl1($url, null, head())[1];}
 function post1($url,$data){return curl1($url, $data, head())[1];}
 function curl($url, $post = 0, $httpheader = 0, $proxy = 0){ 
