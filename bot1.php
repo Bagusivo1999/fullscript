@@ -1,3 +1,5 @@
+<?php
+
 function sock(){
   $sistemm=shell_exec('2>/dev/null ifconfig');
     
@@ -90,7 +92,6 @@ function menu() {
     if (empty($ID_FILE)) $ID_FILE = 'id.txt'; // fallback kalau belum di-set
     
     while (true) {
-    ...
         echo "\n=== MENU CLIPAPP ===\n";
         echo "1. Tambah User ID\n";
         echo "2. Jalan Auto Reload\n";
