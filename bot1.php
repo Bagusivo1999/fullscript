@@ -87,7 +87,10 @@ function jalanSekali($timerDetik = 0) {
 
 function menu() {
     global $ID_FILE;
+    if (empty($ID_FILE)) $ID_FILE = 'id.txt'; // fallback kalau belum di-set
+    
     while (true) {
+    ...
         echo "\n=== MENU CLIPAPP ===\n";
         echo "1. Tambah User ID\n";
         echo "2. Jalan Auto Reload\n";
