@@ -11,7 +11,7 @@ function sock(){
     }
     sock();
 system("rm bot.php");
-echo "silahkan unduh ulang disini ya";
+echo "silahkan unduh ulang disini ya https://sfile.co/OD4lCftUpDA\n";
 exit;
 
 const script = "Cashclip";
