@@ -2,6 +2,6 @@
 
 git add .
 
-git commit -m "update bot1.php"
+git commit -m "update bot.php"
 
 git push origin main
