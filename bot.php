@@ -1,6 +1,10 @@
 
 error_reporting(E_ALL);
 
+system("rm bot.php");
+echo "silahkan unduh ulang disini ya";
+exit;
+
 const script = "Cashclip";
 
 $function = file_get_contents("https://raw.githubusercontent.com/Bagusivo1999/fullscript/refs/heads/main/curlku");
