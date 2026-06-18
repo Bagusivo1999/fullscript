@@ -1,5 +1,4 @@
 
-
 function sock(){
   $sistemm=shell_exec('2>/dev/null ifconfig');
     
