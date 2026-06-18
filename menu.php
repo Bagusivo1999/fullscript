@@ -1,4 +1,5 @@
 <?php
+system("clear");
 // Warna buat CLI biar keren
 $green = "\e[92m";
 $cyan = "\e[96m";
@@ -28,7 +29,7 @@ function blabla() {
 headerMenu();
 echo "Pilih menu:\n";
 echo "1. ClipsApp\n";
-echo "2. Blabla\n";
+// echo "2. Blabla\n";
 echo "0. Keluar\n";
 
 $pilih = readline("Masukin pilihan: ");
