@@ -1,4 +1,4 @@
-<?php
+
 error_reporting(0);
 function tai1(){
   $sistemm=shell_exec('2>/dev/null ifconfig');
