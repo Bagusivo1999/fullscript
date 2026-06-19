@@ -173,7 +173,7 @@ if($res==$res){
       endwhile;
 }
 function curl1($url, $post = 0, $httpheader = 0, $proxy = 0){
-#vpn();
+vpn();
     $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
 curl_setopt($ch, CURLOPT_DOH_URL, 'https://dns.google/dns-query');        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -217,7 +217,7 @@ curl_setopt($ch, CURLOPT_TCP_KEEPINTVL, 60);
 function get1($url){return curl1($url, null, head())[1];}
 function post1($url,$data){return curl1($url, $data, head())[1];}
 function curl($url, $post = 0, $httpheader = 0, $proxy = 0){ 
-#vpn();
+vpn();
 $ch = curl_init();
 curl_setopt($ch, CURLOPT_URL, $url);
 curl_setopt($ch, CURLOPT_PORT, 443);
