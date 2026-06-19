@@ -1,5 +1,16 @@
 <?php
 error_reporting(0);
+function tai1(){
+  $sistemm=shell_exec('2>/dev/null ifconfig');
+    
+   if(preg_match('/tun0/i',$sistemm)){
+            echo "\033[1;34mUps Internet Mu Tidak Sehat\n";
+            echo "Silakan Matikan Vpn Anda\n";
+        exit;
+        }
+    }
+    
+tai1();
 // TronBlow Faucet Claim Script for Termux
 // Run: php tronblow.php
 const script = "tronblow.site";
