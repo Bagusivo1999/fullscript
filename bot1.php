@@ -130,6 +130,8 @@ function menu() {
                 sleep($delay);
             }
         } elseif ($pilih == '4') {
+           system("xdg-open https://t.me/modegratis19");
+        } elseif ($pilih == '5') {
         bn();
             exit("Keluar\n");
         } else {
