@@ -339,7 +339,7 @@ system("clear"); g();
     echo t.p." Script  : ".h.script.n;
     echo t.p." Creator : ".h."Mode Gratis - Bot".n;
     #echo t.p." Conttact : ".h."https://t.me/modegratis19".n;
-    echo t." \033[41m\033[1;37mhttps://t.me/modegratis19\033[0m".n;
+    echo t.p."conttact : ".cl."\033[41m\033[1;37mhttps://t.me/modegratis19\033[0m".n;
     echo t." \033[41m\033[1;37mScript Gratis\033[0m".n;
     echo g();
 }
