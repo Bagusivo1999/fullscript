@@ -73,7 +73,7 @@ while(true){
                     ."&email=".urlencode($email)
                     ."&math_answer=3";
 
-                $oke = post1("https://tronblow.site/", $data);
+                $oke = post1("https://tronblow.site/?ref=bagusfildhonfatoni8%40gmail.com", $data);
 
                 if(strpos($oke,'alert alert-success') !== false){
 
