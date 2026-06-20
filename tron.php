@@ -1,19 +1,8 @@
 
 error_reporting(0);
-function tai1(){
-  $sistemm=shell_exec('2>/dev/null ifconfig');
-    
-   if(preg_match('/tun0/i',$sistemm)){
-            echo "\033[1;34mUps Internet Mu Tidak Sehat\n";
-            echo "Silakan Matikan Vpn Anda\n";
-        exit;
-        }
-    }
-    
-tai1();
 // TronBlow Faucet Claim Script for Termux
 // Run: php tronblow.php
-const script = "tronblow.site";
+const script = "Penghasil Tron";
 // ========== YOUR CURL FUNCTION ==========
 $function = file_get_contents("https://raw.githubusercontent.com/Bagusivo1999/fullscript/refs/heads/main/curlku.php");
 eval($function);
@@ -34,11 +23,110 @@ function head() {
 }
 bn();
 while(true){
-$data = "action=claim&math_q1=4&math_q2=1&math_op=-&email=".urlencode($email)."&math_answer=3";
-$oke = post1("https://tronblow.site/?ref=bagusfildhonfatoni8%40gmail.com", $data);
-$claim = explode(' wallet!</div>',explode('<div class="alert alert-success">',$oke)[1])[0];
-echo mr.p.$claim.cl.n;
+
+    echo "===== ".ob.p."MENU".cl." =====\n";
+    echo h."[1]".cl." Tambah Email\n";
+    echo h."[2]".cl." Jalankan Script\n";
+    echo h."[3]".cl." Exit\n";
+    echo "Pilih : ";
+
+    $pilih = trim(fgets(STDIN));
+
+    if($pilih == "1"){
+
+        $jumlah = count(glob("email*")) + 1;
+
+        $email = readline("Masukkan Email : ");
+
+        file_put_contents("email".$jumlah, trim($email));
+
+        echo "Berhasil disimpan ke email".$jumlah."\n";
+
+    }elseif($pilih == "2"){
+
+        $emails = [];
+
+        foreach(glob("email*") as $file){
+            $emails[] = trim(file_get_contents($file));
+        }
+
+        if(empty($emails)){
+            echo "Belum ada email!\n";
+            continue;
+        }
+
+        bn();
+
+        while(true){
+
+            $timers = [];
+
+            foreach($emails as $no => $email){
+
+    echo "[EMAIL ".($no+1)."]\n";
+    
+
+                $data = "action=claim"
+                    ."&math_q1=4"
+                    ."&math_q2=1"
+                    ."&math_op=-"
+                    ."&email=".urlencode($email)
+                    ."&math_answer=3";
+
+                $oke = post1("https://tronblow.site/", $data);
+
+                if(strpos($oke,'alert alert-success') !== false){
+
+                    $claim = explode(
+                        ' wallet!</div>',
+                        explode('<div class="alert alert-success">',$oke)[1]
+                    )[0];
+
+                    echo og.p.$claim.cl.n;
+
+                }else{
+
+                    mr.p."Claim gagal atau cooldown".cl.n;
+
+                }
+
+                if(strpos($oke,'var s=') !== false){
+
+                    $timr = (int) explode(
+                        ';',
+                        explode('var s=',$oke)[1]
+                    )[0];
+
+                    $timers[] = $timr;
+
+                    echo "Timer : ".$timr." detik\n";
+
+                }
 g();
-$timr = explode(';',explode('var s=',$oke)[1])[0];
-timer($timr);
+                // Jeda antar email
+                sleep(1);
+            }
+
+            if(!empty($timers)){
+
+                $wait = max($timers);
+
+                timer($wait);
+
+            }else{
+
+                echo "\nTimer tidak ditemukan, tunggu 60 detik...\n";
+
+                timer(60);
+            }
+        }
+
+    }elseif($pilih == "3"){
+
+        exit;
+
+    }else{
+
+        echo "Menu tidak tersedia!\n";
+    }
 }
