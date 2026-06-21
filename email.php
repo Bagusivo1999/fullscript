@@ -34,12 +34,8 @@ bn();
 $email   = $mail['result']['address'];
 $visitor = $mail['result']['visitor_id'];
 
-echo "===============================\n";
-echo "✉️ TEMPMAIL\n";
-echo "===============================\n";
-echo "Email      : $email\n";
-echo "Visitor ID : $visitor\n";
-echo "===============================\n";
+echo "Salin email dibawah ini untuk otp".n;
+echo "Email      : $email\n"; g();
 
 while(true){
 
@@ -62,7 +58,6 @@ while(true){
             if(in_array($id,$processed)){
                 continue;
             }
-
             echo "\n📥 PESAN MASUK\n";
             echo "From    : ".$msg['from']."\n";
             echo "Subject : ".$msg['subject']."\n";
