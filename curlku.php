@@ -252,6 +252,25 @@ return array($header, $body);}}
 function get($url){return curl($url, null, head())[1];}
 function post($url,$data){return curl($url, $data, head())[1];}
   
+  function curlReq($url){
+  vpn();
+    $ch = curl_init();
+    curl_setopt_array($ch,[
+        CURLOPT_URL => $url,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_SSL_VERIFYPEER => false,
+        CURLOPT_SSL_VERIFYHOST => false,
+        CURLOPT_TIMEOUT => 30
+    ]);
+
+    $res = curl_exec($ch);
+    curl_close($ch);
+    return $res;
+}
+  
+  
+  
   function save($data,$data_post){
 if(!file_get_contents($data)){
 file_put_contents($data,"[]");}

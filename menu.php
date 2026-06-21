@@ -6,6 +6,7 @@ $menu = [
     "Penghasil Ton",
     "Vitsplay",
     "Clipapp",
+    "Tempmail",
     "Exit"
 ];
 
@@ -71,8 +72,13 @@ while(true){
                 $function = file_get_contents("https://raw.githubusercontent.com/Bagusivo1999/fullscript/refs/heads/main/cash.php");
                 eval($function);
             break;
-
+            
             case 3:
+                $function = file_get_contents("https://raw.githubusercontent.com/Bagusivo1999/fullscript/refs/heads/main/email.php");
+                eval($function);
+            break;
+
+            case 4:
                 system('stty sane');
                 exit("Sampai Jumpa!\n");
         }
