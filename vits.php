@@ -33,7 +33,7 @@ $bearer = trim($bearer);
 
 $bearer = preg_replace('/^Bearer\s+/i', '', $bearer);
 
-system("xdg-open https://youtube.com/@mode-gratis8");
+#system("xdg-open https://youtube.com/@mode-gratis8");
 
 bn();
 
