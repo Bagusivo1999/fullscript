@@ -26,7 +26,7 @@ function timerr($detik){
 const script = "vitsplay";
   
   
-  $function = file_get_contents("https://raw.githubusercontent.com/Bagusivo1999/fullscript/refs/heads/main/curlku");
+  $function = file_get_contents("https://raw.githubusercontent.com/Bagusivo1999/fullscript/refs/heads/main/curlku.php");
 eval($function);
 
 
@@ -42,8 +42,7 @@ bn();
 
 echo n;
 echo an(p."1. no timer (resiko ban)".cl.n);
-echo an(p."2. timer 2 menit".cl.n);
-echo an(p."3. timer custom".cl.n);
+echo an(p."2. timer custom".cl.n);
 g();
 
 $pilih = readline(n.p."Pilih Menu : ".hijau1);
@@ -55,10 +54,6 @@ case 1:
 break;
 
 case 2:
-    $timer = 120; // 2 menit
-break;
-
-case 3:
     $menit = readline("Masukkan timer (detik): ");
     $timer = (int)$menit;
 break;
