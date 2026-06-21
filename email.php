@@ -1,10 +1,9 @@
 
 error_reporting(0);
 set_time_limit(0);
-
+const script = "Tempmail";
 $function = file_get_contents("https://raw.githubusercontent.com/Bagusivo1999/fullscript/refs/heads/main/curlku.php");
 eval($function);
-bn();
 
 $CHECK_INTERVAL = 10;
 $EXPIRE_TIME = 86400; // 24 jam
@@ -31,7 +30,7 @@ $mail = createMail();
 if(!$mail['status']){
     die("❌ Gagal membuat tempmail\n");
 }
-
+bn();
 $email   = $mail['result']['address'];
 $visitor = $mail['result']['visitor_id'];
 

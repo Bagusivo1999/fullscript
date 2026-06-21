@@ -265,7 +265,7 @@ function post($url,$data){return curl($url, $data, head())[1];}
     ]);
 
     $res = curl_exec($ch);
-    curl_close($ch);
+    #curl_close($ch);
     return $res;
 }
   
