@@ -37,12 +37,11 @@ system("xdg-open https://youtube.com/@mode-gratis8");
 
 bn();
 
-echo n;
 echo an(p."1. no timer (resiko ban)".cl.n);
 echo an(p."2. timer custom".cl.n);
 g();
 
-$pilih = readline(n.p."Pilih Menu : ".hijau1);
+$pilih = readline(p."Pilih Menu : ".hijau1);
 g();
 switch($pilih){
 
