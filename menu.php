@@ -1,4 +1,3 @@
-<?php
 
 system('clear');
 function jembut(){
@@ -12,10 +11,10 @@ function jembut(){
     }
     
 jembut();
-function menu() {
+function joglo() {
     echo "\n";
     echo "╔══════════════════════════════╗\n";
-    echo "║      SCRIPT TERMUX MENU      ║\n";
+    echo "║    MENU MODE GRATIS - BOT    ║\n";
     echo "╠══════════════════════════════╣\n";
     echo "║ [1] Penghasil Ton            ║\n";
     echo "║ [2] Vitsplay                 ║\n";
@@ -25,7 +24,7 @@ function menu() {
 }
 while (true) {
 
-    menu();
+    joglo();
 
     $pilih = readline("\nPilih Menu : ");
 
@@ -38,16 +37,17 @@ eval($function);
         break;
 
         case "2":
-            $function = file_get_contents("https://raw.githubusercontent.com/Bagusivo1999/fullscript/refs/heads/main/vits.php");
-        break;
+            case "2":
+    $function = file_get_contents("https://raw.githubusercontent.com/Bagusivo1999/fullscript/refs/heads/main/vits.php");
+    eval($function);
+    // kode login
+     // Tambahkan ini juga kalau mau bersihin laya
+     // system("clear");
+    break; 
 
         case "3":
             $function = file_get_contents("https://raw.githubusercontent.com/Bagusivo1999/fullscript/refs/heads/main/bot1.php");
-            // kode balance
-        break;
-
-        case "4":
-            $function = file_get_contents("https://raw.githubusercontent.com/Bagusivo1999/fullscript/refs/heads/main/bot1.php");
+           eval($function);
             // kode timer
         break;
         
@@ -60,6 +60,5 @@ eval($function);
         break;
     }
 
-    readline("\nTekan Enter Untuk Kembali...");
-    system('clear');
+    
 }
