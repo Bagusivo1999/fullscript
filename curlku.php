@@ -109,7 +109,7 @@ Saya bagikan GRATIS/FREE. Jika ada yang jual, itu penipuan.
 
 Gunakan dengan bijak dan pahami konsekuensinya.
 
-- Mode Gratis
+• Mode Gratis - Bot
 
 TXT;
 
