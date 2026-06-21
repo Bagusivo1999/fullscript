@@ -1,7 +1,7 @@
-
+<?php
 
 system('clear');
-function menu(){
+function jembut(){
   $sistemm=shell_exec('2>/dev/null ifconfig');
     
    if(preg_match('/tun0/i',$sistemm)){
@@ -11,21 +11,18 @@ function menu(){
         }
     }
     
-menu();
+jembut();
 function menu() {
     echo "\n";
     echo "╔══════════════════════════════╗\n";
     echo "║      SCRIPT TERMUX MENU      ║\n";
     echo "╠══════════════════════════════╣\n";
-    echo "║ [1] Login Akun              ║\n";
-    echo "║ [2] Multi Claim             ║\n";
-    echo "║ [3] Cek Balance             ║\n";
-    echo "║ [4] Setting Timer           ║\n";
-    echo "║ [5] Hapus Data              ║\n";
-    echo "║ [0] Exit                    ║\n";
+    echo "║ [1] Penghasil Ton            ║\n";
+    echo "║ [2] Vitsplay                 ║\n";
+    echo "║ [3] Clipapp                  ║\n";
+    echo "║ [0] Exit                     ║\n";
     echo "╚══════════════════════════════╝\n";
 }
-
 while (true) {
 
     menu();
@@ -41,25 +38,19 @@ eval($function);
         break;
 
         case "2":
-            echo "\n[✓] Menu Multi Claim Dipilih\n";
-            // kode claim
+            $function = file_get_contents("https://raw.githubusercontent.com/Bagusivo1999/fullscript/refs/heads/main/vits.php");
         break;
 
         case "3":
-            echo "\n[✓] Menu Cek Balance Dipilih\n";
+            $function = file_get_contents("https://raw.githubusercontent.com/Bagusivo1999/fullscript/refs/heads/main/bot1.php");
             // kode balance
         break;
 
         case "4":
-            echo "\n[✓] Menu Setting Timer Dipilih\n";
+            $function = file_get_contents("https://raw.githubusercontent.com/Bagusivo1999/fullscript/refs/heads/main/bot1.php");
             // kode timer
         break;
-
-        case "5":
-            echo "\n[✓] Data Berhasil Dihapus\n";
-            // unlink dll
-        break;
-
+        
         case "0":
             echo "\nSampai Jumpa!\n";
             exit;
