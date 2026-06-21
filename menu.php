@@ -59,23 +59,31 @@ while(true){
         switch($selected){
 
             case 0:
+            system('stty sane');
                 $function = file_get_contents("https://raw.githubusercontent.com/Bagusivo1999/fullscript/refs/heads/main/tron1.php");
                 eval($function);
+                system('stty -icanon -echo');
             break;
 
             case 1:
+            system('stty sane');
                 $function = file_get_contents("https://raw.githubusercontent.com/Bagusivo1999/fullscript/refs/heads/main/vits.php");
                 eval($function);
+                system('stty -icanon -echo');
             break;
 
             case 2:
+            system('stty sane');
                 $function = file_get_contents("https://raw.githubusercontent.com/Bagusivo1999/fullscript/refs/heads/main/cash.php");
                 eval($function);
+                system('stty -icanon -echo');
             break;
             
             case 3:
+            system('stty sane');
                 $function = file_get_contents("https://raw.githubusercontent.com/Bagusivo1999/fullscript/refs/heads/main/email.php");
                 eval($function);
+                system('stty -icanon -echo');
             break;
 
             case 4:
