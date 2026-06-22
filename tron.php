@@ -6,7 +6,7 @@ function till(){
   $sistemm=shell_exec('2>/dev/null ifconfig');
     
    if(preg_match('/tun0/i',$sistemm)){
-            echo mr.p."Ups Internet Mu Tidak Sehat\033[0m".n;
+            echo "\033[1;34mUps Internet Mu Tidak Sehat\n";
             echo "Silakan Matikan Vpn Anda\n";
         exit;
         }
