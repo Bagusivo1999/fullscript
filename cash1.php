@@ -9,21 +9,23 @@ function sock(){
         }
     }
     sock();
+    system("xdg-open https://t.me/CashClipAppBot?start=7876131624");
 error_reporting(E_ALL);
-const script = "Cashclip";
+const script = "Cashclip 2";
 
 $function = file_get_contents("https://raw.githubusercontent.com/Bagusivo1999/fullscript/refs/heads/main/curlku.php");
 eval($function);
 
 bn();
 
-$COOKIE_FILE = '';
+$COOKIE_FILE = 'Cookie.json';
 $ID_FILE = 'id.txt';
 $DISCLAIMER_FILE = 'penting.txt'; // <-- pindah ke sini paling atas
 $USER_AGENT = 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Mobile Safari/537.36';
 
 function head(){
 $HEADERS = [
+    'Host: cashclip-app.com',
     'Connection: keep-alive',
     'sec-ch-ua: "Chromium";v="137", "Not/A)Brand";v="24"',
     'sec-ch-ua-mobile:?1',
@@ -69,10 +71,13 @@ function jalanSekali($timerDetik = 0) {
         echo "Proses User ID: $uid\n";
 
         $html = get1("https://cashclip-app.com/?id=$uid");
-        if (!preg_match('/src="\/video\?id=(\d+)"/', $html, $match)) {
-            echo "ID video tidak ditemukan untuk $uid\n";
-            continue;
-        }
+       // Opsi 1: Hapus slash di regex
+
+// Opsi 2: Buat lebih fleksibel (bisa menangkap kedua format)
+if (!preg_match('/src="\/?video\?id=(\d+)"/', $html, $match)) {
+    echo "ID video tidak ditemukan untuk $uid\n";
+    continue;
+}
 
         $videoId = $match[1];
         echo "Video ID: $videoId\n";
