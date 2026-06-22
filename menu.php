@@ -6,7 +6,6 @@ $menu = [
     "Penghasil Ton",
     "Vitsplay",
     "Clipapp",
-    "Tempmail",
     "Exit"
 ];
 
@@ -79,14 +78,14 @@ while(true){
                 system('stty -icanon -echo');
             break;
             
-            case 3:
-            system('stty sane');
-                $function = file_get_contents("https://raw.githubusercontent.com/Bagusivo1999/fullscript/refs/heads/main/email.php");
-                eval($function);
-                system('stty -icanon -echo');
-            break;
+            // case 3:
+            // system('stty sane');
+                // $function = file_get_contents("https://raw.githubusercontent.com/Bagusivo1999/fullscript/refs/heads/main/email.php");
+                // eval($function);
+                // system('stty -icanon -echo');
+            // break;
 
-            case 4:
+            case 3:
                 system('stty sane');
                 exit("Sampai Jumpa!\n");
         }
