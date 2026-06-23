@@ -37,9 +37,9 @@ $base = "https://raw.githubusercontent.com/Bagusivo1999/fullscript/refs/heads/ma
 function tampil($flatMenu, $selected){
     system('clear');
     echo "\033[1;36m";
-    echo "╔══════════════╗\n";
-    echo "║      MENU MODE GRATIS        ║\n";
-    echo "╚══════════════╝\n\n";
+    echo "╔════════════════════════════╗\n";
+    echo "║      MENU MODE GRATIS      ║\n";
+    echo "╚════════════════════════════╝\n\n";
 
     foreach($flatMenu as $i => $item){
         if($i == $selected){
