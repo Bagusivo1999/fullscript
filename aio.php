@@ -58,7 +58,7 @@ function downloadFile($url, $path)
 while (true) {
 bn();
 
-$link = readline("Masukkan URL : ");
+$link = readline(p."Masukkan URL : ".cl.hijau1);
 
 $api = "https://api.synoxcloud.xyz/download/all-in-one?url=" . urlencode($link);
 
