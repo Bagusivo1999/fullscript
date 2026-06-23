@@ -1,4 +1,4 @@
-<?php
+
 
 system('stty -icanon -echo');
 
