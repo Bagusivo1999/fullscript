@@ -10,7 +10,8 @@ $menu = [
         "Cashclip 2" => "cash1.php"
     ],
     "=== TOOLS SELAIN FAUCET ===" => [
-        "AIO downloader (tiktok,soundcloud dll" => "aio.php"
+        "AIO downloader (tiktok,soundcloud dll" => "aio.php",
+        "Tempmail (generate email)" => "email.php"
     ],
     "Exit" => "exit"
 ];
