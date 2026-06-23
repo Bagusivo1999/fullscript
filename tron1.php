@@ -117,7 +117,7 @@ g();
 
                 echo "\nTimer tidak ditemukan, tunggu 60 detik...\n";
 
-                timer(60);
+                timer($timr);
             }
         }
 
