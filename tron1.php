@@ -123,7 +123,7 @@ g();
 
     }elseif($pilih == "3"){
 
-        break;
+        exit;
 
     }else{
 
