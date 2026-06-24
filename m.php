@@ -17,10 +17,10 @@ $input = trim(fgets(STDIN));
 echo $RESET;
 
 if ($input === $password) {
-    echo $GREEN . "Login berhasil. Selamat datang admin" . $RESET . PHP_EOL;
+    echo $GREEN . "Login berhasil. Selamat datang admin" . $RESET . PHP_EOL; sleep(3);
     
     // taruh script admin di bawah sini
-    echo $WHITE . "Mau jalankan apa, bos?" . $RESET . PHP_EOL;
+    
 } else {
     echo $RED . "Gagal. Password salah" . $RESET . PHP_EOL; exit;
 }

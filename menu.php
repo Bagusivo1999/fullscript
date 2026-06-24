@@ -1,29 +1,19 @@
 
-// Warna ANSI
-$WHITE = "\033[1;37m";
-$GREEN = "\033[1;92m";
-$RED = "\033[1;31m";
-$RESET = "\033[0m";
 
-$password = "okee"; // ganti password di sini
+// $cooldown_sampai = 0; // timestamp selesai maintenance
 
-// Prompt putih + input hijau cerah
-echo $WHITE . "Password: " . $GREEN;
-
-// Baca input dari user
-$input = trim(fgets(STDIN));
-
-// Reset warna biar output normal
-echo $RESET;
-
-if ($input === $password) {
-    echo $GREEN . "Login berhasil. Selamat datang admin" . $RESET . PHP_EOL;
-    
-    // taruh script admin di bawah sini
-    echo $WHITE . "Mau jalankan apa, bos?" . $RESET . PHP_EOL;
-} else {
-    echo $RED . "Gagal. Password salah" . $RESET . PHP_EOL;
-}
+// function cekCooldown($sampai) {
+    // $sekarang = time();
+    // if ($sekarang < $sampai) {
+        // $sisa = $sampai - $sekarang;
+        // $jam = floor($sisa / 3600);
+        // $menit = floor(($sisa % 3600) / 60);
+        // echo "Server masih maintenance! Cooldown sisa: {$jam}j {$menit}m\n";
+        // echo "Bisa dipakai lagi: " . date('Y-m-d H:i:s', $sampai) . "\n\n";
+        // return true;
+    // }
+    // return false;
+// }
 
 system('stty -icanon -echo');
 
@@ -33,7 +23,7 @@ $menu = [
         "Vitsplay" => "vits.php",
         "Cashclip" => "cash.php",
         "Cashclip 2" => "cash1.php",
-        "Earntycoon (soon)" => ""
+        "Earntycoon" => "ty.php"
         // "Earn Ltc Bot (comingsoon)" => ""
     ],
     "=== TOOLS SELAIN FAUCET ===" => [

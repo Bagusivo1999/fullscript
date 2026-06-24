@@ -5,8 +5,24 @@ const script = "earntycoon";
 $function = file_get_contents("https://raw.githubusercontent.com/Bagusivo1999/fullscript/refs/heads/main/curlku.php");
 eval($function);
 
+while (true) {
+    bn();
+    echo "1. Daftar web dulu\n";
+    echo "2. Mulai jalankan script\n";
+    echo "3. Exit\n";
+    echo "Pilih [1-3]: ";
+    
+    $pilihan = trim(fgets(STDIN));
 
-// === CONFIG ===
+    switch ($pilihan) {
+        case '1':
+            system("xdg-open https://earntycoon-v.top/go?ref=kmyzvk");
+            break;
+
+        case '2':
+            
+            
+            // === CONFIG ===
 bn();
 $token = Sav("bearer");
 $tz = -420; // WIB = -420
@@ -175,4 +191,14 @@ $daily_limit = $res_list['data']['daily_limit'];
 $claimed_today = $res_list['data']['claimed_today'];
 echo p."Sisa ".hijau1."$claimed_today/$daily_limit".cl.n;
 }
-?>
+            
+            break;
+
+        case '3':
+            break;
+
+        default:
+            echo "Pilihan nggak valid. Coba lagi ya\n";
+            break;
+    }
+}
