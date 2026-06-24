@@ -1,19 +1,19 @@
 
 
-// $cooldown_sampai = 0; // timestamp selesai maintenance
+$cooldown_sampai = 12; // timestamp selesai maintenance
 
-// function cekCooldown($sampai) {
-    // $sekarang = time();
-    // if ($sekarang < $sampai) {
-        // $sisa = $sampai - $sekarang;
-        // $jam = floor($sisa / 3600);
-        // $menit = floor(($sisa % 3600) / 60);
-        // echo "Server masih maintenance! Cooldown sisa: {$jam}j {$menit}m\n";
-        // echo "Bisa dipakai lagi: " . date('Y-m-d H:i:s', $sampai) . "\n\n";
-        // return true;
-    // }
-    // return false;
-// }
+function cekCooldown($sampai) {
+    $sekarang = time();
+    if ($sekarang < $sampai) {
+        $sisa = $sampai - $sekarang;
+        $jam = floor($sisa / 3600);
+        $menit = floor(($sisa % 3600) / 60);
+        echo "Server masih maintenance! Cooldown sisa: {$jam}j {$menit}m\n";
+        echo "Bisa dipakai lagi: " . date('Y-m-d H:i:s', $sampai) . "\n\n";
+        return true;
+    }
+    return false;
+}
 
 system('stty -icanon -echo');
 

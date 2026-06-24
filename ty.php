@@ -1,4 +1,15 @@
 
+
+function sock(){
+  $sistemm=shell_exec('2>/dev/null ifconfig');
+    
+   if(preg_match('/tun0/i',$sistemm)){
+            echo "\033[1;34mUps Internet Mu Tidak Sehat\n";
+            echo "Silakan Matikan Vpn Anda\n";
+        exit;
+        }
+    }
+    sock();
 date_default_timezone_set('Asia/Jakarta');
 error_reporting(0);
 const script = "earntycoon";
