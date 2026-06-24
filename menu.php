@@ -1,19 +1,33 @@
 
 
-$cooldown_sampai = 12; // timestamp selesai maintenance
 
-function cekCooldown($sampai) {
-    $sekarang = time();
-    if ($sekarang < $sampai) {
-        $sisa = $sampai - $sekarang;
-        $jam = floor($sisa / 3600);
-        $menit = floor(($sisa % 3600) / 60);
-        echo "Server masih maintenance! Cooldown sisa: {$jam}j {$menit}m\n";
-        echo "Bisa dipakai lagi: " . date('Y-m-d H:i:s', $sampai) . "\n\n";
-        return true;
-    }
-    return false;
+date_default_timezone_set('Asia/Jakarta'); // WIB
+
+// Tinggal ganti jamnya di sini. '07:00' atau '0' buat mati
+$cooldown_jam = '07:00'; 
+
+// Convert jadi timestamp - UDAH FIX
+$cooldown_sampai = strtotime(date('Y-m-d') . ' ' . $cooldown_jam . ':00');
+
+// Kalau jam 07:00 udah lewat, pindah ke besok
+if (time() >= $cooldown_sampai) {
+    $cooldown_sampai = strtotime(date('Y-m-d') . ' ' . $cooldown_jam . ':00 +1 day');
 }
+
+// Kalau set '0' = cooldown mati
+if ($cooldown_jam === '0' || $cooldown_jam === '0:00') {
+    $cooldown_sampai = 0;
+}
+
+// Cek cooldown
+if (time() < $cooldown_sampai) {
+    echo "Masih cooldown! Bisa jalan jam " . date('H:i', $cooldown_sampai) . " WIB\n";
+    exit;
+}
+
+echo "Cooldown habis! Script jalan...\n";
+// script kamu di sini
+
 
 system('stty -icanon -echo');
 

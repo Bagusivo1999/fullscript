@@ -198,8 +198,11 @@ if ($res_bal['success']) {
     echo p."💰 Coins: " . hijau1 . number_format($coins, 0, ',', '.') . "       ";
 }
 
-$daily_limit = $res_list['data']['daily_limit'];
-$claimed_today = $res_list['data']['claimed_today'];
+$url_list = "https://earntycoon.com/api/video/list?tz=$tz";
+$fuck = curl_get($url_list, head($token));
+
+$daily_limit = $fuck['data']['daily_limit'];
+$claimed_today = $fuck['data']['claimed_today'];
 echo p."Sisa ".hijau1."$claimed_today/$daily_limit".cl.n;
 }
             
