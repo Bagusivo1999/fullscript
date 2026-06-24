@@ -7,7 +7,8 @@ $menu = [
         "Penghasil Ton" => "tron1.php",
         "Vitsplay" => "vits.php",
         "Cashclip" => "cash.php",
-        "Cashclip 2" => "cash1.php"
+        "Cashclip 2" => "cash1.php",
+        "Earntycoon" => "earn"
         // "Earn Ltc Bot (comingsoon)" => ""
     ],
     "=== TOOLS SELAIN FAUCET ===" => [
