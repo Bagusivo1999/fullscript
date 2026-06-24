@@ -132,8 +132,7 @@ function menu() {
                 sleep($delay);
             }
         } elseif ($pilih == '4') {
-        bn();
-            exit("Keluar\n");
+        break;
         } else {
             echo "Pilihan ga valid\n";
         }

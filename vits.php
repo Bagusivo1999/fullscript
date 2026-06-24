@@ -39,6 +39,7 @@ bn();
 
 echo an(p."1. no timer (resiko ban)".cl.n);
 echo an(p."2. timer custom".cl.n);
+echo an(p."3. exit".cl.n);
 g();
 
 $pilih = readline(p."Pilih Menu : ".hijau1);
@@ -54,6 +55,8 @@ case 2:
     $timer = (int)$menit;
 break;
 
+case 3:
+break;
 default:
     exit("Menu tidak valid\n");
 }

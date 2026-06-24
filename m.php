@@ -13,7 +13,7 @@ $menu = [
     "=== TOOLS SELAIN FAUCET ===" => [
         "AIO downloader (tiktok,soundcloud dll" => "aio.php"
     ],
-    "Exit" => "exit"
+    "Keluar" => "exit"
 ];
 
 $flatMenu = [];
@@ -79,7 +79,7 @@ while(true){
         system('clear');
         system('stty sane');
 
-        if($pilihan === "Exit"){
+        if($pilihan === "Keluar"){
             exit("Sampai Jumpa!\n");
         }
 
@@ -97,7 +97,7 @@ while(true){
         }
 
         system('stty -icanon -echo');
-        echo "\n\nTekan Enter Untuk Kembali...";
+        echo "Tekan Enter Untuk Kembali...";
         fgets(STDIN);
     }
 }
