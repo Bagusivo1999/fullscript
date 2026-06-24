@@ -1,69 +1,178 @@
-<?php
 
+date_default_timezone_set('Asia/Jakarta');
+error_reporting(0);
+const script = "earntycoon";
 $function = file_get_contents("https://raw.githubusercontent.com/Bagusivo1999/fullscript/refs/heads/main/curlku.php");
 eval($function);
 
-#$bearer = Sav("bearer");
 
-function head() {
-global $bearer;
-    // 1. Bersihin spasi depan belakang
-    $bearer = trim($bearer);
-    
-    // 2. Kalau ada prefix "Bearer " hapus, ambil tokennya aja
-    if (stripos($bearer, 'Bearer ') === 0) {
-        $bearer = substr($bearer, 7);
-    }
-    
-    $headers = [
+// === CONFIG ===
+bn();
+$token = Sav("bearer");
+$tz = -420; // WIB = -420
+
+// Header biar mirip browser
+function head($token) {
+    return [
         'Host: earntycoon.com',
-        'Cache-Control: max-age=0',
-        'sec-ch-ua: "Chromium";v="137", "Not/A)Brand";v="24"',
-        'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IiIsInVuaW9uX2lkIjoiNTkzOTI0NzY1NTY3NDUzMjcxIiwicHJvamVjdF9pZCI6ImtjeTdzcW55IiwiaWF0IjoxNzgyMjYwMzE3fQ.rTLLTM8l5C963finCjWgwPJPHe5kytKvH8y2nkx75F0 ', // token bersih disini
-        'sec-ch-ua-mobile: ?1',
-        'sec-ch-ua-platform: "Android"',
-        'Upgrade-Insecure-Requests: 1',
-        'User-Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Mobile Safari/537.36',
-        'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
-        'sec-fetch-site: same-origin',
-        'sec-fetch-mode: navigate',
-        'sec-fetch-user: ?1',
-        'sec-fetch-dest: document',
-        'Referer: https://earntycoon.com/login',
-        'Accept-Language: id-ID,id;q=0.9,en-US;q=0.8,en;q=0.7',
+        'authorization: '. $token,
+        'Content-Type: application/json',  // ← TAMBAHKAN INI
+        'user-agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Mobile Safari/537.36',
+        'referer: https://earntycoon.com/videos/',
+        'accept-language: id-ID,id;q=0.9,en-US;q=0.8,en;q=0.7',
+        'accept: application/json'  // ← TAMBAHKAN INI JUGA
     ];
-    return $headers;
 }
 
-// Cara pakai
-$token_input = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IiIsInVuaW9uX2lkIjoiNTkzOTI0NzY1NTY3NDUzMjcxIiwicHJvamVjdF9pZCI6ImtjeTdzcW55IiwiaWF0IjoxNzgyMjYwMzE3fQ.rTLLTM8l5C963finCjWgwPJPHe5kytKvH8y2nkx75F0';
-$headers = head($token_input);
+// Fungsi cURL GET
+function curl_get($url, $headers) {
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    $res = curl_exec($ch);
+    #curl_close($ch);
+    return json_decode($res, true);
+}
 
-$ch = curl_init('https://earntycoon.com/dashboard');
-curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-echo curl_exec($ch);
+// Fungsi cURL POST
+function curl_post($url, $data, $headers) {
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_POST, 1);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data)); // ← PASTIKAN INI
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    
+    // Tambahkan untuk debug
+    #curl_setopt($ch, CURLOPT_VERBOSE, true);
+    
+    $res = curl_exec($ch);
+    
+    // Cek error curl
+    if (curl_error($ch)) {
+        echo "CURL Error: " . curl_error($ch) . "\n";
+    }
+    
+    #curl_close($ch);
+    return json_decode($res, true);
+}
 
-// Cara pakai
+bn();
 
 
-$get = get("https://earntycoon.com/videos");
-echo$get = get("https://earntycoon.com/api/video/list?tz=-420");
-$id = explode('"', explode('"id": "', $get)[1])[0];
-$time = explode(',', explode('"duration_seconds": ', $get)[1])[0];
-echo mr.p."mengambil data id $id".cl.r; sleep(2);
+$url_balance = "https://earntycoon.com/api/wallet/balance";
+$res_bal = curl_get($url_balance, head($token));
 
-$data = '{"video_id":"$id","tz":-420}';
-$stat = post("https://earntycoon.com/api/video/start", $data);
-$timr = explode(',', explode('"duration_seconds": ', $get)[1])[0];
-$tok = explode('"', explode('start_token":"', $get)[1])[0];
-$id2 = explode('"', explode('video_id":"', $get)[1])[0];
+// Cek response
+if ($res_bal['success']) {
+    // Ambil coins dari data
+    $coins = $res_bal['data']['coins'] ?? 0;
+    $level = $res_bal['data']['level'] ?? 1;
+    
+    echo p."Balance: " . hijau1 . number_format($coins, 0, ',', '.');
+}
+
+// 1. AMBIL LIST VIDEO
+// echo "[1] Ambil list video...\n";
+$url_list = "https://earntycoon.com/api/video/list?tz=$tz";
+$res_list = curl_get($url_list, head($token));
+
+if (!$res_list['success']) {
+    die(mr.p."Gagal ambil list: ".cl. json_encode($res_list). "\n");
+}
+
+$daily_limit = $res_list['data']['daily_limit'];
+$claimed_today = $res_list['data']['claimed_today'];
+echo p."     Daily: ".hijau1."$claimed_today/$daily_limit".cl.n;
+while(true){
+sleep(1);
+$url_list = "https://earntycoon.com/api/video/list?tz=$tz";
+$list = curl_get($url_list, head($token));
+// Cari id yang claimed=false pertama
+$idiklan = null;
+foreach ($list['data']['playable'] as $v) {
+    if ($v['claimed'] == false) {
+        $idiklan = $v['id'];
+        // echo "ID iklan ketemu: $idiklan\n";
+        break;
+    }
+}
+
+if (!$idiklan) {
+    die("Semua iklan udah claimed hari ini\n");
+}
+
+// 2. AMBIL DETAIL VIDEO
+// echo "\n[2] Ambil detail video...\n";
+$url_detail = "https://earntycoon.com/api/video/detail?id=$idiklan&tz=$tz";
+$res_detail = curl_get($url_detail, head($token));
+
+if (!$res_detail['success']) {
+    die("Gagal detail: ". json_encode($res_detail). "\n");
+}
+
+// Ambil id buat variabel $id
+$id = $res_detail['data']['id'];
+$duration = $res_detail['data']['duration_seconds'];
+// echo "ID: $id | Durasi: {$duration}s\n";
+g();
+// 3. START VIDEO
+// echo "\n[3] Start video...\n";
+$url_start = "https://earntycoon.com/api/video/start";
+$post_start = [
+    "video_id" => $id,
+    "tz" => $tz
+];
+$res_start = curl_post($url_start, $post_start, head($token));
+
+if (!$res_start['success']) {
+    die("Gagal start: ". json_encode($res_start). "\n");
+}
+
+// Ambil token + timer
+$start_token = $res_start['data']['start_token'];
+$timr = $res_start['data']['duration_required'];
+// echo "Start token dapet\n";
 timer($timr);
+// 4. TUNGGU DURASI
+// echo "\n[4] Nunggu durasi...\n";
 
-$data = '{"video_id":"$id2","start_token":"$tok"}';
-$suc = post("https://earntycoon.com/api/video/claim", $data);
-$claim = explode('"', explode('{"', $get)[1])[0];
+// echo "\nSelesai nunggu\n";
 
-$yup = get("https://earntycoon.com/account");
-$bal = explode('<', explode('data-v-d05e2e08>Rp ',$yup)[1])[0];
-echo $bal.n;
+// 5. CLAIM REWARD
+// echo "\n[5] Claim reward...\n";
+$url_claim = "https://earntycoon.com/api/video/claim";
+$post_claim = [
+    "video_id" => $id,
+    "start_token" => $start_token
+];
+$res_claim = curl_post($url_claim, $post_claim, head($token));
+
+if ($res_claim['success']) {
+    echo og.p."✅ Claim sukses!".cl.n.n;
+    // echo "Response: ". json_encode($res_claim['data']). "\n";
+} else {
+    echo "❌ Claim gagal: ";
+    // json_encode($res_claim). "\n";
+}
+
+$url_balance = "https://earntycoon.com/api/wallet/balance";
+$res_bal = curl_get($url_balance, head($token));
+
+// Cek response
+if ($res_bal['success']) {
+    // Ambil coins dari data
+    $coins = $res_bal['data']['coins'] ?? 0;
+    $level = $res_bal['data']['level'] ?? 1;
+    
+    echo p."💰 Coins: " . hijau1 . number_format($coins, 0, ',', '.') . "       ";
+}
+
+$daily_limit = $res_list['data']['daily_limit'];
+$claimed_today = $res_list['data']['claimed_today'];
+echo p."Sisa ".hijau1."$claimed_today/$daily_limit".cl.n;
+}
+?>
