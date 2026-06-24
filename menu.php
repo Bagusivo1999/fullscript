@@ -21,7 +21,7 @@ if ($cooldown_jam === '0' || $cooldown_jam === '0:00') {
 
 // Cek cooldown
 if (time() < $cooldown_sampai) {
-    echo "Masih cooldown! Bisa jalan jam " . date('H:i', $cooldown_sampai) . " WIB\n";
+    echo "Sedang Maintenance Bisa jalan jam " . date('H:i', $cooldown_sampai) . " WIB\n";
     exit;
 }
 
