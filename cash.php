@@ -10,7 +10,7 @@ function sock(){
     }
     sock();
     
-    system("xdg-open https://youtube.com/shorts/F4zT_7qzdf4");
+    #system("xdg-open https://youtube.com/shorts/F4zT_7qzdf4");
 error_reporting(E_ALL);
 const script = "Cashclip";
 

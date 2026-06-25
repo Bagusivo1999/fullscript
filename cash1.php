@@ -9,7 +9,7 @@ function sock(){
         }
     }
     sock();
-    system("xdg-open https://t.me/CashClipAppBot?start=7876131624");
+    #system("xdg-open https://t.me/CashClipAppBot?start=7876131624");
 error_reporting(E_ALL);
 const script = "Cashclip 2";
 
