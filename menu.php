@@ -4,7 +4,7 @@
 date_default_timezone_set('Asia/Jakarta'); // WIB
 
 // Tinggal ganti jamnya di sini. '07:00' atau '0' buat mati
-$cooldown_jam = '0'; 
+$cooldown_jam = '21:00'; 
 
 // Convert jadi timestamp - UDAH FIX
 $cooldown_sampai = strtotime(date('Y-m-d') . ' ' . $cooldown_jam . ':00');
