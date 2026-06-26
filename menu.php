@@ -1,4 +1,4 @@
-<?php
+
 
 $folder = __DIR__; // Folder tempat bot.php berada
 
