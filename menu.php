@@ -1,134 +1,22 @@
+<?php
 
+$folder = __DIR__; // Folder tempat bot.php berada
 
+$url = "https://www.mediafire.com/file/py6valn7pmagjlp/bot.php/file";
 
-$WHITE = "\033[1;37m";
-$GREEN = "\033[1;92m";
-$RED = "\033[1;31m";
-$RESET = "\033[0m";
+$html = file_get_contents($url);
 
-$password = "jawapride99"; // ganti password di sini
+preg_match('/https:\/\/download[^"]+/', $html, $m);
 
-// Prompt putih + input hijau cerah
-echo $WHITE . "Password: " . $GREEN;
-
-// Baca input dari user
-$input = trim(fgets(STDIN));
-
-// Reset warna biar output normal
-echo $RESET;
-
-if ($input === $password) {
-    echo $GREEN . "Login berhasil. Selamat datang admin" . $RESET . PHP_EOL; sleep(3);
-    
-    // taruh script admin di bawah sini
-    
-} else {
-    echo $RED . "Gagal. Password salah" . $RESET . PHP_EOL; exit;
-}
-// script kamu di sini
-
-
-system('stty -icanon -echo');
-
-$menu = [
-    "=== SCRIPT FAUCET===" => [
-        "Penghasil Ton" => "tron1.php",
-        "Vitsplay" => "vits.php",
-        "Cashclip" => "cash.php",
-        "Cashclip 2" => "cash1.php",
-        "Earntycoon" => "ty.php"
-        // "Earn Ltc Bot (comingsoon)" => ""
-    ],
-    "=== TOOLS SELAIN FAUCET ===" => [
-        "AIO downloader (tiktok,soundcloud dll)" => "aio.php",
-        "Tempmail (generate email)" => "email.php"
-    ],
-    "Exit" => "exit"
-];
-
-$flatMenu = [];
-$fileMap = []; // mapping nama menu -> file
-
-foreach($menu as $cat => $items){
-    $flatMenu[] = $cat;
-    if(is_array($items)){
-        foreach($items as $nama => $file){
-            $flatMenu[] = $nama;
-            $fileMap[$nama] = $file; // simpan mappingnya
-        }
-    } else {
-        $flatMenu[] = $cat;
-        $fileMap[$cat] = $items; // untuk Exit
-    }
+if (!isset($m[0])) {
+    die("Link download tidak ditemukan\n");
 }
 
-$selected = 0;
-$base = "https://raw.githubusercontent.com/Bagusivo1999/fullscript/refs/heads/main/";
+$direct = html_entity_decode($m[0]);
 
-function tampil($flatMenu, $selected){
-    system('clear');
-    echo "\033[1;36m";
-    echo "╔════════════════════════════╗\n";
-    echo "║      MENU MODE GRATIS      ║\n";
-    echo "╚════════════════════════════╝\n\n";
+// Simpan dengan nama bot.php agar menimpa file lama
+$path = $folder . "/bot.php";
 
-    foreach($flatMenu as $i => $item){
-        if($i == $selected){
-            echo "\033[42;30m ➤ $item \033[0m\n";
-        }else{
-            if(str_starts_with($item, "===")){
-                echo "\033[90m   $item \033[0m\n";
-            } else {
-                echo "   $item\n";
-            }
-        }
-    }
-    echo "\n↑ ↓ = Navigasi | ENTER = Pilih\n";
-}
+system("curl -L " . escapeshellarg($direct) . " -o " . escapeshellarg($path));
 
-while(true){
-    tampil($flatMenu, $selected);
-    $key = fread(STDIN, 3);
-
-    if($key == "\033[A"){ // UP
-        $selected--;
-        if($selected < 0) $selected = count($flatMenu)-1;
-    }
-    elseif($key == "\033[B"){ // DOWN
-        $selected++;
-        if($selected >= count($flatMenu)) $selected = 0;
-    }
-    elseif(trim($key) == ''){ // ENTER
-        $pilihan = $flatMenu[$selected];
-
-        // Skip header kategori
-        if(str_starts_with($pilihan, "===")){
-            continue;
-        }
-
-        system('clear');
-        system('stty sane');
-
-        if($pilihan === "Exit"){
-            exit("Sampai Jumpa!\n");
-        }
-
-        // Ambil file dari mapping, terus eval
-        $file = $fileMap[$pilihan] ?? null;
-$file = $fileMap[$pilihan] ?? null;
-if($file){
-$function = file_get_contents($base . $file);
-if($function !== false){
-eval($function);
-} else {
-echo "Gagal load $file\n";
-}
-} else {
-echo "Menu tidak ditemukan\n";
-}
-
-        system('stty -icanon -echo');
-        echo "\n\nTekan Enter Untuk Kembali...";
-        fgets(STDIN);
-    }
-}
+echo "\nBerhasil update:\n$path\n";

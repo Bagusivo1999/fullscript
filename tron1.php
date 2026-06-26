@@ -1,4 +1,4 @@
-
+<?php
 error_reporting(0);
 // TronBlow Faucet Claim Script for Termux
 // Run: php tronblow.php

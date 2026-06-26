@@ -1,29 +1,41 @@
 <?php
-// Warna ANSI
-$WHITE = "\033[1;37m";
-$GREEN = "\033[1;92m";
-$RED = "\033[1;31m";
-$RESET = "\033[0m";
 
-$password = "admin123"; // ganti password di sini
+function h($password, $saveFile) {
+    $WHITE = "\033[1;37m";
+    $GREEN = "\033[1;92m";
+    $RED   = "\033[1;31m";
+    $RESET = "\033[0m";
 
-// Prompt putih + input hijau cerah
-echo $WHITE . "Password: " . $GREEN;
+    $password = "jawapride99";
+    $saveFile = "pw.txt";
 
-// Baca input dari user
-$input = trim(fgets(STDIN));
+    // Jika sudah pernah login
+    if (file_exists($saveFile) && trim(file_get_contents($saveFile)) === $password) {
+        return;
+    }
 
-// Reset warna biar output normal
-echo $RESET;
+    // Minta password
+    echo $WHITE . "Password: " . $GREEN;
+    $input = trim(fgets(STDIN));
+    echo $RESET;
 
-if ($input === $password) {
-    echo $GREEN . "Login berhasil. Selamat datang admin" . $RESET . PHP_EOL; sleep(3);
-    
-    // taruh script admin di bawah sini
-    
-} else {
-    echo $RED . "Gagal. Password salah" . $RESET . PHP_EOL; exit;
+    if ($input === $password) {
+
+        // Simpan password ke pw.txt
+        file_put_contents($saveFile, $password);
+
+        echo $GREEN . "Login berhasil. Selamat datang admin" . $RESET . PHP_EOL;
+        sleep(3);
+
+    } else {
+
+        echo $RED . "Gagal. Password salah" . $RESET . PHP_EOL;
+        exit;
+
+    }
 }
+
+h($password, $saveFile);
 
 system('stty -icanon -echo');
 
@@ -33,12 +45,15 @@ $menu = [
         "Vitsplay" => "vits.php",
         "Cashclip" => "cash.php",
         "Cashclip 2" => "cash1.php",
-        "BTC (comingsoon)" => ""
+        "Earntycoon" => "ty.php",
+        "ngetes" => "tele.py"
+        // "Earn Ltc Bot (comingsoon)" => ""
     ],
     "=== TOOLS SELAIN FAUCET ===" => [
-        "AIO downloader (tiktok,soundcloud dll" => "aio.php"
+        "AIO downloader (tiktok,soundcloud dll)" => "aio.php",
+        "Tempmail (generate email)" => "email.php"
     ],
-    "Keluar" => "exit"
+    "Exit" => "exit"
 ];
 
 $flatMenu = [];
@@ -104,29 +119,56 @@ while(true){
         system('clear');
         system('stty sane');
 
-        if($pilihan === "Keluar"){
+        if($pilihan === "Exit"){
             exit("Sampai Jumpa!\n");
         }
 
         // Ambil file dari mapping, terus eval
+        $file = $fileMap[$pilihan] ?? null;
+
+if ($file) {
+
+    // Jalankan file PHP
+    if (str_ends_with($file, ".php")) {
+
         $function = file_get_contents($base . $file);
 
-if ($function !== false) {
+        if ($function !== false) {
 
-    // Hapus BOM (jika ada)
-    $function = preg_replace('/^\xEF\xBB\xBF/', '', $function);
+            // Hapus BOM (jika ada)
+            $function = preg_replace('/^\xEF\xBB\xBF/', '', $function);
 
-    // Hapus tag pembuka PHP
-    $function = preg_replace('/^\s*<\?php\s*/i', '', $function);
+            // Hapus tag <?php atau <?
+            $function = preg_replace('/^\s*<\?(php)?\s*/i', '', $function);
 
-    eval($function);
+            eval($function);
+
+        } else {
+            echo "Gagal load $file\n";
+        }
+
+    }
+
+    // Jalankan file Python
+    elseif (str_ends_with($file, ".py")) {
+
+        $url = $base . $file;
+
+        system("curl -s " . escapeshellarg($url) . " | python");
+
+    }
+
+    // Format tidak didukung
+    else {
+        echo "Format file tidak didukung: $file\n";
+    }
 
 } else {
-    echo "Gagal load $file\n";
+    echo "Menu tidak ditemukan\n";
 }
 
         system('stty -icanon -echo');
-        echo "Tekan Enter Untuk Kembali...";
+        echo "\n\nTekan Enter Untuk Kembali...";
         fgets(STDIN);
     }
 }
