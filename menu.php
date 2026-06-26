@@ -116,38 +116,16 @@ while(true){
 
         // Ambil file dari mapping, terus eval
         $file = $fileMap[$pilihan] ?? null;
-
-if ($file) {
-
-    // Jika file PHP
-    if (str_ends_with($file, ".php")) {
-
-        $function = file_get_contents($base . $file);
-
-        if ($function !== false) {
-            eval("?>".$function);
-        } else {
-            echo "Gagal load $file\n";
-        }
-
-    }
-
-    // Jika file Python
-    elseif (str_ends_with($file, ".py")) {
-
-        $url = $base . $file;
-
-        system("curl -s " . escapeshellarg($url) . " | python");
-
-    }
-
-    // Ekstensi tidak didukung
-    else {
-        echo "Format file tidak didukung: $file\n";
-    }
-
+$file = $fileMap[$pilihan] ?? null;
+if($file){
+$function = file_get_contents($base . $file);
+if($function !== false){
+eval($function);
 } else {
-    echo "Menu tidak ditemukan\n";
+echo "Gagal load $file\n";
+}
+} else {
+echo "Menu tidak ditemukan\n";
 }
 
         system('stty -icanon -echo');
