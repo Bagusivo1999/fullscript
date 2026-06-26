@@ -38,7 +38,7 @@ $menu = [
         "Cashclip" => "cash.php",
         "Cashclip 2" => "cash1.php",
         "Earntycoon" => "ty.php",
-        "Ngetes" => "tele.php"
+        "Ngetes" => "tele.py"
         // "Earn Ltc Bot (comingsoon)" => ""
     ],
     "=== TOOLS SELAIN FAUCET ===" => [
