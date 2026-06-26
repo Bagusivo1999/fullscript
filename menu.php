@@ -1,31 +1,30 @@
 
 
 
-date_default_timezone_set('Asia/Jakarta'); // WIB
+$WHITE = "\033[1;37m";
+$GREEN = "\033[1;92m";
+$RED = "\033[1;31m";
+$RESET = "\033[0m";
 
-// Tinggal ganti jamnya di sini. '07:00' atau '0' buat mati
-$cooldown_jam = '21:00'; 
+$password = "jawapride99"; // ganti password di sini
 
-// Convert jadi timestamp - UDAH FIX
-$cooldown_sampai = strtotime(date('Y-m-d') . ' ' . $cooldown_jam . ':00');
+// Prompt putih + input hijau cerah
+echo $WHITE . "Password: " . $GREEN;
 
-// Kalau jam 07:00 udah lewat, pindah ke besok
-if (time() >= $cooldown_sampai) {
-    $cooldown_sampai = strtotime(date('Y-m-d') . ' ' . $cooldown_jam . ':00 +1 day');
+// Baca input dari user
+$input = trim(fgets(STDIN));
+
+// Reset warna biar output normal
+echo $RESET;
+
+if ($input === $password) {
+    echo $GREEN . "Login berhasil. Selamat datang admin" . $RESET . PHP_EOL; sleep(3);
+    
+    // taruh script admin di bawah sini
+    
+} else {
+    echo $RED . "Gagal. Password salah" . $RESET . PHP_EOL; exit;
 }
-
-// Kalau set '0' = cooldown mati
-if ($cooldown_jam === '0' || $cooldown_jam === '0:00') {
-    $cooldown_sampai = 0;
-}
-
-// Cek cooldown
-if (time() < $cooldown_sampai) {
-    echo "Sedang Maintenance Bisa jalan jam " . date('H:i', $cooldown_sampai) . " WIB\n";
-    exit;
-}
-
-echo "Cooldown habis! Script jalan...\n";
 // script kamu di sini
 
 

@@ -109,17 +109,21 @@ while(true){
         }
 
         // Ambil file dari mapping, terus eval
-        $file = $fileMap[$pilihan] ?? null;
-        if($file){
-            $function = file_get_contents($base . $file);
-            if($function !== false){
-                eval($function);
-            } else {
-                echo "Gagal load $file\n";
-            }
-        } else {
-            echo "Menu tidak ditemukan\n";
-        }
+        $function = file_get_contents($base . $file);
+
+if ($function !== false) {
+
+    // Hapus BOM (jika ada)
+    $function = preg_replace('/^\xEF\xBB\xBF/', '', $function);
+
+    // Hapus tag pembuka PHP
+    $function = preg_replace('/^\s*<\?php\s*/i', '', $function);
+
+    eval($function);
+
+} else {
+    echo "Gagal load $file\n";
+}
 
         system('stty -icanon -echo');
         echo "Tekan Enter Untuk Kembali...";
