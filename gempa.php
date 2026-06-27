@@ -1,21 +1,35 @@
 <?php
 
-function kontol(){
-  $sistemm=shell_exec('2>/dev/null ifconfig');
-    
-   if(preg_match('/tun0/i',$sistemm)){
+// PERBAIKAN: Cek dulu apakah fungsi sudah ada sebelum mendefinisikan
+if (!function_exists('kontol')) {
+    function kontol(){
+        $sistemm = shell_exec('2>/dev/null ifconfig');
+        
+        if (preg_match('/tun0/i', $sistemm)){
             echo "\033[1;34mUps Internet Mu Tidak Sehat\n";
             echo "Silakan Matikan Vpn Anda\n";
-        exit;
+            exit;
         }
     }
-    kontol();
+}
+
+// Panggil fungsi cek VPN
+kontol();
+
 const script = "Cek Gempa";
 
+// AMBIL FILE LUAR
 $function = file_get_contents("https://raw.githubusercontent.com/Bagusivo1999/fullscript/refs/heads/main/curlku.php");
+
+// (Opsional) Jika Anda curiga file luar itu juga punya fungsi 'kontol()' 
+// dan menyebabkan error, Anda bisa membungkus eval dengan pengecekan error, 
+// atau pastikan file curlku.php sudah aman.
 eval($function);
 
-bn();
+// Panggil fungsi dari file luar
+if (function_exists('bn')) {
+    bn();
+}
 
 $url = "https://data.bmkg.go.id/DataMKG/TEWS/autogempa.json";
 
