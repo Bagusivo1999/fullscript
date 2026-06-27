@@ -49,8 +49,8 @@ $menu = [
     ],
     "=== TOOLS SELAIN FAUCET ===" => [
         "AIO downloader (tiktok,soundcloud dll)" => "aio.php",
-        "Tempmail (generate email)" => "email.php",
-        "Cek Gempa" => "gempa.php"
+        "Tempmail (generate email)" => "email.php"
+       # "Cek Gempa" => "gempa.php"
     ],
     "Exit" => "exit"
 ];
