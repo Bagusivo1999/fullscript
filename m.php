@@ -5,7 +5,6 @@ function h($password, $saveFile) {
     $GREEN = "\033[1;92m";
     $RED   = "\033[1;31m";
     $RESET = "\033[0m";
-
     $password = "jawapride99";
     $saveFile = "pw.txt";
 
@@ -46,12 +45,12 @@ $menu = [
         "Cashclip" => "cash.php",
         "Cashclip 2" => "cash1.php",
         "Earntycoon" => "ty.php",
-        "ngetes" => "tele.py"
         // "Earn Ltc Bot (comingsoon)" => ""
     ],
     "=== TOOLS SELAIN FAUCET ===" => [
         "AIO downloader (tiktok,soundcloud dll)" => "aio.php",
-        "Tempmail (generate email)" => "email.php"
+        "Tempmail (generate email)" => "email.php",
+        "Cek Gempa" => "gempa.php"
     ],
     "Exit" => "exit"
 ];
