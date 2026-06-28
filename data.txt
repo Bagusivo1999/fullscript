@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>moneyrain AutoFaucet — Free USDT Every 5 Minutes</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background: #07060b; color: #e0e0e0; margin: 0; padding: 20px; line-height: 1.6; }
+        .container { max-width: 1000px; margin: 0 auto; position: relative; z-index: 1; }
+        .site-title { margin: 2px 0 18px; text-align: center; }
+        .site-title h1 { margin: 0; color: #fff; font-size: clamp(1.75rem, 5vw, 3rem); line-height: 1.15; letter-spacing: -0.03em; }
+        .desktop-bonus-note { display: none; margin: 7px 0 0; color: #00ffcc; font-size: .82rem; font-weight: 700; }
+        .card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 20px; padding: 30px; margin-bottom: 30px; backdrop-filter: blur(16px); }
+        .ad-row { display: flex; justify-content: center; gap: 15px; margin: 25px 0; flex-wrap: wrap; }
+        .btn { background: linear-gradient(135deg, #00d4ff 0%, #00ffcc 100%); color: #000; padding: 14px 28px; border-radius: 10px; text-decoration: none; display: inline-block; font-weight: 700; transition: transform 0.2s; border: none; cursor: pointer; }
+        .btn:hover { transform: translateY(-2px); opacity: 0.9; }
+        .progress-bar { background: #334155; border-radius: 10px; height: 12px; overflow: hidden; margin: 15px 0; }
+        .progress-fill { background: linear-gradient(90deg, #00d4ff, #00ffcc); height: 100%; transition: width 0.3s; }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        th, td { padding: 14px; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.06); }
+        th { color: #8a8a9a; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; }
+        .login-form { max-width: 400px; margin: 0 auto; }
+        .form-group { margin-bottom: 20px; text-align: left; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: 600; color: #9a9aaa; }
+        .form-group input { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); background: rgba(0,0,0,0.3); color: #fff; box-sizing: border-box; }
+        .alert { padding: 12px; border-radius: 8px; margin-bottom: 20px; text-align: center; }
+        .alert-error { background: rgba(255, 77, 77, 0.1); color: #ff6b6b; border: 1px solid rgba(255, 77, 77, 0.2); }
+        .referral-box { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 16px; padding: 25px; text-align: center; }
+        .referral-input-group { display: flex; gap: 10px; margin-top: 15px; }
+        .referral-link-input { flex: 1; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 10px; color: #00d4ff; }
+        .site-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 30px; }
+        .stat-item { background: rgba(255,255,255,0.03); padding: 20px; border-radius: 15px; text-align: center; border: 1px solid rgba(255,255,255,0.05); }
+        .stat-item .val { font-size: 1.5rem; font-weight: 800; color: #fff; display: block; }
+        .stat-item .lbl { font-size: 0.75rem; color: #8a8a9a; text-transform: uppercase; letter-spacing: 1px; }
+        .announcement-bar { max-width: 960px; margin: 0 auto 20px; box-sizing: border-box; padding: 13px 18px; border: 1px solid rgba(0,212,255,0.28); border-radius: 12px; background: rgba(0,212,255,0.09); color: #d9faff; text-align: center; font-size: 0.9rem; font-weight: 600; }
+        .announcement-dot { display: inline-block; width: 8px; height: 8px; margin-right: 10px; border-radius: 50%; background: #00d4ff; box-shadow: 0 0 8px #00d4ff; }
+        .contest-countdown { max-width: 420px; margin: -8px auto 20px; padding: 10px 14px; border: 1px solid rgba(0,212,255,0.18); border-radius: 10px; background: rgba(0,212,255,0.06); color: #00d4ff; text-align: center; font-family: monospace; font-size: 0.9rem; font-weight: 700; letter-spacing: 0.5px; }
+        .earning-rate { margin: 0 0 22px; color: #00ffcc; font-size: 1rem; font-weight: 700; }
+        .contest-update-note { margin: -10px 0 18px; color: #8a8a9a; text-align: center; font-size: 0.8rem; }
+        .public-footer { display: flex; justify-content: center; flex-wrap: wrap; gap: 18px; margin: 28px 0 8px; font-size: 0.85rem; }
+        .public-footer a { color: #8a8a9a; text-decoration: none; }
+        .public-footer a:hover { color: #00d4ff; }
+        @media (max-width: 767px) { body { padding: 7px; } .card { padding: 20px 14px; } }
+        @media (min-width: 1024px) { html.real-desktop .desktop-bonus-note { display: block; } }
+    </style>
+    <style>.managed-ad-area{--ad-gap:12px;--ad-border:1px;margin:12px auto;box-sizing:border-box;max-width:100%}.managed-ad-area--full{position:relative;left:50%;width:calc(100vw - 8px);max-width:none;transform:translateX(-50%)}.managed-ad-list{display:flex;align-items:flex-start;justify-content:center;flex-wrap:wrap;gap:var(--ad-gap);max-width:100%;box-sizing:border-box}.managed-ad-area--scroll .managed-ad-list{justify-content:flex-start;flex-wrap:nowrap;overflow-x:auto;padding:2px 2px calc(var(--ad-gap) / 2);scrollbar-width:thin}.managed-ad-unit{display:none;flex:0 0 auto;padding:2px;border:var(--ad-border) solid rgba(255,255,255,.16);border-radius:5px;background:rgba(255,255,255,.025);box-sizing:content-box;overflow:hidden}.managed-ad-unit.is-selected{display:block}.managed-ad-unit.is-fluid{width:min(100%,var(--ad-width));box-sizing:border-box}.managed-ad-unit iframe{display:block;width:var(--ad-width);height:var(--ad-height);max-width:none;border:0;background:transparent}.managed-ad-unit.is-fluid iframe{width:100%}.compact-claim-timer{--compact-timer-size:90px;position:fixed;z-index:1000;top:12px;right:12px;width:var(--compact-timer-size);height:var(--compact-timer-size);box-sizing:border-box;border:1px solid rgba(0,212,255,.55);border-radius:50%;background:rgba(7,6,11,.94);box-shadow:0 4px 24px rgba(0,0,0,.45);color:#fff;font-family:monospace;font-size:1rem;font-weight:800;display:flex;align-items:center;justify-content:center;text-align:center}.compact-claim-timer[hidden]{display:none!important}@media(max-width:767px){.compact-claim-timer{--compact-timer-size:60px;top:8px;right:8px;font-size:.78rem}}</style>    </head>
+<body>
+    <div class="container">
+        <header class="site-title">
+            <h1>MoneyRain Autofaucet</h1>
+                            <p class="desktop-bonus-note">Eligible real desktop computers receive a 50% claim bonus.</p>
+                    </header>
+        <section class="managed-ad-area managed-ad-area--pack managed-ad-area--index_aads" data-ad-area data-mode="pack" data-fit-only="0" aria-label="Advertisements"><div class="managed-ad-list"><div class="managed-ad-unit" hidden data-ad-unit data-device="mobile" data-network="aads" data-priority="10" data-position="0" data-width="300" data-height="250" data-visible-load="0" data-fluid="0" style="--ad-width:300px;--ad-height:250px"><iframe data-ad-frame data-ad-src="ad_frame.php?slot=index_aads_mobile&amp;page=index" title="Aads advertisement" width="300" height="250" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" scrolling="no" sandbox="allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox"></iframe></div><div class="managed-ad-unit" hidden data-ad-unit data-device="desktop" data-network="aads" data-priority="10" data-position="1" data-width="728" data-height="90" data-visible-load="0" data-fluid="0" style="--ad-width:728px;--ad-height:90px"><iframe data-ad-frame data-ad-src="ad_frame.php?slot=index_aads_desktop&amp;page=index" title="Aads advertisement" width="728" height="90" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" scrolling="no" sandbox="allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox"></iframe></div></div></section>        <section class="managed-ad-area managed-ad-area--pack managed-ad-area--index_highpay" data-ad-area data-mode="pack" data-fit-only="0" aria-label="Advertisements"><div class="managed-ad-list"><div class="managed-ad-unit" hidden data-ad-unit data-device="mobile" data-network="highpay" data-priority="100" data-position="0" data-width="300" data-height="250" data-visible-load="1" data-fluid="0" style="--ad-width:300px;--ad-height:250px"><iframe data-ad-frame data-ad-src="ad_frame.php?slot=index_highpay_mobile&amp;page=index" title="Highpay advertisement" width="300" height="250" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" scrolling="no" sandbox="allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox"></iframe></div><div class="managed-ad-unit" hidden data-ad-unit data-device="desktop" data-network="highpay" data-priority="100" data-position="1" data-width="728" data-height="90" data-visible-load="1" data-fluid="0" style="--ad-width:728px;--ad-height:90px"><iframe data-ad-frame data-ad-src="ad_frame.php?slot=index_highpay_728&amp;page=index" title="Highpay advertisement" width="728" height="90" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" scrolling="no" sandbox="allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox"></iframe></div><div class="managed-ad-unit" hidden data-ad-unit data-device="desktop" data-network="highpay" data-priority="100" data-position="2" data-width="468" data-height="60" data-visible-load="1" data-fluid="0" style="--ad-width:468px;--ad-height:60px"><iframe data-ad-frame data-ad-src="ad_frame.php?slot=index_highpay_468&amp;page=index" title="Highpay advertisement" width="468" height="60" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" scrolling="no" sandbox="allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox"></iframe></div></div></section>
+        <div class="site-stats">
+            <div class="stat-item"><span class="val">8613</span><span class="lbl">Total Users</span></div>
+            <div class="stat-item"><span class="val">25.34113944 USDT</span><span class="lbl">Total Distributed</span></div>
+            <div class="stat-item"><span class="val">13266</span><span class="lbl">Claims Today</span></div>
+            <div class="stat-item"><span class="val">30054</span><span class="lbl">Claims Yesterday</span></div>
+        </div>
+
+        <div class="card" style="text-align: center;">
+            <h2 style="font-size: 2.5rem; margin-bottom: 10px;">💵 USDT Autofaucet</h2>
+            <p class="earning-rate">Earn 0.00000250 USDT every 5 minutes, plus level bonuses.</p>
+                            <div class="login-form">
+                    <div class="alert alert-error">Only one account per IP address is allowed.</div>                    <form method="POST" id="loginForm">
+                        <input type="hidden" name="csrf_token" value="a17d083c92df6a529789d4a2d387f8d5669af063da3efdd2cb9c191f000ffb34">
+                        <div class="form-group">
+                            <label>FaucetPay Email</label>
+                            <input type="email" name="email" placeholder="Enter your FaucetPay email" required>
+                        </div>
+                        <button type="submit" class="btn" id="loginButton" style="width: 100%;">START EARNING NOW</button>
+                    </form>
+                </div>
+                    </div>
+
+        <div class="card">
+            <h2 style="text-align: center; margin-bottom: 20px;">🏆 Weekly Referral Contest</h2>
+            <div class="contest-countdown" id="contestCountdown" data-end="1783189800" data-server-now="1782610456">Calculating contest time...</div>
+            <p class="contest-update-note">Leaderboard updates on every page load after successful referral payments.</p>
+            <table>
+                <thead>
+                    <tr><th>Rank</th><th>User</th><th>Weekly Earnings</th><th>Prize</th></tr>
+                </thead>
+                <tbody>
+                                                                        <tr>
+                                <td>🥇</td>
+                                <td>min***</td>
+                                <td>0.00213968 USDT</td>
+                                <td>0.25 USDT</td>
+                            </tr>
+                                                    <tr>
+                                <td>🥈</td>
+                                <td>vas***</td>
+                                <td>0.00081362 USDT</td>
+                                <td>0.1 USDT</td>
+                            </tr>
+                                                    <tr>
+                                <td>🥉</td>
+                                <td>chr***</td>
+                                <td>0.00081021 USDT</td>
+                                <td>0.05 USDT</td>
+                            </tr>
+                                                    <tr>
+                                <td>#4</td>
+                                <td>pas***</td>
+                                <td>0.00076029 USDT</td>
+                                <td>0.025 USDT</td>
+                            </tr>
+                                                    <tr>
+                                <td>#5</td>
+                                <td>sid***</td>
+                                <td>0.00075776 USDT</td>
+                                <td>0.025 USDT</td>
+                            </tr>
+                                                    <tr>
+                                <td>#6</td>
+                                <td>kun***</td>
+                                <td>0.00069465 USDT</td>
+                                <td>0.01 USDT</td>
+                            </tr>
+                                                    <tr>
+                                <td>#7</td>
+                                <td>dim***</td>
+                                <td>0.00047022 USDT</td>
+                                <td>0.01 USDT</td>
+                            </tr>
+                                                    <tr>
+                                <td>#8</td>
+                                <td>fha***</td>
+                                <td>0.00040286 USDT</td>
+                                <td>0.01 USDT</td>
+                            </tr>
+                                                    <tr>
+                                <td>#9</td>
+                                <td>not***</td>
+                                <td>0.00032055 USDT</td>
+                                <td>0.01 USDT</td>
+                            </tr>
+                                                    <tr>
+                                <td>#10</td>
+                                <td>wmr***</td>
+                                <td>0.00028983 USDT</td>
+                                <td>0.01 USDT</td>
+                            </tr>
+                                                            </tbody>
+            </table>
+        </div>
+
+        <div class="referral-box">
+            <h3>👥 Referral Program — Earn 50% Commission!</h3>
+            <p>Share your link and earn 50% of every claim your referrals make.</p>
+            <div class="referral-input-group">
+                <input type="text" class="referral-link-input" readonly value="Login to get your link">
+            </div>
+            <div style="margin-top: 15px;">
+                <a href="https://moneyrain.top/banners/moneyrain_autofaucet_banners.zip" class="btn" download style="background: rgba(255,255,255,0.1); color: #fff;">
+                    📥 Download Referral Banners
+                </a>
+            </div>
+        </div>
+        <section class="managed-ad-area managed-ad-area--scroll managed-ad-area--index_zerads" data-ad-area data-mode="scroll" data-fit-only="0" aria-label="Advertisements"><div class="managed-ad-list"><div class="managed-ad-unit" hidden data-ad-unit data-device="all" data-network="zerads" data-priority="300" data-position="0" data-width="728" data-height="90" data-visible-load="0" data-fluid="0" style="--ad-width:728px;--ad-height:90px"><iframe data-ad-frame data-ad-src="ad_frame.php?slot=index_zerads_728&amp;page=index" title="Zerads advertisement" width="728" height="90" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" scrolling="no" sandbox="allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox"></iframe></div><div class="managed-ad-unit" hidden data-ad-unit data-device="all" data-network="zerads" data-priority="300" data-position="1" data-width="468" data-height="60" data-visible-load="0" data-fluid="0" style="--ad-width:468px;--ad-height:60px"><iframe data-ad-frame data-ad-src="ad_frame.php?slot=index_zerads_468&amp;page=index" title="Zerads advertisement" width="468" height="60" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" scrolling="no" sandbox="allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox"></iframe></div><div class="managed-ad-unit" hidden data-ad-unit data-device="all" data-network="zerads" data-priority="300" data-position="2" data-width="300" data-height="250" data-visible-load="0" data-fluid="0" style="--ad-width:300px;--ad-height:250px"><iframe data-ad-frame data-ad-src="ad_frame.php?slot=index_zerads_300&amp;page=index" title="Zerads advertisement" width="300" height="250" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" scrolling="no" sandbox="allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox"></iframe></div></div></section>        <footer class="public-footer" aria-label="Site information"><a href="index.php">Home</a><a href="faq.php">FAQ</a><a href="updates.php">Updates</a><a href="privacy.php">Privacy</a><a href="terms.php">Terms &amp; Rules</a><a href="mailto:support@moneyrain.top">Contact: support@moneyrain.top</a><span>&copy; 2026 MoneyRain. All rights reserved.</span></footer>    </div>
+    <script nonce="KVzn3jTfbCNX3QwxLb/+UFDa">
+        (function () {
+            if (window.self === window.top) return;
+            const framedOpenUrl = "index.php";
+
+            const claimLink = document.getElementById('claimPageLink');
+            if (claimLink) {
+                claimLink.target = '_blank';
+                claimLink.rel = 'noopener noreferrer';
+                claimLink.textContent = 'OPEN CLAIM PAGE IN NEW TAB';
+            }
+
+            const loginForm = document.getElementById('loginForm');
+            const loginButton = document.getElementById('loginButton');
+            if (loginForm) {
+                if (loginButton) loginButton.textContent = 'OPEN FAUCET IN NEW TAB';
+                loginForm.addEventListener('submit', function (event) {
+                    event.preventDefault();
+                    window.open(framedOpenUrl, '_blank', 'noopener,noreferrer');
+                });
+            }
+        })();
+
+        (function () {
+            const countdown = document.getElementById('contestCountdown');
+            if (!countdown) return;
+            const endTime = Number(countdown.dataset.end) * 1000;
+            const serverTimeAtLoad = Number(countdown.dataset.serverNow) * 1000;
+            const monotonicTimeAtLoad = performance.now();
+
+            function updateContestCountdown() {
+                const serverNow = serverTimeAtLoad + (performance.now() - monotonicTimeAtLoad);
+                const remaining = Math.max(0, Math.floor((endTime - serverNow) / 1000));
+                const days = Math.floor(remaining / 86400);
+                const hours = Math.floor((remaining % 86400) / 3600);
+                const minutes = Math.floor((remaining % 3600) / 60);
+                const seconds = remaining % 60;
+
+                if (remaining === 0) {
+                    countdown.textContent = 'Contest reset in progress...';
+                    return;
+                }
+                countdown.textContent = `Resets in ${days}d ${hours.toString().padStart(2, '0')}h ${minutes.toString().padStart(2, '0')}m ${seconds.toString().padStart(2, '0')}s`;
+                setTimeout(updateContestCountdown, 1000);
+            }
+
+            updateContestCountdown();
+        })();
+    </script>
+    <script nonce="KVzn3jTfbCNX3QwxLb/+UFDa">(function(){const cfg={"mobileBreakpoint":767,"visibleRatio":0.75};const areas=[...document.querySelectorAll("[data-ad-area]")];if(!areas.length)return;const mobileQuery=window.matchMedia("(max-width: "+cfg.mobileBreakpoint+"px)");const isRealDesktop=()=>{const data=navigator.userAgentData||null;const platform=String((data&&data.platform)||navigator.platform||"");const ua=String(navigator.userAgent||"");const hardwareMobile=Boolean((data&&data.mobile)||(navigator.maxTouchPoints||0)>0||/Android|iPhone|iPad|iPod|Mobile|Silk|Kindle/i.test(platform+" "+ua));return !hardwareMobile&&!mobileQuery.matches;};const loadFrame=(unit)=>{const frame=unit.querySelector("[data-ad-frame]");if(!frame||!frame.dataset.adSrc)return;frame.src=frame.dataset.adSrc;delete frame.dataset.adSrc;unit.dataset.loaded="1";};const mostlyVisible=(unit)=>{if(document.visibilityState!=="visible")return false;const r=unit.getBoundingClientRect();if(r.width<=0||r.height<=0)return false;const w=Math.max(0,Math.min(r.right,innerWidth)-Math.max(r.left,0));const h=Math.max(0,Math.min(r.bottom,innerHeight)-Math.max(r.top,0));return((w*h)/(r.width*r.height))>=cfg.visibleRatio;};let observer=null;if("IntersectionObserver" in window){observer=new IntersectionObserver((entries)=>{entries.forEach((entry)=>{if(entry.target.classList.contains("is-selected")&&entry.intersectionRatio>=cfg.visibleRatio&&document.visibilityState==="visible"){loadFrame(entry.target);observer.unobserve(entry.target);}});},{threshold:[cfg.visibleRatio]});}const prepareVisibleLoad=(unit)=>{if(unit.dataset.loaded==="1")return;if(observer){observer.observe(unit);}else if(mostlyVisible(unit)){loadFrame(unit);}};const layout=()=>{const realDesktop=isRealDesktop();const mobile=!realDesktop;document.documentElement.classList.toggle("real-desktop",realDesktop);document.documentElement.classList.toggle("mobile-device",mobile);areas.forEach((area)=>{const list=area.querySelector(".managed-ad-list");if(!list)return;const available=list.clientWidth;const fitOnly=area.dataset.fitOnly==="1";const scroll=area.dataset.mode==="scroll";const units=[...list.querySelectorAll("[data-ad-unit]")];units.sort((a,b)=>(Number(a.dataset.priority)-Number(b.dataset.priority))||(Number(a.dataset.position)-Number(b.dataset.position)));units.forEach((unit,index)=>{unit.style.order=String(index);const device=unit.dataset.device;const deviceOk=device==="all"||(mobile&&device==="mobile")||(realDesktop&&device==="desktop");const fits=!fitOnly||scroll||unit.dataset.fluid==="1"||(Number(unit.dataset.width)+6<=available);const selected=deviceOk&&fits;unit.hidden=!selected;unit.classList.toggle("is-selected",selected);if(!selected)return;if(unit.dataset.visibleLoad==="1")prepareVisibleLoad(unit);else loadFrame(unit);});});};layout();let resizeTimer;addEventListener("resize",()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(layout,120);},{passive:true});if(mobileQuery.addEventListener)mobileQuery.addEventListener("change",layout);else mobileQuery.addListener(layout);document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible")document.querySelectorAll("[data-visible-load=\"1\"].is-selected").forEach(prepareVisibleLoad);});if("ResizeObserver" in window){const ro=new ResizeObserver(()=>layout());areas.forEach((area)=>ro.observe(area));}})();</script></body>
+</html>
