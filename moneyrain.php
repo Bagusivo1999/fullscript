@@ -76,9 +76,10 @@ if (strpos($done, 'Only one account per IP address is allowed') !== false) {
 }
 
 // Ambil sukses
-$sukses = explode('!', explode('<div class="alert alert-success">', $done)[1])[0];
+$sukses = explode('!', explode('<div class="alert alert-success">
+                ', $done)[1])[0];
 $error = explode('.', explode('<div class="alert alert-error">', $done)[1])[0];
-$timr = explode(')', explode('Math.floor(seconds / ', $done)[1])[0];
+$timr = explode('<', explode('id="timer">', $done)[1])[0];
 
 // Tampilkan sesuai kondisi
 if (isset($sukses) && !empty($sukses)) {
