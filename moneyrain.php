@@ -45,7 +45,6 @@ $tok = explode('"', explode('csrf_token" value="', $res)[1])[0];
 $mail = str_replace("@","%40",$email);
 $data = "csrf_token=$tok&email=$mail";
 $suc = post1($log1, $data);
-file_put_contents("data.txt", $suc);
 
 $claim = get1($url);
 $csrf = explode('"', explode('csrf_token" value="', $claim)[1])[0];
@@ -85,7 +84,7 @@ $timr = explode('<', explode('id="timer">', $done)[1])[0];
 if (isset($sukses) && !empty($sukses)) {
     print og.p.$sukses.cl.n;
     g();
-    timer($timr);
+    timer(300);
 } else {
     print "❌ " . $error . "\n";
 }
