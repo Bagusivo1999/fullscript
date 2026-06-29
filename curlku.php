@@ -185,49 +185,78 @@ if($res==$res){
       endwhile;
 }
 function curl1($url, $post = 0, $httpheader = 0, $proxy = 0){
-vpn();
+    vpn();
+
+    static $cookies = [];
+
     $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url);
-curl_setopt($ch, CURLOPT_DOH_URL, 'https://dns.google/dns-query');        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-curl_setopt($ch, CURLOPT_PORT, 443);
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
-        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 30);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 30);
-#curl_setopt($ch, CURLOPT_VERBOSE, 1);
-        curl_setopt($ch, CURLOPT_COOKIE,TRUE);
-        curl_setopt($ch, CURLOPT_TCP_KEEPALIVE, true);
-curl_setopt($ch, CURLOPT_TCP_KEEPIDLE, 60); // Waktu dalam detik sebelum mengirim pesan PING
-curl_setopt($ch, CURLOPT_TCP_KEEPINTVL, 60);
-        curl_setopt($ch, CURLOPT_COOKIEFILE,"Cookie.json");
-       curl_setopt($ch, CURLOPT_COOKIEJAR,"Cookie.json");
-        if($post){ 
-            curl_setopt($ch, CURLOPT_POST, true);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_DOH_URL, 'https://dns.google/dns-query');
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_PORT, 443);
+    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 30);
+    curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+    curl_setopt($ch, CURLOPT_TCP_KEEPALIVE, true);
+    curl_setopt($ch, CURLOPT_TCP_KEEPIDLE, 60);
+    curl_setopt($ch, CURLOPT_TCP_KEEPINTVL, 60);
+
+    // Kirim cookie yang tersimpan di RAM
+    if (!empty($cookies)) {
+        $cookieStr = '';
+        foreach ($cookies as $k => $v) {
+            $cookieStr .= "$k=$v; ";
         }
-        if($httpheader){
-            curl_setopt($ch, CURLOPT_HTTPHEADER, $httpheader);
-        }
-        if($proxy){
-            curl_setopt($ch, CURLOPT_HTTPPROXYTUNNEL, true);
-            curl_setopt($ch, CURLOPT_PROXY, $proxy);
-         }
-        curl_setopt($ch, CURLOPT_HEADER, true);
-        $response = curl_exec($ch);
-        $httpcode = curl_getinfo($ch);
-        if(!$httpcode) return "Curl Error : ".curl_error($ch); else{
-            $header = substr($response, 0, curl_getinfo($ch, CURLINFO_HEADER_SIZE));
-            $body = substr($response, curl_getinfo($ch, CURLINFO_HEADER_SIZE));
-            ##curl_close($ch);
-            return array($header, $body);
-        }
+        curl_setopt($ch, CURLOPT_COOKIE, rtrim($cookieStr, '; '));
     }
-    if(file_exists("Cookie.json")){
-    system("rm Cookie.json");
+
+    if($post){
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
     }
-function get1($url){return curl1($url, null, head())[1];}
-function post1($url,$data){return curl1($url, $data, head())[1];}
+
+    if($httpheader){
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $httpheader);
+    }
+
+    if($proxy){
+        curl_setopt($ch, CURLOPT_HTTPPROXYTUNNEL, true);
+        curl_setopt($ch, CURLOPT_PROXY, $proxy);
+    }
+
+    curl_setopt($ch, CURLOPT_HEADER, true);
+
+    $response = curl_exec($ch);
+
+    if(curl_errno($ch)){
+        return "Curl Error : ".curl_error($ch);
+    }
+
+    $headerSize = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
+    $header = substr($response, 0, $headerSize);
+    $body = substr($response, $headerSize);
+
+    // Simpan cookie dari Set-Cookie ke RAM
+    preg_match_all('/^Set-Cookie:\s*([^=]+)=([^;]*)/mi', $header, $matches, PREG_SET_ORDER);
+    foreach($matches as $m){
+        $cookies[$m[1]] = $m[2];
+    }
+
+    curl_close($ch);
+
+    return [$header, $body];
+}
+
+function get1($url){
+    return curl1($url, null, head())[1];
+}
+
+function post1($url, $data){
+    return curl1($url, $data, head())[1];
+}
 function curl($url, $post = 0, $httpheader = 0, $proxy = 0){ 
 vpn();
 $ch = curl_init();
