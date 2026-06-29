@@ -1,5 +1,6 @@
 system("termux-wake-lock");
 system("rm cookie.json");
+error_reporting(0);
 #system("pkg update -y && pkg upgrade -y");
 date_default_timezone_set("Asia/Jakarta");
 //color

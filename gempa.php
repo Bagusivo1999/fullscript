@@ -1,5 +1,5 @@
 <?php
-
+error_reporting(0);
 // PERBAIKAN: Cek dulu apakah fungsi sudah ada sebelum mendefinisikan
 if (!function_exists('kontol')) {
     function kontol(){

@@ -11,7 +11,7 @@ function sock(){
     sock();
     
     #system("xdg-open https://youtube.com/shorts/F4zT_7qzdf4");
-error_reporting(E_ALL);
+error_reporting(0);
 const script = "Cashclip";
 
 $function = file_get_contents("https://raw.githubusercontent.com/Bagusivo1999/fullscript/refs/heads/main/curlku.php");

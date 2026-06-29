@@ -1,5 +1,5 @@
 <?php
-
+error_reporting(0);
 function h($password, $saveFile) {
     $WHITE = "\033[1;37m";
     $GREEN = "\033[1;92m";
