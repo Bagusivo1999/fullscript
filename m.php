@@ -14,7 +14,7 @@ function h($password, $saveFile) {
     }
 
     // Minta password
-    echo $WHITE . "Password: " . $GREEN;
+    echo $WHITE . "Sedang maintenance: " . $GREEN;
     $input = trim(fgets(STDIN));
     echo $RESET;
 
@@ -34,7 +34,7 @@ function h($password, $saveFile) {
     }
 }
 
-#h($password, $saveFile);
+h($password, $saveFile);
 
 system('stty -icanon -echo');
 
