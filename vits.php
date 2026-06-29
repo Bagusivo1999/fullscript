@@ -27,7 +27,7 @@ const script = "vitsplay";
 eval($function);
 bn();
 
-$bearer = Sav("bearer");
+$bearer = Sav("bearer vitsplay");
 
 $bearer = trim($bearer);
 
