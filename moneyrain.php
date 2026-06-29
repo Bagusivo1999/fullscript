@@ -87,6 +87,7 @@ if (isset($sukses) && !empty($sukses)) {
     timer(300);
 } else {
     print "❌ " . $error . "\n";
+    timer(300);
 }
 }
 
