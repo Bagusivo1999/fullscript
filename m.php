@@ -44,8 +44,8 @@ $menu = [
         "Vitsplay" => "vits.php",
         "Cashclip" => "cash.php",
         "Cashclip 2" => "cash1.php",
-        "Earntycoon" => "ty.php",
-        "Moneyrain" => "moneyrain.php"
+        "Earntycoon" => "ty.php"
+        //"Moneyrain" => "moneyrain.php"
         // "Earn Ltc Bot (comingsoon)" => ""
     ],
     "=== TOOLS SELAIN FAUCET ===" => [
