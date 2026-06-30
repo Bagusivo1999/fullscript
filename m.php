@@ -34,7 +34,7 @@ function h($password, $saveFile) {
     }
 }
 
-h($password, $saveFile);
+// h($password, $saveFile);
 
 system('stty -icanon -echo');
 
@@ -45,7 +45,7 @@ $menu = [
         "Cashclip" => "cash.php",
         "Cashclip 2" => "cash1.php",
         "Earntycoon" => "ty.php",
-        "Moneyrain" => "moneyrain.php",
+        "Moneyrain" => "moneyrain.php"
         // "Earn Ltc Bot (comingsoon)" => ""
     ],
     "=== TOOLS SELAIN FAUCET ===" => [

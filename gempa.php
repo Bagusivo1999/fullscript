@@ -20,10 +20,6 @@ const script = "Cek Gempa";
 
 // AMBIL FILE LUAR
 $function = file_get_contents("https://raw.githubusercontent.com/Bagusivo1999/fullscript/refs/heads/main/curlku.php");
-
-// (Opsional) Jika Anda curiga file luar itu juga punya fungsi 'kontol()' 
-// dan menyebabkan error, Anda bisa membungkus eval dengan pengecekan error, 
-// atau pastikan file curlku.php sudah aman.
 eval($function);
 
 // Panggil fungsi dari file luar
