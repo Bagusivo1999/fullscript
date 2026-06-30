@@ -186,6 +186,50 @@ if($res==$res){
       sleep(1);
       endwhile;
 }
+
+
+function curl2($url, $post = 0, $httpheader = 0, $proxy = 0){
+vpn();
+    $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 30);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 60);
+        curl_setopt($ch, CURLOPT_COOKIE,TRUE);
+        curl_setopt($ch, CURLOPT_COOKIEFILE,"Cookie.json");
+       curl_setopt($ch, CURLOPT_COOKIEJAR,"Cookie.json");
+        if($post){
+            curl_setopt($ch, CURLOPT_POST, true);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+        }
+        if($httpheader){
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $httpheader);
+        }
+        if($proxy){
+            curl_setopt($ch, CURLOPT_HTTPPROXYTUNNEL, true);
+            curl_setopt($ch, CURLOPT_PROXY, $proxy);
+         }
+        curl_setopt($ch, CURLOPT_HEADER, true);
+        $response = curl_exec($ch);
+        $httpcode = curl_getinfo($ch);
+        if(!$httpcode) return "Curl Error : ".curl_error($ch); else{
+            $header = substr($response, 0, curl_getinfo($ch, CURLINFO_HEADER_SIZE));
+            $body = substr($response, curl_getinfo($ch, CURLINFO_HEADER_SIZE));
+            curl_close($ch);
+            return array($header, $body);
+        }
+    }
+    if(file_exists("Cookie.json")){
+    system("rm Cookie.json");
+    }
+
+
+function get2($url){return curl1($url, null, head())[1];}
+function post2($url,$data){return curl1($url, $data, head())[1];}
+
 function curl1($url, $post = 0, $httpheader = 0, $proxy = 0){
     vpn();
 

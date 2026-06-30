@@ -40,14 +40,14 @@ $url = "https://autofaucet.moneyrain.top/claim.php";
 $log1 = "https://autofaucet.moneyrain.top/index.php";
 
 
-$res = get1($log);
+$res = get2($log);
 $tok = explode('"', explode('csrf_token" value="', $res)[1])[0];
 
 $mail = str_replace("@","%40",$email);
 $data = "csrf_token=$tok&email=$mail";
-$suc = post1($log1, $data);
+$suc = post2($log1, $data);
 
-$claim = get1($url);
+$claim = get2($url);
 $csrf = explode('"', explode('csrf_token" value="', $claim)[1])[0];
 $nonce = explode('"', explode('id="claimNonce" value="', $claim)[1])[0];
 
@@ -67,7 +67,7 @@ $fine = (rand(1, 100) > 95) ? 1 : 0; // 5% chance
 $mobile = (rand(1, 100) > 98) ? 0 : 1;
 
 $data = "action=claim&csrf_token=$csrf&claim_nonce=$nonce&device_viewport_width=$viewport&device_screen_width=$screen&device_touch_points=$touch&device_hover=$hover&device_fine_pointer=$fine&device_platform=Android&device_mobile_hint=$mobile";
-$done = post1($url, $data);
+$done = post2($url, $data);
 
 // Cek apakah IP restricted
 if (strpos($done, 'Only one account per IP address is allowed') !== false) {
