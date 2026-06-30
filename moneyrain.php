@@ -27,7 +27,6 @@ function head() {
         'user-agent' => 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Mobile Safari/537.36',
         'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
         'accept-language' => 'id-ID,id;q=0.9,en-US;q=0.8,en;q=0.7',
-        'referer' => 'https://autofaucet.moneyrain.top/claim.php',
         'content-type' => 'application/x-www-form-urlencoded'
     ];
 }
@@ -66,7 +65,7 @@ $fine = (rand(1, 100) > 95) ? 1 : 0; // 5% chance
 // Mobile hint (99% 1)
 $mobile = (rand(1, 100) > 98) ? 0 : 1;
 
-$data = "action=claim&csrf_token=$csrf&claim_nonce=$nonce&device_viewport_width=$viewport&device_screen_width=$screen&device_touch_points=$touch&device_hover=$hover&device_fine_pointer=$fine&device_platform=Android&device_mobile_hint=$mobile";
+$data = "action=claim&csrf_token=$csrf&claim_nonce=$nonce&device_viewport_width=404&device_screen_width=404&device_touch_points=5&device_hover=0&device_fine_pointer=0&device_platform=Android&device_mobile_hint=1";
 $done = post2($url, $data);
 
 // Cek apakah IP restricted
@@ -82,14 +81,14 @@ $error = explode('.', explode('<div class="alert alert-error">', $done)[1])[0];
 $timr = explode('<', explode('id="timer">', $done)[1])[0];
 
 // Tampilkan sesuai kondisi
-if (isset($sukses) && !empty($sukses)) {
-    print og.p.$sukses.cl.n;
-    g();
-    timer(300);
-} else {
-    print "❌ " . $error . "\n";
-    timer(300);
-}
+// if (isset($sukses) && !empty($sukses)) {
+    // print og.p.$sukses.cl.n;
+    // g();
+    // timer($timr);
+// } else {
+    // print "❌ " . $error . "\n";
+    // # timer(300);
+// }
 }
 
 
