@@ -155,7 +155,7 @@ usleep($t);
 }
 }
 //color
-function cok($namadata){
+function Sav($namadata){
      if(file_exists($namadata)){
        $data = file_get_contents($namadata);
       }else{
@@ -163,8 +163,10 @@ function cok($namadata){
         file_put_contents($namadata,$data);
       }
       return $data;
+    }
     
-    function Sav($namadata) {
+    
+    function cok($namadata) {
     if (file_exists($namadata)) {
         $data = file_get_contents($namadata);
     } else {
@@ -189,6 +191,8 @@ function cok($namadata){
     }
     return $data;
 }
+    
+    
 
 function vpn(){
   $sistemm=shell_exec('2>/dev/null ifconfig');

@@ -2,6 +2,14 @@
 
 const script = "freebonk";
 
+
+
+$function = file_get_contents("https://raw.githubusercontent.com/Bagusivo1999/fullscript/refs/heads/main/curlku.php");
+eval($function);
+
+$cookie = cok("cookie");
+
+
 function head() {
 global $cookie;
     return [
@@ -24,5 +32,5 @@ $url = "https://free-bonk.com/dashboard";
 
 
 $dash = get($url);
-print$bal = explodr(' ', explode'<h2 class="f-w-600">',$dash)[1])[0];
+print$bal = explode(' ', explode('<h2 class="f-w-600">',$dash)[1])[0];
 
