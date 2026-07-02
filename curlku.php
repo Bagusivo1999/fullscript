@@ -155,7 +155,7 @@ usleep($t);
 }
 }
 //color
-function Sav($namadata){
+function cok($namadata){
      if(file_exists($namadata)){
        $data = file_get_contents($namadata);
       }else{
@@ -163,7 +163,33 @@ function Sav($namadata){
         file_put_contents($namadata,$data);
       }
       return $data;
+    
+    function Sav($namadata) {
+    if (file_exists($namadata)) {
+        $data = file_get_contents($namadata);
+    } else {
+        $data = readline(p . "Input " . $namadata . " :  " . h);
+        
+        // Jika user input multi-line atau terpisah spasi
+        if ($namadata == 'cookie') {
+            // Hapus "cookie: " prefix jika ada
+            $data = preg_replace('/^cookie:\s*/i', '', $data);
+            
+            // Jika ada newline, gabungkan
+            $data = str_replace(["\r\n", "\n", "\r"], '; ', $data);
+            
+            // Bersihkan multi spasi jadi 1 spasi
+            $data = preg_replace('/\s+/', ' ', $data);
+            
+            // Jika masih ada "cookie:" di tengah, hapus
+            $data = preg_replace('/cookie:\s*/i', '', $data);
+        }
+        
+        file_put_contents($namadata, $data);
     }
+    return $data;
+}
+
 function vpn(){
   $sistemm=shell_exec('2>/dev/null ifconfig');
     
