@@ -10,13 +10,23 @@ $apikey = Sav("apikey xevil");
 
 function curlGet($url) {
     $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_TIMEOUT, 30);
-    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); // Kalo SSL error
+    curl_setopt_array($ch, [
+        CURLOPT_URL => $url,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_TIMEOUT => 30,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_SSL_VERIFYPEER => false,
+        CURLOPT_USERAGENT => 'Mozilla/5.0'
+    ]);
+    
     $response = curl_exec($ch);
-    #curl_close($ch);
+    
+    if(curl_errno($ch)) {
+        echo "cURL Error: " . curl_error($ch);
+        return false;
+    }
+    
+    curl_close($ch);
     return $response;
 }
 
@@ -38,27 +48,28 @@ function hjhhh($key) {
     
     a:
     // Kirim pake cURL
-    $r = curlGet("https://api.sctg.xyz/in.php?key=".$apikey."&method=hcaptcha&sitekey=".$key."&pageurl=".$url);
+    $r = curlGet("https://sctg.xyz/in.php?key=".$apikey."&method=hcaptcha&sitekey=".$key."&pageurl=".$url);
     
     if (strpos($r, 'OK|') === false) {
         goto a;
     }
-    
+    timer(5);
     $task = explode('OK|', $r)[1];
     echo $task . "\n";
-    sleep(5);
+   # sleep(5);
     
     if($task) {
         while(true) {
-            $r2 = curlGet("http://api.sctg.xyz/res.php?key=".$apikey."&action=get&id=".$task);
+            $r2 = curlGet("https://sctg.xyz/res.php?key=".$apikey."&action=get&id=".$task);
             
             if(strpos($r2, 'OK|') !== false) {
                 $hasil = explode('OK|', $r2)[1];
+                print $hasil . n.n.n;
                 return $hasil;
             } elseif($r2 == "ERROR_CAPTCHA_UNSOLVABLE") {
                 goto a;
             } else {
-                echo "Processing... \r";
+                echo slow(merah2."prosess...                       \r",5000);
                 sleep(3);
             }
         }
