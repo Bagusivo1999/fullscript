@@ -321,7 +321,7 @@ function curl1($url, $post = 0, $httpheader = 0, $proxy = 0){
         $cookies[$m[1]] = $m[2];
     }
 
-    curl_close($ch);
+    #curl_close($ch);
 
     return [$header, $body];
 }
