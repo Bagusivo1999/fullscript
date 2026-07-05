@@ -1,6 +1,6 @@
 system("termux-wake-lock");
 #system("rm cookie.json");
-error_reporting(0);
+// error_reporting(0);
 #system("pkg update -y && pkg upgrade -y");
 date_default_timezone_set("Asia/Jakarta");
 //color
@@ -403,7 +403,7 @@ global $apikey;
    timer(5);
    if($task){
        while(true){
-            $r2 = file_get_contents("http://goodxevilpay.pp.ua/res.php?key=".$apikey."&action=get&id=".$task);
+            $r2 = file_get_contents("https://api.sctg.xyz/res.php?key=".$apikey."&action=get&id=".$task);
             $hasil = explode('OK|', $r2)[1];
             if($hasil){
                 return $hasil;
@@ -422,7 +422,7 @@ global $apikey;
 function hcap($key, $url){
 global $apikey;
    a:
-  $r =  file_get_contents("http://goodxevilpay.pp.ua/in.php?key=".$apikey."&method=hcaptcha&sitekey=".$key."&pageurl=".$url);
+  $r =  file_get_contents("https://api.sctg.xyz/in.php?key=".$apikey."&method=hcaptcha&sitekey=".$key."&pageurl=".$url);
    $task = explode('OK|', $r)[1];
    timer(5);
    if($task){
