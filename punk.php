@@ -19,7 +19,7 @@ function head() {
 
 
 
-$url = "https://litoshipay.com/dashboard";
+$url = "https://litoshipay.com/faucet/1";
 
 $dash = get($url);
-print $dash;
+$csrf = explode('"', explode('csrf_token_name" value="',$dash)[1])[0];
