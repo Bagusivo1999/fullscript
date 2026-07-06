@@ -44,7 +44,8 @@ $menu = [
         "Vitsplay" => "vits.php",
         // "Cashclip" => "cash.php",
         // "Cashclip 2" => "cash1.php",
-        "Earntycoon" => "ty.php"
+        "Earntycoon" => "ty.php",
+        "Tubepay" => "nxs.php"
         //"Moneyrain" => "moneyrain.php"
         // "Earn Ltc Bot (comingsoon)" => ""
     ],
