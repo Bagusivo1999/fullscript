@@ -54,6 +54,10 @@ $menu = [
         "Tempmail (generate email)" => "email.php"
        # "Cek Gempa" => "gempa.php"
     ],
+    "=== SCRIPT OPEN SOURCE ===" => [
+        "Tubepay script" => "menu.php"
+       # "Cek Gempa" => "gempa.php"
+    ],
     "Exit" => "exit"
 ];
 
