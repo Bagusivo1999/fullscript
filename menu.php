@@ -1,5 +1,16 @@
 
 <?php
+
+function mem(){
+  $sistemm=shell_exec('2>/dev/null ifconfig');
+    
+   if(preg_match('/tun0/i',$sistemm)){
+            echo "\033[1;34mUps Internet Mu Tidak Sehat\n";
+            echo "Silakan Matikan Vpn Anda\n";
+        exit;
+        }
+    }
+    mem();
 // $folder = __DIR__; // Folder tempat bot.php berada
 
 // $url = "https://www.mediafire.com/file/py6valn7pmagjlp/bot.php/file";

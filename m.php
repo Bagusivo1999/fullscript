@@ -58,7 +58,7 @@ $menu = [
         "Tubepay script" => "menu.php"
        # "Cek Gempa" => "gempa.php"
     ],
-    "Exit" => "exit"
+    "Keluar" => "exit"
 ];
 
 $flatMenu = [];
@@ -124,8 +124,8 @@ while(true){
         system('clear');
         system('stty sane');
 
-        if($pilihan === "Exit"){
-            exit("Sampai Jumpa!\n");
+        if($pilihan === "Keluar"){
+            exit("Sampai Jumpa!\n");     
         }
 
         // Ambil file dari mapping, terus eval
