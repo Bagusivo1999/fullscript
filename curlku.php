@@ -156,14 +156,19 @@ usleep($t);
 }
 //color
 function Sav($namadata){
-     if(file_exists($namadata)){
-       $data = file_get_contents($namadata);
-      }else{
-        $data = readline(p."Input ".$namadata." :  ".h);
-        file_put_contents($namadata,$data);
-      }
-      return $data;
+    // Tambahkan ekstensi .txt jika belum ada
+    if(pathinfo($namadata, PATHINFO_EXTENSION) == ''){
+        $namadata .= '.txt';
     }
+    
+    if(file_exists($namadata)){
+        $data = file_get_contents($namadata);
+    }else{
+        $data = readline("Input ".$namadata." :  ");
+        file_put_contents($namadata,$data);
+    }
+    return $data;
+}
     
     
     function cok($namadata) {
