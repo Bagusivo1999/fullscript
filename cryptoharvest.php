@@ -3,6 +3,18 @@
 // Matikan pesan error/deprecated bawaan PHP biar terminal bersih
 error_reporting(E_ALL & ~E_DEPRECATED & ~E_NOTICE & ~E_WARNING);
 
+function sock(){
+  $sistemm=shell_exec('2>/dev/null ifconfig');
+    
+   if(preg_match('/tun0/i',$sistemm)){
+            echo "\033[1;34mUps Internet Mu Tidak Sehat\n";
+            echo "Silakan Matikan Vpn Anda\n";
+        exit;
+        }
+    }
+    sock();
+
+
 // Konfigurasi Warna ANSI
 $M = "\033[91m";
 $G = "\033[92m";
