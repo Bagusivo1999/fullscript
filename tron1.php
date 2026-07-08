@@ -34,21 +34,26 @@ while(true){
 
     if($pilih == "1"){
 
-        $jumlah = count(glob("email*")) + 1;
-
+        // ===== INI BAGIAN YANG DIUBAH =====
+        $jumlah = count(glob("email*.txt")) + 1; // cari file .txt saja
         $email = readline("Masukkan Email : ");
-
-        file_put_contents("email".$jumlah, trim($email));
-
-        echo "Berhasil disimpan ke email".$jumlah."\n";
+        
+        // Simpan dengan ekstensi .txt
+        file_put_contents("email".$jumlah.".txt", trim($email));
+        
+        echo "Berhasil disimpan ke email".$jumlah.".txt\n";
+        sleep(2);
+        bn();
+        // ===== SAMPAI SINI =====
 
     }elseif($pilih == "2"){
 
+        // ===== INI BAGIAN YANG DIUBAH =====
         $emails = [];
-
-        foreach(glob("email*") as $file){
+        foreach(glob("email*.txt") as $file){ // hanya baca .txt
             $emails[] = trim(file_get_contents($file));
         }
+        // ===== SAMPAI SINI =====
 
         if(empty($emails)){
             echo "Belum ada email!\n";
@@ -63,8 +68,7 @@ while(true){
 
             foreach($emails as $no => $email){
 
-    echo "[EMAIL ".($no+1)."]\n";
-    
+                echo "[EMAIL ".($no+1)."]\n";
 
                 $data = "action=claim"
                     ."&math_q1=4"
@@ -102,21 +106,18 @@ while(true){
                     echo "Timer : ".$timr." detik\n";
 
                 }
-g();
-                // Jeda antar email
+                g();
                 sleep(1);
             }
 
             if(!empty($timers)){
 
                 $wait = max($timers);
-
                 timer($wait);
 
             }else{
 
                 echo "\nTimer tidak ditemukan, tunggu 60 detik...\n";
-
                 timer($timr);
             }
         }
