@@ -42,9 +42,9 @@ $menu = [
     "=== SCRIPT FAUCET===" => [
         "Penghasil Ton" => "tron1.php",
         "Vitsplay" => "vits.php",
-        // "Cashclip" => "cash.php",
+        "cryptoharvest" => "cryptoharvest.php",
         // "Cashclip 2" => "cash1.php",
-        "Earntycoon" => "ty.php",
+        //"Earntycoon" => "ty.php",
         #"Tubepay" => "nxs.php"
         //"Moneyrain" => "moneyrain.php"
         // "Earn Ltc Bot (comingsoon)" => ""
