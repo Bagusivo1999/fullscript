@@ -1,304 +1,578 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta content="Earn Free Bonk , Pepe , Bitcoin and tens of different crypto" name="description" />
-    <meta name="keywords" content="Free BTC , bitcoin , crypto , etheeum , free solana , free bonk , free pepe">
-    <meta name="author" content="FreeBonk">
-    <link rel="icon" href="../assets/images/favicon.png" type="image/x-icon">
-    <link rel="shortcut icon" href="../assets/images/favicon.png" type="image/x-icon">
-    <title>Home | Bonk Faucet </title>
-    <!-- Google font-->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&amp;display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="../assets/css/font-awesome.css">
-    <link rel="stylesheet" type="text/css" href="../assets/css/vendors/icofont.css">
-    <link rel="icon" href="../assets/svg/landing-icons.svg">
-    <link rel="stylesheet" type="text/css" href="../assets/css/vendors/slick.css">
-    <link rel="stylesheet" type="text/css" href="../assets/css/vendors/slick-theme.css">
-    <link rel="stylesheet" type="text/css" href="../assets/css/vendors/animate.css">
-    <!-- Bootstrap css-->
-    <link rel="stylesheet" type="text/css" href="../assets/css/vendors/bootstrap.css">
-    <!-- App css-->
-    <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
-    <!-- Responsive css-->
-    <link rel="stylesheet" type="text/css" href="../assets/css/responsive.css">
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-974GWP9Z06"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VipcoinFaucet_bot — Open in Telegram</title>
+    <link rel="icon" href="https://vipcoinfaucet.com/assets/images/favicon.png" type="image/x-icon" />
+    <!-- Telegram Web App SDK — needed to detect Telegram WebView and auto-forward initData -->
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
-  gtag('config', 'G-974GWP9Z06');
-</script>
-  </head>
-  <body class="landing-page">
-    <!-- tap on top starts-->
-    <div class="tap-top"><i data-feather="chevrons-up"></i></div>
-    <!-- tap on tap ends-->
-    <!-- page-wrapper Start-->
-    <div class="landing-page"><span class="cursor"><span class="cursor-move-inner"><span class="cursor-inner"></span></span><span class="cursor-move-outer"><span class="cursor-outer"> </span></span></span>
-      <!-- Page Body Start-->
-      <div class="landing-home" id="home">
-        <div class="container-fluid"> 
-          <div class="sticky-header">
-            <header>
-<nav class="navbar navbar-b navbar-dark navbar-trans navbar-expand-xl fixed-top nav-padding" id="sidebar-menu">
-    <a class="navbar-brand p-0 text-success f-w-700 f-25" href="#">Free-Bonk</a>
-    <div class="navbar-collapse justify-content-center collapse hidenav" id="navbarDefault">
-        <ul class="navbar-nav navbar_nav_modify" id="scroll-spy">
-            <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
-            <li class="nav-item"><a class="nav-link" id="Proof" href="#proof">Payments</a></li>
-            <li class="nav-item"><a class="nav-link" id="Faq" href="#faq">FAQ</a></li>            
-            <li class="nav-item"><a class="nav-link" id="Feature" href="#feature">Feature</a></li>
-        </ul>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: #0a0e27;
+            min-height: 100vh;
+            color: #e0e0e0;
+            overflow-x: hidden;
+        }
+
+        /* Animated gradient background */
+        .bg-glow {
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(ellipse at 30% 20%, rgba(0, 136, 204, 0.15) 0%, transparent 50%),
+                        radial-gradient(ellipse at 70% 80%, rgba(88, 101, 242, 0.1) 0%, transparent 50%),
+                        radial-gradient(ellipse at 50% 50%, rgba(0, 136, 204, 0.05) 0%, transparent 70%);
+            animation: bgPulse 8s ease-in-out infinite alternate;
+            z-index: 0;
+        }
+        @keyframes bgPulse {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(-2%, -2%) scale(1.05); }
+        }
+
+        .page-wrapper {
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Header / Hero */
+        .hero {
+            text-align: center;
+            padding: 50px 24px 30px;
+            max-width: 520px;
+            width: 100%;
+        }
+
+        .logo-img {
+            max-width: 160px;
+            margin-bottom: 28px;
+            filter: drop-shadow(0 4px 12px rgba(0, 136, 204, 0.3));
+        }
+
+        .tg-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0, 136, 204, 0.15);
+            border: 1px solid rgba(0, 136, 204, 0.3);
+            border-radius: 20px;
+            padding: 6px 16px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #29b6f6;
+            margin-bottom: 20px;
+            letter-spacing: 0.3px;
+        }
+        .tg-badge .dot {
+            width: 8px;
+            height: 8px;
+            background: #29b6f6;
+            border-radius: 50%;
+            animation: blink 1.5s infinite;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        .hero h1 {
+            font-size: 28px;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 12px;
+            line-height: 1.25;
+        }
+        .hero h1 span {
+            background: linear-gradient(135deg, #29b6f6, #0088cc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero .subtitle {
+            font-size: 16px;
+            color: #94a3b8;
+            line-height: 1.6;
+            max-width: 420px;
+            margin: 0 auto;
+        }
+
+        /* Shield Icon */
+        .shield-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, rgba(0, 136, 204, 0.2), rgba(88, 101, 242, 0.2));
+            border: 2px solid rgba(0, 136, 204, 0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            animation: float 3s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+        .shield-icon svg { width: 36px; height: 36px; }
+
+        /* Features Grid */
+        .features {
+            max-width: 520px;
+            width: 100%;
+            padding: 0 24px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 32px;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            padding: 18px 16px;
+            text-align: center;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+        .feature-card:hover {
+            transform: translateY(-2px);
+            border-color: rgba(0, 136, 204, 0.3);
+        }
+
+        .feature-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px;
+            font-size: 20px;
+        }
+        .fi-blue   { background: rgba(41, 182, 246, 0.15); color: #29b6f6; }
+        .fi-green  { background: rgba(76, 175, 80, 0.15);  color: #66bb6a; }
+        .fi-orange { background: rgba(255, 167, 38, 0.15);  color: #ffa726; }
+        .fi-purple { background: rgba(171, 71, 188, 0.15);  color: #ba68c8; }
+        .fi-cyan   { background: rgba(0, 188, 212, 0.15);   color: #26c6da; }
+        .fi-red    { background: rgba(239, 83, 80, 0.15);   color: #ef5350; }
+
+        .feature-card h3 {
+            font-size: 13px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 4px;
+        }
+        .feature-card p {
+            font-size: 11px;
+            color: #64748b;
+            line-height: 1.4;
+        }
+
+        /* Steps Section */
+        .steps-section {
+            max-width: 520px;
+            width: 100%;
+            padding: 0 24px;
+            margin-bottom: 36px;
+        }
+
+        .steps-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #fff;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .steps {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .step {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 14px;
+            padding: 16px;
+        }
+
+        .step-num {
+            flex-shrink: 0;
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, #0088cc, #005fa3);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 15px;
+            font-weight: 800;
+            color: #fff;
+        }
+
+        .step-content h4 {
+            font-size: 14px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 3px;
+        }
+        .step-content p {
+            font-size: 13px;
+            color: #64748b;
+            line-height: 1.5;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            max-width: 520px;
+            width: 100%;
+            padding: 0 24px 24px;
+            text-align: center;
+        }
+
+        .btn-telegram {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            width: 100%;
+            max-width: 360px;
+            background: linear-gradient(135deg, #0088cc, #0077b5);
+            color: #fff;
+            font-size: 17px;
+            font-weight: 700;
+            padding: 16px 32px;
+            border-radius: 14px;
+            text-decoration: none;
+            transition: transform 0.15s, box-shadow 0.15s;
+            box-shadow: 0 8px 30px rgba(0, 136, 204, 0.35);
+            letter-spacing: 0.3px;
+        }
+        .btn-telegram:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(0, 136, 204, 0.45);
+        }
+        .btn-telegram:active {
+            transform: translateY(0);
+        }
+        .btn-telegram svg { width: 24px; height: 24px; fill: #fff; flex-shrink: 0; }
+
+        .cta-hint {
+            margin-top: 16px;
+            font-size: 13px;
+            color: #475569;
+            line-height: 1.5;
+        }
+        .cta-hint strong { color: #64748b; }
+
+        /* Warning Banner */
+        .warning-bar {
+            max-width: 520px;
+            width: 100%;
+            padding: 0 24px;
+            margin-bottom: 28px;
+        }
+        .warning-box {
+            background: rgba(239, 83, 80, 0.08);
+            border: 1px solid rgba(239, 83, 80, 0.2);
+            border-radius: 12px;
+            padding: 14px 18px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 13px;
+            color: #ef9a9a;
+            line-height: 1.5;
+        }
+        .warning-box .warn-icon {
+            flex-shrink: 0;
+            font-size: 20px;
+        }
+
+        /* Footer */
+        .page-footer {
+            max-width: 520px;
+            width: 100%;
+            text-align: center;
+            padding: 20px 24px 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .page-footer .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 14px;
+        }
+        .page-footer .social-links a {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #64748b;
+            font-size: 18px;
+            text-decoration: none;
+            transition: background 0.2s, color 0.2s;
+        }
+        .page-footer .social-links a:hover {
+            background: rgba(0, 136, 204, 0.15);
+            color: #29b6f6;
+        }
+        .page-footer p {
+            font-size: 12px;
+            color: #334155;
+        }
+
+        @media (max-width: 400px) {
+            .hero h1 { font-size: 24px; }
+            .features { grid-template-columns: 1fr; }
+            .hero { padding: 40px 20px 24px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-glow"></div>
+    <div class="page-wrapper">
+
+        <!-- Hero -->
+        <div class="hero">
+            <img class="logo-img" src="https://vipcoinfaucet.com/assets/images/logo-white.png" alt="VipcoinFaucet_bot" />
+
+            <div class="tg-badge">
+                <span class="dot"></span>
+                Telegram Exclusive App
+            </div>
+
+            <div class="shield-icon">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2L3 7v5c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-9-5z" fill="rgba(0,136,204,0.3)" stroke="#29b6f6" stroke-width="1.5"/>
+                    <path d="M9 12l2 2 4-4" stroke="#29b6f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+
+            <h1>This App Runs<br>Inside <span>Telegram</span></h1>
+            <p class="subtitle">
+                VipcoinFaucet_bot is a Telegram Mini App.
+                It can only be accessed through the Telegram messenger — direct browser access is not available.
+            </p>
+        </div>
+
+        <!-- Warning Banner -->
+        <div class="warning-bar">
+            <div class="warning-box">
+                <span class="warn-icon">🚫</span>
+                <span>You're viewing this page from a regular browser. This app requires Telegram to verify your identity and protect your account.</span>
+            </div>
+        </div>
+
+        <!-- Features Grid -->
+        <div class="features">
+            <div class="feature-card">
+                <div class="feature-icon fi-blue">💧</div>
+                <h3>Faucet Claims</h3>
+                <p>Claim free crypto every few minutes</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon fi-green">🔗</div>
+                <h3>Shortlinks</h3>
+                <p>Earn by completing short links</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon fi-orange">🎯</div>
+                <h3>Offerwalls</h3>
+                <p>Complete offers for bigger rewards</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon fi-purple">🏆</div>
+                <h3>Daily Challenges</h3>
+                <p>Bonus rewards for daily goals</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon fi-cyan">🎟️</div>
+                <h3>Coupons</h3>
+                <p>Redeem codes for instant crypto</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon fi-red">🏅</div>
+                <h3>Contests</h3>
+                <p>Compete and win big prizes</p>
+            </div>
+        </div>
+
+        <!-- How to Access Steps -->
+        <div class="steps-section">
+            <h2 class="steps-title">How to Access</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-num">1</div>
+                    <div class="step-content">
+                        <h4>Install Telegram</h4>
+                        <p>Download Telegram from <a href="https://telegram.org" target="_blank" style="color:#29b6f6;text-decoration:none;">telegram.org</a> on your phone, desktop, or use the web version.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-num">2</div>
+                    <div class="step-content">
+                                                <h4>Open Our Bot</h4>
+                        <p>Search for <strong style="color:#29b6f6;">@VipcoinFaucet_bot</strong> in Telegram, or tap the button below to go directly.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-num">3</div>
+                    <div class="step-content">
+                        <h4>Launch the Mini App</h4>
+                        <p>Tap the <strong style="color:#e0e0e0;">Mini App</strong> button at the bottom of the bot chat to open the app and start earning.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CTA Button -->
+        <div class="cta-section">
+                        <a class="btn-telegram" href="https://t.me/VipcoinFaucet_bot">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.479.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+                </svg>
+                Open in Telegram
+            </a>
+            <p class="cta-hint">Tap the button above to open <strong>@VipcoinFaucet_bot</strong> in Telegram, then launch the Mini App to start earning crypto.</p>
+                    </div>
+
+        <!-- Footer -->
+        <div class="page-footer">
+            <div class="social-links">
+                                <a href="https://t.me/VipcoinFaucet_botchannel" target="_blank" title="Telegram Channel">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.479.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+                    </svg>
+                </a>
+                                                <a href="https://t.me/cryptorewardsg" target="_blank" title="Contact Admin">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/>
+                    </svg>
+                </a>
+                            </div>
+            <p>&copy; 2026 VipcoinFaucet_bot. All rights reserved.</p>
+        </div>
+
     </div>
-    <button class="navbar-toggler navabr_btn-set custom_nav" type="button" data-bs-toggle="collapse" data-bs-target="#navbarDefault" aria-controls="navbarDefault" aria-expanded="false" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
-    <div class="buy-btn text-end"><a class="nav-link js-scroll" href="./login" >Log-in</a></div>
 
-</nav>
+    <!-- Hidden auto-login form for Telegram WebView (auto-submits initData) -->
+    <form id="tg-bridge-form" action="https://vipcoinfaucet.com/app/auth/telegram_login" method="POST" style="display:none;">
+                <input type="hidden" name="csrf_test_name" value="8d370b6de3adffc4fcae08f1575fc110">
+                <input type="hidden" name="tg_init_data" id="tg_bridge_init_data" value="">
+        <input type="hidden" name="reg_nonce" value="ec5efea532af73bbc8bec5fad6cf7937">
+        <input type="hidden" name="uid" id="tg_bridge_uid" value="">
+        <!-- Honeypot: hidden from real users, bots will auto-fill -->
+        <input type="text" name="website_url" value="" style="position:absolute;left:-9999px;top:-9999px;opacity:0;height:0;width:0;" tabindex="-1" autocomplete="off">
+    </form>
 
-            </header>
-          </div>
-          <div class="row justify-content-center">
-            <div class="col-lg-8 col-sm-10">
-
-              <div class="content text-center">
-                <div>
-                  <h1 class="text-center f-50 f-w-800"> Earn Free Bonk</h1>
-
-  
-                </div>
-              </div>
-              <div class="user-content"> <span class="text-center f-18 f-w-500"><strong>Instant Auto Payments </strong></span>
-                    
-                              <div  class="button-wrapper"><a href="./register" class="btn bg-light-success border-success w-70 border-2 my-6  f-w-700 f-20 p-2 text-success"> Register</a></div>
-                      </div>
-                   <div class="d-flex flex-wrap justify-content-center align-items-center gap-2 p-2">
-  <img width="40" src="/assetsf/images/currencies/bonk.png" alt="bonk" />
-  <img width="40" src="/assetsf/images/currencies/pepe.png" alt="pepe" />
-  <img width="40" src="/assetsf/images/currencies/sol.png" alt="sol" />
-  <img width="40" src="/assetsf/images/currencies/ltc.png" alt="ltc" />
-  <img width="40" src="/assetsf/images/currencies/trx.png" alt="trx" />
-  <img width="40" src="/assetsf/images/currencies/ton.png" alt="ton" />
-  <img width="40" src="/assetsf/images/currencies/doge.png" alt="doge" />
-  <img width="40" src="/assetsf/images/currencies/shib.png" alt="shib" />
-  <img width="40" src="/assetsf/images/currencies/usdt.png" alt="usdt" />
-</div>
-
-
-            </div>
-          </div>
-        </div>
-      </div>
-<!-- demo section  -->
-      <section  class="demo-section section-py-space" id="proof">
-        <div class="title text-center">
-          <h5>Get your first payout within a minute of registration</h5>
-          <h2 class="mb-lg-2 mb-0">Check Our Payment Proofs</h2>
-        </div>
-        <div class="container"> 
-          <div class="row demo-block demo-imgs">
-              <div class="col-lg-12">
-                  <div class="card card-body">
-                                    <div class="table-responsive">
-
-				<table class="table table-striped text-center">
-
-					<thead>
-						<tr>
-							<th scope="col">#</th>
-							<th scope="col">Username</th>
-							<th scope="col">Crypto</th>
-							<th scope="col">Time</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr><th scope="row">1370041</th><td>Rajubhai0012</td><td>0.00007038 <img style="height:34px !important;width:34px !important;" src="https://free-bonk.com/assetsf/images/currencies/sol.png"></td><td>2 Minutesago</td></tr><tr><th scope="row">1370040</th><td>dinorex</td><td>737.70491803 <img style="height:34px !important;width:34px !important;" src="https://free-bonk.com/assetsf/images/currencies/pepe.png"></td><td>3 Minutesago</td></tr><tr><th scope="row">1370039</th><td>hopriks</td><td>0.00021069 <img style="height:34px !important;width:34px !important;" src="https://free-bonk.com/assetsf/images/currencies/ltc.png"></td><td>5 Minutesago</td></tr><tr><th scope="row">1370038</th><td>jk0610</td><td>1,639.34426230 <img style="height:34px !important;width:34px !important;" src="https://free-bonk.com/assetsf/images/currencies/pepe.png"></td><td>5 Minutesago</td></tr><tr><th scope="row">1370037</th><td>sigrepkirik</td><td>0.00002598 <img style="height:34px !important;width:34px !important;" src="https://free-bonk.com/assetsf/images/currencies/ltc.png"></td><td>5 Minutesago</td></tr><tr><th scope="row">1370036</th><td>pjms23</td><td>0.00039898 <img style="height:34px !important;width:34px !important;" src="https://free-bonk.com/assetsf/images/currencies/ltc.png"></td><td>6 Minutesago</td></tr><tr><th scope="row">1370035</th><td>yayan1910</td><td>0.01772277 <img style="height:34px !important;width:34px !important;" src="https://free-bonk.com/assetsf/images/currencies/usdt.png"></td><td>10 Minutesago</td></tr><tr><th scope="row">1370034</th><td>azzaria</td><td>0.00046987 <img style="height:34px !important;width:34px !important;" src="https://free-bonk.com/assetsf/images/currencies/ltc.png"></td><td>11 Minutesago</td></tr><tr><th scope="row">1370033</th><td>Edvarme</td><td>0.00333333 <img style="height:34px !important;width:34px !important;" src="https://free-bonk.com/assetsf/images/currencies/ton.png"></td><td>12 Minutesago</td></tr><tr><th scope="row">1370032</th><td>anizar</td><td>1,004.09836066 <img style="height:34px !important;width:34px !important;" src="https://free-bonk.com/assetsf/images/currencies/pepe.png"></td><td>12 Minutesago</td></tr><tr><th scope="row">1370031</th><td>wiliyammsalibaa</td><td>0.00002598 <img style="height:34px !important;width:34px !important;" src="https://free-bonk.com/assetsf/images/currencies/ltc.png"></td><td>12 Minutesago</td></tr><tr><th scope="row">1370030</th><td>Chektigrup</td><td>0.00002598 <img style="height:34px !important;width:34px !important;" src="https://free-bonk.com/assetsf/images/currencies/ltc.png"></td><td>14 Minutesago</td></tr><tr><th scope="row">1370029</th><td>Susulgrup</td><td>0.00002598 <img style="height:34px !important;width:34px !important;" src="https://free-bonk.com/assetsf/images/currencies/ltc.png"></td><td>14 Minutesago</td></tr><tr><th scope="row">1370028</th><td>vinalmonte08</td><td>0.00299107 <img style="height:34px !important;width:34px !important;" src="https://free-bonk.com/assetsf/images/currencies/ton.png"></td><td>15 Minutesago</td></tr><tr><th scope="row">1370027</th><td>Dahlamgrup</td><td>0.00002598 <img style="height:34px !important;width:34px !important;" src="https://free-bonk.com/assetsf/images/currencies/ltc.png"></td><td>16 Minutesago</td></tr><tr><th scope="row">1370026</th><td>BigBadBear</td><td>2,254.09836066 <img style="height:34px !important;width:34px !important;" src="https://free-bonk.com/assetsf/images/currencies/pepe.png"></td><td>17 Minutesago</td></tr><tr><th scope="row">1370025</th><td>pikassopika</td><td>0.00255328 <img style="height:34px !important;width:34px !important;" src="https://free-bonk.com/assetsf/images/currencies/usdt.png"></td><td>17 Minutesago</td></tr><tr><th scope="row">1370024</th><td>Judek</td><td>0.02045128 <img style="height:34px !important;width:34px !important;" src="https://free-bonk.com/assetsf/images/currencies/usdt.png"></td><td>17 Minutesago</td></tr><tr><th scope="row">1370023</th><td>Juliorob</td><td>0.00002598 <img style="height:34px !important;width:34px !important;" src="https://free-bonk.com/assetsf/images/currencies/ltc.png"></td><td>17 Minutesago</td></tr><tr><th scope="row">1370022</th><td>linakirik</td><td>0.00002598 <img style="height:34px !important;width:34px !important;" src="https://free-bonk.com/assetsf/images/currencies/ltc.png"></td><td>17 Minutesago</td></tr>					</tbody>
-				</table>
-			</div>
-                  </div>
-              </div>
-          </div>
-        </div>
-      </section>
-      <!--frameworks start-->
-      <section class="framework section-py-space light-bg" id="feature">
-        <div class="container-lg container-fluid"> 
-          <div class="row"> 
-            <div class="col-sm-12 wow pulse">
-              <div class="title text-center"> 
-                <h5>Features available</h5>
-                <h2 class="mb-lg-2 mb-0">Top Features</h2>
-              </div>
-            </div>
-            <div class="col-sm-12 framworks"> 
-              <div class="tab-content" id="pills-tabContent">
-                <div class="tab-pane fade show active" id="pills-home" role="tabpanel">
-                  <ul class="framworks-list">
-                    <li class="box wow fadeInUp">
-                      <div><img src="../assets/images/landing/icon/html/iconset.png" alt=""></div>
-                      <h5 class="mb-0 f-w-600">Instant Pay</h5>
-                    </li>
-                    <li class="box wow fadeInUp"> 
-                      <div><img src="../assets/images/landing/icon/html/builders.png" alt=""></div>
-                      <h5 class="mb-0 f-w-600">Fast Support</h5>
-                    </li>
-                    <li class="box wow fadeInUp">
-                      <div><img src="../assets/images/landing/icon/html/sass.png" alt=""></div>
-                      <h5 class="mb-0 f-w-600">Shortlinks</h5>
-                    </li>
-                    <li class="box wow fadeInUp">
-                      <div><img src="../assets/images/landing/icon/html/pug.png" alt=""></div>
-                      <h5 class="mb-0 f-w-600">Daily Coupon</h5>
-                    </li>
-                    <li class="box wow fadeInUp">
-                      <div><img src="../assets/images/landing/icon/html/npm.png" alt=""></div>
-                      <h5 class="mb-0 f-w-600">Offerwalls</h5>
-                    </li>
-                    <li class="box wow fadeInUp">
-                      <div><img src="../assets/images/landing/icon/html/charts.png" alt=""></div>
-                      <h5 class="mb-0 f-w-600">High Paying</h5>
-                    </li>
-                    <li class="box wow fadeInUp">
-                      <div><img src="../assets/images/landing/icon/html/gulp.png" alt=""></div>
-                      <h5 class="mb-0 f-w-600">PTCs</h5>
-                    </li>
-                    <li class="box wow fadeInUp">
-                      <div><img src="../assets/images/landing/icon/html/web-pack.png" alt=""></div>
-                      <h5 class="mb-0 f-w-600">Daily Contest</h5>
-                    </li>
-                    <li class="box wow bounceIn">
-                      <div><img src="../assets/images/landing/icon/html/kit.png" alt=""></div>
-                      <h5 class="mb-0 f-w-600">Challenges</h5>
-                    </li>
-                    <li class="box wow bounceIn">
-                      <div><img src="../assets/images/landing/icon/html/uikits.png" alt=""></div>
-                      <h5 class="mb-0 f-w-600">Auto Withdraw</h5>
-                    </li>
-                    <li class="box wow bounceIn">
-                      <div><img src="../assets/images/landing/icon/html/builders.png" alt=""></div>
-                      <h5 class="mb-0 f-w-600">Easy Advertising</h5>
-                    </li>
-                    <li class="box wow bounceIn">
-                      <div><img src="../assets/images/landing/icon/html/iconset.png" alt=""></div>
-                      <h5 class="mb-0 f-w-600">11 Fast Deposit </h5>
-                    </li>
-
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      <!--choose Riho -->
-      <section class="faq section-py-space feature-section" id="faq"> 
-        <div class="container">
-          <div class="row">
-            <div class="col-sm-12 wow pulse"> 
-              <div class="title text-center">
-                <h5>Have Questions?</h5>
-                <h2 class="mb-lg-2 mb-0">FAQ </h2>
-              </div>
-            </div>
-          </div>
-          <div class="row g-4">
-            <div class="col-xxl-3 col-lg-4 col-sm-6 mb-4">
-              <div class="feature-box common-card bg-feature"> 
-                <div class="feature-icon bg-white">
-                  <div><img src="../assets/images/landing/feature-icon/1.svg" alt="feature-icon"></div>
-                </div>
-                <h5 class="text-center">Can I create Multiple Accounts?</h5>
-                <p class="mb-0 f-light">NO , its not allowed . Doing such will lead to permanent Ban.</p>
-              </div>
-            </div>
-            <div class="col-xxl-3 col-lg-4 col-sm-6">
-              <div class="feature-box common-card bg-feature">
-                <div class="feature-icon bg-white">
-                  <div><img src="../assets/images/landing/feature-icon/2.svg" alt="feature-icon"></div>
-                </div>
-                <h5 class="text-center">How much time it takes to withdraw?</h5>
-                <p class="mb-0 f-light">Within 1 second , withdrawals are instant and processed automatically</p>
-              </div>
-            </div>
-            <div class="col-xxl-3 col-lg-4 col-sm-6"> 
-              <div class="feature-box common-card bg-feature">
-                <div class="feature-icon bg-white"> 
-                  <div><img src="../assets/images/landing/feature-icon/3.svg" alt="feature-icon"></div>
-                </div>
-                <h5 class="text-center">Can i use Bots/VPN/Proxy/Script?</h5>
-                <p class="mb-0 f-light">NO, Your account wil be banned on doing such activities. Read Rules.</p>
-              </div>
-            </div>
-            <div class="col-xxl-3 col-lg-4 col-sm-6"> 
-              <div class="feature-box common-card bg-feature">
-                <div class="feature-icon bg-white"> 
-                  <div><img src="../assets/images/landing/feature-icon/4.svg" alt="feature-icon"></div>
-                </div>
-                <h5 class="text-center">How much can i earn daily?</h5>
-                <p class="mb-0 f-light">You can earn a lot depending upon your activity within website.</p>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-      <section class="landing-footer section-py-space" id="footer">
-        <div class="custom-container">
-          <div class="row p-0 m-0">
-            <div class="col-12"> 
-              <div class="footer-contain">
-                <div class="rating-wrraper"><p class="f-24 f-w-700"> Free-Bonk</p></div>
-                <h2 class="f-w-600">"Earn Memecoins in MicroSeconds" </h2>
-                <p class="f-w-500">Copyright 2024-25 © All rights reserved.</p>
-                <ul class="star-rate"> 
-                  <li><i class="fa fa-star font-warning"></i></li>
-                  <li><i class="fa fa-star font-warning"></i></li>
-                  <li><i class="fa fa-star font-warning"></i></li>
-                  <li><i class="fa fa-star font-warning">   </i></li>
-                  <li> <i class="fa fa-star font-warning"> </i></li>
-                </ul>
-                <style>
-                  .underlined{
-                      text-decoration:2px underline !important;
-                      margin-top :2px ;
-                      margin-bottom:2px;
-                  }
-                </style>
-                
-                <p class="f-w-600">Business Contact: <a class="text-white" href="/cdn-cgi/l/email-protection#b3d2d7dedaddf3d5c1d6d69ed1dcddd89dd0dcde"><span class="__cf_email__" data-cfemail="1677727b7f7856706473733b7479787d3875797b">[email&#160;protected]</span></a></p>
-                <div class="btn-footer"> <a class="btn btn-lg btn-primary" target="_blank" href="https://t.me/freebonkcom" data-bs-original-title="" title="">Telegram</a><a class="btn btn-lg btn-secondary" target="_blank" href="./login" data-bs-original-title="" title="">Login</a><a class="btn btn-lg btn-success" target="_blank" href="./register" data-bs-original-title="" title="">Register</a></div>
-                 <p> <a href="../terms.php" class="text-white underlined"> terms of service</a> || <a href="../privacy.php" class="underlined text-white">Privacy policy</a></p>
-             </div>
-            </div>
-          </div>
-        </div>
-      </section>
+    <!-- Loading overlay shown while auto-submitting inside Telegram -->
+    <div id="tg-bridge-loading" style="display:none; position:fixed; inset:0; z-index:9999; background:#0a0e27; align-items:center; justify-content:center; flex-direction:column;">
+        <div style="width:48px;height:48px;border:3px solid rgba(41,182,246,0.2);border-top-color:#29b6f6;border-radius:50%;animation:spin 0.8s linear infinite;"></div>
+        <p style="margin-top:16px;color:#94a3b8;font-size:15px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;">Connecting via Telegram...</p>
     </div>
-    <!-- latest jquery-->
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="../assets/js/jquery-3.5.1.min.js"></script>
-    <script src="../assets/js/cursor/stats.min.js"> </script>
-    <!-- Bootstrap js-->
-    <script src="../assets/js/bootstrap/bootstrap.bundle.min.js"></script>
-    <!-- feather icon js-->
-    <script src="../assets/js/icons/feather-icon/feather.min.js"></script>
-    <script src="../assets/js/icons/feather-icon/feather-icon.js"></script>
-    <!-- Plugins JS start-->
-    <script src="../assets/js/tooltip-init.js"></script>
-    <script src="../assets/js/animation/wow/wow.min.js"></script>
-    <script src="../assets/js/landing_sticky.js"></script>
-    <script src="../assets/js/landing.js"></script>
-    <script src="../assets/js/slick/slick.min.js"></script>
-    <script src="../assets/js/slick/slick.js"></script>
-    <script src="../assets/js/landing-slick.js"></script>
-    <script src="../assets/js/header-slick.js"></script>
-    <!-- Plugins JS Ends-->
-  </body>
+    <style>@keyframes spin { to { transform: rotate(360deg); } }</style>
+
+    <script>
+    (function() {
+        var tg = window.Telegram && window.Telegram.WebApp;
+        if (tg && tg.initData && tg.initData.length > 0) {
+            // ── Loop protection: stop after 3 rapid auto-submits within 30 seconds ──
+            var now = Date.now();
+            var loopKey = 'tg_bridge_attempts';
+            var loopData = JSON.parse(sessionStorage.getItem(loopKey) || '{"count":0,"first":0}');
+            if (now - loopData.first > 30000) {
+                // Reset window
+                loopData = { count: 0, first: now };
+            }
+            loopData.count++;
+            sessionStorage.setItem(loopKey, JSON.stringify(loopData));
+
+            if (loopData.count > 3) {
+                // Too many rapid attempts — break the loop, show error
+                var loading = document.getElementById('tg-bridge-loading');
+                var wrapper = document.querySelector('.page-wrapper');
+                if (loading) loading.style.display = 'none';
+                if (wrapper) wrapper.style.display = 'flex';
+                // Replace the page content with an error message
+                var hero = wrapper && wrapper.querySelector('.hero');
+                if (hero) {
+                    hero.querySelector('h1').innerHTML = 'Connection Failed';
+                    hero.querySelector('.subtitle').innerHTML = 'Unable to log in automatically. Please close this Mini App completely and reopen it from Telegram.';
+                }
+                // Hide all other sections
+                var sections = wrapper ? wrapper.querySelectorAll('.features, .steps-section, .warning-bar') : [];
+                for (var i = 0; i < sections.length; i++) sections[i].style.display = 'none';
+                // Clear the counter so next open gets a fresh start
+                sessionStorage.removeItem(loopKey);
+                return;
+            }
+
+            // We're inside Telegram — auto-forward initData to login endpoint
+            tg.ready();
+            tg.expand();
+
+            // Show loading, hide blocked page content
+            var loading = document.getElementById('tg-bridge-loading');
+            var wrapper = document.querySelector('.page-wrapper');
+            if (loading) loading.style.display = 'flex';
+            if (wrapper) wrapper.style.display = 'none';
+
+            // Fill initData into the hidden form
+            var field = document.getElementById('tg_bridge_init_data');
+            var form = document.getElementById('tg-bridge-form');
+            var uidField = document.getElementById('tg_bridge_uid');
+            if (field) field.value = tg.initData;
+
+            // Try to get device fingerprint from localStorage (set by previous page loads)
+            var storedVid = localStorage.getItem('visitorId');
+            if (storedVid && uidField) {
+                uidField.value = storedVid;
+            }
+
+            // Load FingerprintJS, get fresh fingerprint, then submit
+            function submitForm() {
+                if (form) form.submit();
+            }
+
+            // Try to load FingerprintJS for a fresh fingerprint
+            import('https://vipcoinfaucet.com/assets/js/litoshi/fingerprint/fp.js')
+                .then(function(FP) { return FP.load(); })
+                .then(function(fp) { return fp.get(); })
+                .then(function(result) {
+                    var vid = result.visitorId;
+                    localStorage.setItem('visitorId', vid);
+                    if (uidField) uidField.value = vid;
+                    submitForm();
+                })
+                .catch(function() {
+                    // FP failed — submit with localStorage value (may be empty for brand-new users)
+                    submitForm();
+                });
+        }
+        // If not inside Telegram, the normal blocked page is shown (no action needed)
+    })();
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a188fb6dbf5cfd15',t:'MTc4MzYxNzQ0Ng=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script defer src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"87b8b9087687456f83d5a9fbe40b824f","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+</body>
 </html>
+

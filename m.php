@@ -42,8 +42,8 @@ $menu = [
     "=== SCRIPT FAUCET===" => [
         "Penghasil Ton" => "tron1.php",
         "Vitsplay" => "vits.php",
-        "cryptoharvest" => "cryptoharvest.php",
-        // "Cashclip 2" => "cash1.php",
+        "Cryptoharvest" => "cryptoharvest.php",
+         "Aruble" => "arub.php",
         //"Earntycoon" => "ty.php",
         #"Tubepay" => "nxs.php"
         //"Moneyrain" => "moneyrain.php"
