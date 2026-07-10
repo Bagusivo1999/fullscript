@@ -1,7 +1,19 @@
 <?php
 error_reporting(0);
 
+function sock(){
+  $sistemm=shell_exec('2>/dev/null ifconfig');
+    
+   if(preg_match('/tun0/i',$sistemm)){
+            echo "\033[1;34mUps Internet Mu Tidak Sehat\n";
+            echo "Silakan Matikan Vpn Anda\n";
+        exit;
+        }
+    }
+    sock();
+
 function curl($url, $post = 0, $httpheader = 0, $proxy = 0) {
+vpn();
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $url);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
