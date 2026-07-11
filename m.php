@@ -13,6 +13,7 @@ $menu = [
         "Cryptoharvest" => "cryptoharvest.php",
         "Aruble" => "arub.php",
         "BTC" => "btc.py",
+        "Gamerlee" => "gamerlee.py",
     ],
     
 ];
