@@ -1,79 +1,49 @@
 <?php
 error_reporting(0);
-function h($password, $saveFile) {
-    $WHITE = "\033[1;37m";
-    $GREEN = "\033[1;92m";
-    $RED   = "\033[1;31m";
-    $RESET = "\033[0m";
-    $password = "jawapride99";
-    $saveFile = "pw.txt";
 
-    // Jika sudah pernah login
-    if (file_exists($saveFile) && trim(file_get_contents($saveFile)) === $password) {
-        return;
-    }
+// --- SETUP TERMINAL AGAR NAVIGASI BERHASIL DI TERMUX ---
+system('stty cbreak -echo');
+system('clear');
 
-    // Minta password
-    echo $WHITE . "Sedang maintenance: " . $GREEN;
-    $input = trim(fgets(STDIN));
-    echo $RESET;
+// Tampilkan header
+echo "\033[1;36m";
+echo "╔════════════════════════════╗\n";
+echo "║      MENU MODE GRATIS      ║\n";
+echo "╚════════════════════════════╝\n\n";
+echo "\033[0m";
 
-    if ($input === $password) {
-
-        // Simpan password ke pw.txt
-        file_put_contents($saveFile, $password);
-
-        echo $GREEN . "Login berhasil. Selamat datang admin" . $RESET . PHP_EOL;
-        sleep(3);
-
-    } else {
-
-        echo $RED . "Gagal. Password salah" . $RESET . PHP_EOL;
-        exit;
-
-    }
-}
-
-#h($password, $saveFile);
-
-system('stty -icanon -echo');
-
+// --- MENU ---
 $menu = [
     "=== SCRIPT FAUCET===" => [
         "Penghasil Ton" => "tron1.php",
         "Vitsplay" => "vits.php",
         "Cryptoharvest" => "cryptoharvest.php",
-         "Aruble" => "arub.php",
+        "Aruble" => "arub.php",
         "BTC" => "btc.py",
-        #"Tubepay" => "nxs.php"
-        //"Moneyrain" => "moneyrain.php"
-        // "Earn Ltc Bot (comingsoon)" => ""
     ],
     "=== TOOLS SELAIN FAUCET ===" => [
         "AIO downloader (tiktok,soundcloud dll)" => "aio.php",
         "Tempmail (generate email)" => "email.php"
-       # "Cek Gempa" => "gempa.php"
     ],
     "=== SCRIPT OPEN SOURCE ===" => [
         "Tubepay script" => "menu.php"
-       # "Cek Gempa" => "gempa.php"
     ],
     "Keluar" => "exit"
 ];
 
 $flatMenu = [];
-$fileMap = []; // mapping nama menu -> file
+$fileMap = []; 
 
 foreach($menu as $cat => $items){
     $flatMenu[] = $cat;
     if(is_array($items)){
         foreach($items as $nama => $file){
             $flatMenu[] = $nama;
-            $fileMap[$nama] = $file; // simpan mappingnya
+            $fileMap[$nama] = $file;
         }
     } else {
         $flatMenu[] = $cat;
-        $fileMap[$cat] = $items; // untuk Exit
+        $fileMap[$cat] = $items;
     }
 }
 
@@ -86,6 +56,7 @@ function tampil($flatMenu, $selected){
     echo "╔════════════════════════════╗\n";
     echo "║      MENU MODE GRATIS      ║\n";
     echo "╚════════════════════════════╝\n\n";
+    echo "\033[0m";
 
     foreach($flatMenu as $i => $item){
         if($i == $selected){
@@ -103,20 +74,34 @@ function tampil($flatMenu, $selected){
 
 while(true){
     tampil($flatMenu, $selected);
-    $key = fread(STDIN, 3);
+    
+    // --- FIX NAVIGASI TERMUX (BACA 3 KARAKTER SEQUENTIAL) ---
+    $key = '';
+    $char = fread(STDIN, 1);
+    if ($char === "\033") { // ESC
+        $key .= $char;
+        $char = fread(STDIN, 1);
+        if ($char === '[') { // [
+            $key .= $char;
+            $char = fread(STDIN, 1);
+            $key .= $char; // A atau B
+        }
+    } else {
+        $key = $char; // ENTER biasanya karakter kosong atau \n
+    }
 
-    if($key == "\033[A"){ // UP
+    // Proses navigasi
+    if($key === "\033[A"){ // UP
         $selected--;
         if($selected < 0) $selected = count($flatMenu)-1;
     }
-    elseif($key == "\033[B"){ // DOWN
+    elseif($key === "\033[B"){ // DOWN
         $selected++;
         if($selected >= count($flatMenu)) $selected = 0;
     }
-    elseif(trim($key) == ''){ // ENTER
+    elseif(trim($key) === '' || $key === "\n"){ // ENTER
         $pilihan = $flatMenu[$selected];
 
-        // Skip header kategori
         if(str_starts_with($pilihan, "===")){
             continue;
         }
@@ -128,51 +113,49 @@ while(true){
             exit("Sampai Jumpa!\n");     
         }
 
-        // Ambil file dari mapping, terus eval
         $file = $fileMap[$pilihan] ?? null;
 
-if ($file) {
+        if ($file) {
 
-    // Jalankan file PHP
-    if (str_ends_with($file, ".php")) {
+            // 1. JALANKAN PHP
+            if (str_ends_with($file, ".php")) {
+                $function = file_get_contents($base . $file);
+                if ($function !== false) {
+                    $function = preg_replace('/^\xEF\xBB\xBF/', '', $function);
+                    $function = preg_replace('/^\s*<\?(php)?\s*/i', '', $function);
+                    eval($function);
+                } else {
+                    echo "Gagal load $file\n";
+                }
+            }
 
-        $function = file_get_contents($base . $file);
+            // 2. JALANKAN PYTHON (FIX: DOWNLOAD DULU BIAR INTERAKTIF)
+            elseif (str_ends_with($file, ".py")) {
+                $url = $base . $file;
+                $localFile = basename($file);
 
-        if ($function !== false) {
+                echo "\033[1;33mMengunduh script $localFile...\033[0m\n";
+                system("curl -s -o " . escapeshellarg($localFile) . " " . escapeshellarg($url));
 
-            // Hapus BOM (jika ada)
-            $function = preg_replace('/^\xEF\xBB\xBF/', '', $function);
+                if (file_exists($localFile)) {
+                    echo "\033[1;32mBerhasil, menjalankan Python...\033[0m\n\n";
+                    system("python " . escapeshellarg($localFile));
+                    unlink($localFile);
+                } else {
+                    echo "\033[1;31mGagal mengunduh file $localFile\033[0m\n";
+                }
+            }
 
-            // Hapus tag <?php atau <?
-            $function = preg_replace('/^\s*<\?(php)?\s*/i', '', $function);
-
-            eval($function);
+            else {
+                echo "Format file tidak didukung: $file\n";
+            }
 
         } else {
-            echo "Gagal load $file\n";
+            echo "Menu tidak ditemukan\n";
         }
 
-    }
-
-    // Jalankan file Python
-    elseif (str_ends_with($file, ".py")) {
-
-        $url = $base . $file;
-
-        system("curl -s " . escapeshellarg($url) . " | python");
-
-    }
-
-    // Format tidak didukung
-    else {
-        echo "Format file tidak didukung: $file\n";
-    }
-
-} else {
-    echo "Menu tidak ditemukan\n";
-}
-
-        system('stty -icanon -echo');
+        // Kembali ke menu
+        system('stty cbreak -echo');
         echo "\n\nTekan Enter Untuk Kembali...";
         fgets(STDIN);
     }
