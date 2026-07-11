@@ -1,179 +1,134 @@
 <?php
 error_reporting(0);
-function h($password, $saveFile) {
-    $WHITE = "\033[1;37m";
-    $GREEN = "\033[1;92m";
-    $RED   = "\033[1;31m";
-    $RESET = "\033[0m";
-    $password = "jawapride99";
-    $saveFile = "pw.txt";
 
-    // Jika sudah pernah login
-    if (file_exists($saveFile) && trim(file_get_contents($saveFile)) === $password) {
-        return;
-    }
+// --- SETUP AWAL ---
+system('clear');
+system('stty sane');
 
-    // Minta password
-    echo $WHITE . "Sedang maintenance: " . $GREEN;
-    $input = trim(fgets(STDIN));
-    echo $RESET;
-
-    if ($input === $password) {
-
-        // Simpan password ke pw.txt
-        file_put_contents($saveFile, $password);
-
-        echo $GREEN . "Login berhasil. Selamat datang admin" . $RESET . PHP_EOL;
-        sleep(3);
-
-    } else {
-
-        echo $RED . "Gagal. Password salah" . $RESET . PHP_EOL;
-        exit;
-
-    }
-}
-
-#h($password, $saveFile);
-
-system('stty -icanon -echo');
-
+// --- MENU UTAMA ---
 $menu = [
-    "=== SCRIPT FAUCET===" => [
+    "\033[1;37m=== SCRIPT FAUCET ===" => [
         "Penghasil Ton" => "tron1.php",
         "Vitsplay" => "vits.php",
         "Cryptoharvest" => "cryptoharvest.php",
-         "Aruble" => "arub.php",
+        "Aruble" => "arub.php",
         "BTC" => "btc.py",
-        #"Tubepay" => "nxs.php"
-        //"Moneyrain" => "moneyrain.php"
-        // "Earn Ltc Bot (comingsoon)" => ""
     ],
-    "=== TOOLS SELAIN FAUCET ===" => [
-        "AIO downloader (tiktok,soundcloud dll)" => "aio.php",
-        "Tempmail (generate email)" => "email.php"
-       # "Cek Gempa" => "gempa.php"
-    ],
-    "=== SCRIPT OPEN SOURCE ===" => [
-        "Tubepay script" => "menu.php"
-       # "Cek Gempa" => "gempa.php"
-    ],
-    "Keluar" => "exit"
+    
 ];
 
-$flatMenu = [];
-$fileMap = []; // mapping nama menu -> file
-
-foreach($menu as $cat => $items){
-    $flatMenu[] = $cat;
-    if(is_array($items)){
-        foreach($items as $nama => $file){
-            $flatMenu[] = $nama;
-            $fileMap[$nama] = $file; // simpan mappingnya
-        }
-    } else {
-        $flatMenu[] = $cat;
-        $fileMap[$cat] = $items; // untuk Exit
-    }
-}
-
-$selected = 0;
 $base = "https://raw.githubusercontent.com/Bagusivo1999/fullscript/refs/heads/main/";
 
-function tampil($flatMenu, $selected){
+// --- FUNGSI TAMPILAN MENU ---
+function tampilMenu($menu, $totalMenu){
     system('clear');
     echo "\033[1;36m";
     echo "╔════════════════════════════╗\n";
     echo "║      MENU MODE GRATIS      ║\n";
     echo "╚════════════════════════════╝\n\n";
+    echo "\033[0m";
 
-    foreach($flatMenu as $i => $item){
-        if($i == $selected){
-            echo "\033[42;30m ➤ $item \033[0m\n";
-        }else{
-            if(str_starts_with($item, "===")){
-                echo "\033[90m   $item \033[0m\n";
-            } else {
-                echo "   $item\n";
+    $nomor = 1;
+    foreach($menu as $cat => $items){
+        echo "\033[90m   $cat \033[0m\n";
+        if(is_array($items)){
+            foreach($items as $nama => $file){
+                echo "   $nomor. $nama\n";
+                $nomor++;
             }
         }
     }
-    echo "\n↑ ↓ = Navigasi | ENTER = Pilih\n";
+    echo "   0. Keluar\n";
+    
+    echo "\n\033[1;33mKetik angka (0-$totalMenu) lalu ENTER:\033[0m ";
 }
 
+// --- LOOPING UTAMA ---
 while(true){
-    tampil($flatMenu, $selected);
-    $key = fread(STDIN, 3);
-
-    if($key == "\033[A"){ // UP
-        $selected--;
-        if($selected < 0) $selected = count($flatMenu)-1;
-    }
-    elseif($key == "\033[B"){ // DOWN
-        $selected++;
-        if($selected >= count($flatMenu)) $selected = 0;
-    }
-    elseif(trim($key) == ''){ // ENTER
-        $pilihan = $flatMenu[$selected];
-
-        // Skip header kategori
-        if(str_starts_with($pilihan, "===")){
-            continue;
+    // Hitung total menu
+    $totalMenu = 0;
+    foreach($menu as $cat => $items){
+        if(is_array($items)){
+            $totalMenu += count($items);
         }
+    }
 
-        system('clear');
-        system('stty sane');
+    tampilMenu($menu, $totalMenu);
+    
+    // BACA INPUT ANGKA DARI USER
+    $input = trim(fgets(STDIN));
 
-        if($pilihan === "Keluar"){
-            exit("Sampai Jumpa!\n");     
+    // CARI MENU BERDASARKAN ANGKA
+    $pilihan = null;
+    $fileTujuan = null;
+    $nomor = 1;
+    foreach($menu as $cat => $items){
+        if(is_array($items)){
+            foreach($items as $nama => $file){
+                if($input == $nomor){
+                    $pilihan = $nama;
+                    $fileTujuan = $file;
+                    break 2;
+                }
+                $nomor++;
+            }
         }
-
-        // Ambil file dari mapping, terus eval
-        $file = $fileMap[$pilihan] ?? null;
-
-if ($file) {
-
-    // Jalankan file PHP
-    if (str_ends_with($file, ".php")) {
-
-        $function = file_get_contents($base . $file);
-
-        if ($function !== false) {
-
-            // Hapus BOM (jika ada)
-            $function = preg_replace('/^\xEF\xBB\xBF/', '', $function);
-
-            // Hapus tag <?php atau <?
-            $function = preg_replace('/^\s*<\?(php)?\s*/i', '', $function);
-
-            eval($function);
-
-        } else {
-            echo "Gagal load $file\n";
-        }
-
     }
 
-    // Jalankan file Python
-    elseif (str_ends_with($file, ".py")) {
-
-        $url = $base . $file;
-
-        system("curl -s " . escapeshellarg($url) . " | python");
-
+    // JIKA INPUT 0 -> KELUAR
+    if($input === "0"){
+        exit("\n\033[1;36mSampai Jumpa! 🚀\033[0m\n");     
     }
 
-    // Format tidak didukung
-    else {
-        echo "Format file tidak didukung: $file\n";
-    }
-
-} else {
-    echo "Menu tidak ditemukan\n";
-}
-        system('stty sane');
-        // system('stty -icanon -echo');
-        echo "\n\nTekan Enter Untuk Kembali...";
+    // JIKA INPUT KOSONG ATAU TIDAK DITEMUKAN
+    if(!$pilihan){
+        echo "\n\033[1;31mPilihan tidak valid. (Ketik angka 0-$totalMenu)\033[0m";
+        echo "\nTekan Enter untuk lanjut...";
         fgets(STDIN);
+        continue;
     }
+
+    // CLEAR SCREEN & RESET TERMINAL
+    system('clear');
+    system('stty sane');
+
+    // AMBIL FILE
+    $file = $fileTujuan ?? null;
+
+    if ($file) {
+
+        // 1. JALANKAN PHP
+        if (str_ends_with($file, ".php")) {
+            $function = file_get_contents($base . $file);
+            if ($function !== false) {
+                $function = preg_replace('/^\xEF\xBB\xBF/', '', $function);
+                $function = preg_replace('/^\s*<\?(php)?\s*/i', '', $function);
+                eval($function);
+            } else {
+                echo "Gagal load $file\n";
+            }
+        }
+
+        // 2. JALANKAN PYTHON (TANPA DOWNLOAD, INTERAKTIF)
+        elseif (str_ends_with($file, ".py")) {
+            $url = $base . $file;
+            
+            echo "\033[1;33mMenjalankan script dari URL...\033[0m\n\n";
+            system('stty sane');
+            passthru("bash -c 'python <(curl -s " . escapeshellarg($url) . ")'");
+            echo "\n\033[1;32mSelesai. (Kembali ke menu)\033[0m\n";
+        }
+
+        else {
+            echo "Format file tidak didukung: $file\n";
+        }
+
+    } else {
+        echo "Menu tidak ditemukan\n";
+    }
+
+    // KEMBALI KE MENU
+    system('stty sane');
+    echo "\n\n\033[1;33mTekan Enter untuk kembali ke menu...\033[0m";
+    fgets(STDIN);
 }
