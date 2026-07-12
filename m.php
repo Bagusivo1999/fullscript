@@ -82,7 +82,7 @@ function maintenanceMode() {
 
 if ($CURRENT_USER !== $ADMIN_ID) {
     // Jika bukan admin, langsung panggil maintenance / tolak akses
-    maintenanceMode();
+    //maintenanceMode();
 }
 
 // --- SETUP AWAL ---
