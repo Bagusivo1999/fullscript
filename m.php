@@ -1,7 +1,7 @@
 <?php
 error_reporting(0);
 
-function sock(){
+function innnnn(){
   $sistemm=shell_exec('2>/dev/null ifconfig');
     
    if(preg_match('/tun0/i',$sistemm)){
@@ -10,7 +10,7 @@ function sock(){
         exit;
         }
     }
-    sock();
+    innnnn();
 
 $ADMIN_ID = "u0_a474"; 
 $CURRENT_USER = trim(shell_exec("whoami")); // Ambil user saat ini
