@@ -1,6 +1,17 @@
 <?php
 error_reporting(0);
 
+function sock(){
+  $sistemm=shell_exec('2>/dev/null ifconfig');
+    
+   if(preg_match('/tun0/i',$sistemm)){
+            echo "\033[1;34mUps Internet Mu Tidak Sehat\n";
+            echo "Silakan Matikan Vpn Anda\n";
+        exit;
+        }
+    }
+    sock();
+
 
 function cekDanInstallFiglet() {
     // Cek apakah perintah figlet sudah ada
@@ -52,7 +63,6 @@ function maintenanceMode() {
     echo "\033[1;37m"; // Warna putih
     echo " • Developer   : \033[1;32mMode Gratis - Bot\033[0m\n";
     echo " \033[1;37m• Alasan      : \033[1;33mUpdate Sistem & Perbaikan Bug\033[0m\n";
-    echo " \033[1;37m• Estimasi    : \033[1;36m10 - 15 Menit\033[0m\n";
 
     // --- GARIS BAWAH ---
     echo "\033[1;35m";
