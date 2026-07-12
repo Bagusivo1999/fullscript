@@ -97,6 +97,7 @@ $menu = [
         "Cryptoharvest (PHP)" => "cryptoharvest.php",
         "Aruble (PHP)" => "arub.php",
         "BTC (Python)" => "btc.py",
+        "Litebits (Python)" => "lite.py",
         "Gamerlee (Python)" => "gamerlee.py",
     ],
     
