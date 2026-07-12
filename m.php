@@ -92,12 +92,12 @@ system('stty sane');
 // --- MENU UTAMA ---
 $menu = [
     "\033[1;37m=== SCRIPT FAUCET ===" => [
-        "Penghasil Ton" => "tron1.php",
-        "Vitsplay" => "vits.php",
-        "Cryptoharvest" => "cryptoharvest.php",
-        "Aruble" => "arub.php",
-        "BTC" => "btc.py",
-        "Gamerlee" => "gamerlee.py",
+        "Penghasil Ton (PHP)" => "tron1.php",
+        "Vitsplay (PHP)" => "vits.php",
+        "Cryptoharvest (PHP)" => "cryptoharvest.php",
+        "Aruble (PHP)" => "arub.php",
+        "BTC (Python)" => "btc.py",
+        "Gamerlee (Python)" => "gamerlee.py",
     ],
     
 ];
