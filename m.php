@@ -71,7 +71,8 @@ function maintenanceMode() {
 
     // --- FOOTER ---
     echo "\033[1;31m";
-    echo "  [ ! ] MOHON MAAF ATAS KETIDAKNYAMANANNYA. TERIMA KASIH ATAS PENGERTIANNYA ! [ ! ]\n";
+    echo "  [ ! ] MOHON MAAF ATAS KETIDAKNYAMANANNYA.
+    TERIMA KASIH ATAS PENGERTIANNYA ! [ ! ]\n";
     echo "\033[0m\n";
 
     exit;
