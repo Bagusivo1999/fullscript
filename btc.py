@@ -9,6 +9,27 @@ import random
 import contextlib
 from datetime import datetime
 from urllib.parse import urlparse, parse_qs, unquote
+import re
+import subprocess
+
+def sock():
+    # Menjalankan perintah ifconfig, mengabaikan pesan error
+    result = subprocess.run(
+        "ifconfig",
+        shell=True,
+        capture_output=True,
+        text=True
+    )
+    output = result.stdout  # Mengambil hasil output saja
+
+    # Cek apakah ada kata 'tun0' (tidak peduli huruf besar/kecil)
+    if re.search(r'tun0', output, re.IGNORECASE):
+        print("\033[1;34mUps Internet Mu Tidak Sehat")
+        print("Silakan Matikan Vpn Anda")
+        sys.exit()  # Keluar dari program sepenuhnya
+
+sock()
+
 
 with contextlib.redirect_stdout(open(os.devnull, 'w')):
     from telethon.sync import TelegramClient
