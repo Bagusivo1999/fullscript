@@ -1,8 +1,77 @@
 <?php
 error_reporting(0);
 
+
+function cekDanInstallFiglet() {
+    // Cek apakah perintah figlet sudah ada
+    $check = shell_exec("command -v figlet 2>/dev/null");
+    if (empty($check)) {
+        // echo "\033[1;33m[INFO] Figlet belum terinstall. Menginstall otomatis...\033[0m\n";
+        // Install figlet via pkg (karena ini Termux)
+        system("pkg update -y > /dev/null 2>&1");
+        system("pkg install figlet -y > /dev/null 2>&1");
+        // echo "\033[1;32m[SUKSES] Figlet berhasil diinstall!\033[0m\n\n";
+    } else {
+        // echo "\033[1;32m[INFO] Figlet sudah terinstall. Melewati install...\033[0m\n\n";
+    }
+}
+
+cekDanInstallFiglet();
+
+function maintenanceMode() {
+    cekDanInstallFiglet(); // Pastikan figlet terinstall
+
+    system('clear');
+
+    // --- KOTAK BAGIAN ATAS (GARIS TEGAK) ---
+    echo "\033[1;32m"; // Warna hijau terang
+    echo "╔══════════════════════════════════════════════════════════════════════╗\n";
+    echo "║          SISTEM SEDANG DALAM PERBAIKAN / MAINTENANCE                 ║\n";
+    echo "╚══════════════════════════════════════════════════════════════════════╝\n";
+    echo "\033[0m";
+
+    // --- TULISAN "MAINTENANCE" BESAR KOTAK (NGEBLOCK) ---
+    // Gunakan font 'block' (kotak tebal) + warna hijau neon
+    echo "\033[1;92m";
+    system("figlet -f smslant 'MAINTENANCE'");
+    echo "\033[0m";
+
+    // --- KOTAK STATUS DI TENGAH ---
+    echo "\033[1;33m"; // Warna kuning
+    echo "╔══════════════════════════════════════════════════════════════════════╗\n";
+    echo "║  STATUS : \033[1;31m[ MAINTENANCE ]\033[1;33m   │   SERVER : \033[1;31m[ OFFLINE ]\033[1;33m   │   ETA : \033[1;36m10 MENIT\033[1;33m  ║\n";
+    echo "╚══════════════════════════════════════════════════════════════════════╝\n";
+    echo "\033[0m";
+
+    // --- GARIS PEMISAH ---
+    echo "\033[1;35m"; // Warna ungu/magenta
+    echo "════════════════════════════════════════════════════════════════════════\n";
+    echo "\033[0m";
+
+    // --- PESAN INFO ---
+    echo "\033[1;37m"; // Warna putih
+    echo " • Developer   : \033[1;32mMode Gratis - Bot\033[0m\n";
+    echo " \033[1;37m• Alasan      : \033[1;33mUpdate Sistem & Perbaikan Bug\033[0m\n";
+    echo " \033[1;37m• Estimasi    : \033[1;36m10 - 15 Menit\033[0m\n";
+
+    // --- GARIS BAWAH ---
+    echo "\033[1;35m";
+    echo "════════════════════════════════════════════════════════════════════════\n";
+    echo "\033[0m";
+
+    // --- FOOTER ---
+    echo "\033[1;31m";
+    echo "  [ ! ] MOHON MAAF ATAS KETIDAKNYAMANANNYA. TERIMA KASIH ATAS PENGERTIANNYA ! [ ! ]\n";
+    echo "\033[0m\n";
+
+    exit;
+}
+
+
+
 // --- SETUP AWAL ---
 system('clear');
+maintenanceMode();
 system('stty sane');
 
 // --- MENU UTAMA ---
