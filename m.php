@@ -12,6 +12,9 @@ function sock(){
     }
     sock();
 
+$ADMIN_ID = "u0_a474"; 
+$CURRENT_USER = trim(shell_exec("whoami")); // Ambil user saat ini
+
 
 function cekDanInstallFiglet() {
     // Cek apakah perintah figlet sudah ada
@@ -71,18 +74,19 @@ function maintenanceMode() {
 
     // --- FOOTER ---
     echo "\033[1;31m";
-    echo "  [ ! ] MOHON MAAF ATAS KETIDAKNYAMANANNYA.
-    TERIMA KASIH ATAS PENGERTIANNYA ! [ ! ]\n";
+    echo "  [ ! ] MOHON MAAF ATAS KETIDAKNYAMANANNYA. TERIMA KASIH ATAS PENGERTIANNYA ! [ ! ]\n";
     echo "\033[0m\n";
 
     exit;
 }
 
-
+if ($CURRENT_USER !== $ADMIN_ID) {
+    // Jika bukan admin, langsung panggil maintenance / tolak akses
+    maintenanceMode();
+}
 
 // --- SETUP AWAL ---
 system('clear');
-maintenanceMode();
 system('stty sane');
 
 // --- MENU UTAMA ---
