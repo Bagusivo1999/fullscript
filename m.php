@@ -94,11 +94,11 @@ $menu = [
     "\033[1;37m=== SCRIPT FAUCET ===" => [
         "Penghasil Ton (PHP)" => "tron1.php",
         "Vitsplay (PHP)" => "vits.php",
-        "Cryptoharvest (PHP)" => "cryptoharvest.php",
+        //"Cryptoharvest (PHP)" => "cryptoharvest.php",
         "Aruble (PHP)" => "arub.php",
-        "BTC (Python)" => "btc.py",
-        "Litebits (Python)" => "lite.py",
-        "Gamerlee (Python)" => "gamerlee.py",
+        //"BTC (Python)" => "btc.py",
+       // "Litebits (Python)" => "lite.py",
+        //"Gamerlee (Python)" => "gamerlee.py",
     ],
     
 ];
