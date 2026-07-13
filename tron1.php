@@ -94,13 +94,9 @@ while(true){
             $proxies = [''];
         }else{
             echo "Dapat ".count($proxies)." proxy, testing...\n";
-            $live = [];
-            foreach($proxies as $p){
-                if(testProxy($p)){
-                    $live[] = $p;
-                    echo "✓ $p\n";
-                }
-            }
+            // === JADI BEGINI (LANGSUNG PAKAI SEMUA) ===
+$live = $proxies; 
+echo "Pakai ".count($live)." proxy tanpa testing\n";
             if(empty($live)){
                 echo "Semua proxy mati! Lanjut tanpa proxy...\n";
                 $live = [''];
