@@ -93,7 +93,7 @@ system('stty sane');
 $menu = [
     "\033[1;37m=== SCRIPT FAUCET ===" => [
         "Penghasil Ton (PHP)" => "tron1.php",
-        "Vitsplay (PHP)" => "vits.php",
+        "Vitsplay (PHP) with proxy" => "vits.php",
         //"Cryptoharvest (PHP)" => "cryptoharvest.php",
         "Aruble (PHP)" => "arub.php",
         //"BTC (Python)" => "btc.py",
