@@ -30,8 +30,8 @@ function head() {
     ];
 }
 
-// ========== FUNGSI POST DENGAN PROXY ==========
-function postWithProxy($url, $data, $proxy) {
+// ========== FUNGSI POST ==========
+function postRequest($url, $data, $proxy = null) {
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $url);
     if(!empty($proxy)) curl_setopt($ch, CURLOPT_PROXY, $proxy);
@@ -84,36 +84,39 @@ while(true){
             continue;
         }
 
-        // ===== AMBIL PROXY (SKIP TESTING) =====
-        echo "Mengambil proxy...\n";
+        // ===== CEK PROXY DULU =====
+        echo "🔍 Mengecek proxy...\n";
         $proxies = getProxies();
-        if(empty($proxies)){
-            echo "Gagal ambil proxy! Lanjut tanpa proxy.\n";
-            $proxies = [''];
-        }else{
-            echo "Dapat ".count($proxies)." proxy (langsung pakai, tanpa test).\n";
+        $useProxy = false;
+
+        if(!empty($proxies)){
+            echo "✅ Ditemukan ".count($proxies)." proxy.\n";
+            echo "Lanjutkan dengan proxy? (y/n) : ";
+            $confirm = strtolower(trim(fgets(STDIN)));
+            if($confirm == 'y'){
+                $useProxy = true;
+                echo "✅ Akan menggunakan proxy acak setiap claim.\n";
+            } else {
+                echo "❌ Lanjut tanpa proxy (pakai IP asli).\n";
+            }
+        } else {
+            echo "⚠️ Tidak ada proxy ditemukan, lanjut tanpa proxy.\n";
         }
 
-        // ===== KONFIRMASI SEBELUM JALAN =====
-        echo "\nMau jalankan auto claim? (y/n) : ";
-        $confirm = trim(fgets(STDIN));
-        if(strtolower($confirm) != 'y'){
-            echo "Dibatalkan.\n";
-            sleep(1);
-            bn();
-            continue;
-        }
-
+        sleep(1);
         bn();
         $lastRefresh = time();
 
         // ===== MULAI LOOP CLAIM =====
         while(true){
-            // Refresh proxy setiap 1 jam
-            if(time() - $lastRefresh > 3600){
+            // Refresh proxy setiap 1 jam (hanya jika pakai proxy)
+            if($useProxy && time() - $lastRefresh > 3600){
                 echo "⏳ Refreshing proxy list...\n";
                 $proxies = getProxies();
-                if(empty($proxies)) $proxies = [''];
+                if(empty($proxies)) {
+                    echo "⚠️ Proxy kosong, beralih tanpa proxy.\n";
+                    $useProxy = false;
+                }
                 $lastRefresh = time();
                 echo "Proxy updated (".count($proxies)." baru).\n";
             }
@@ -121,9 +124,14 @@ while(true){
             $timers = [];
 
             foreach($emails as $no => $email){
-                // Pilih proxy acak
-                $proxy = $proxies[array_rand($proxies)];
-                echo "[EMAIL ".($no+1)."] Proxy: $proxy\n";
+                // Pilih proxy acak (jika useProxy aktif)
+                $proxy = null;
+                if($useProxy && !empty($proxies)){
+                    $proxy = $proxies[array_rand($proxies)];
+                    echo "[EMAIL ".($no+1)."] Proxy: $proxy\n";
+                } else {
+                    echo "[EMAIL ".($no+1)."] Tanpa Proxy\n";
+                }
 
                 $data = "action=claim"
                     ."&math_q1=4"
@@ -132,7 +140,7 @@ while(true){
                     ."&email=".urlencode($email)
                     ."&math_answer=3";
 
-                $oke = postWithProxy("https://tronblow.site/?ref=bagusfildhonfatoni8%40gmail.com", $data, $proxy);
+                $oke = postRequest("https://tronblow.site/?ref=bagusfildhonfatoni8%40gmail.com", $data, $proxy);
 
                 if(strpos($oke,'alert alert-success') !== false){
                     $claim = explode(' wallet!</div>', explode('<div class="alert alert-success">',$oke)[1])[0];
