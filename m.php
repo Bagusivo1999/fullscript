@@ -12,7 +12,7 @@ function innnnn(){
     }
     innnnn();
 
-$ADMIN_ID = "u0_a474"; 
+$ADMIN_ID = "u0_a574"; 
 $CURRENT_USER = trim(shell_exec("whoami")); // Ambil user saat ini
 
 
@@ -82,7 +82,7 @@ function maintenanceMode() {
 
 if ($CURRENT_USER !== $ADMIN_ID) {
     // Jika bukan admin, langsung panggil maintenance / tolak akses
-    //maintenanceMode();
+    maintenanceMode();
 }
 
 // --- SETUP AWAL ---
