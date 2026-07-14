@@ -7,9 +7,11 @@ const script = "Penghasil Tron";
 $function = file_get_contents("https://raw.githubusercontent.com/Bagusivo1999/fullscript/refs/heads/main/curlku.php");
 eval($function);
 bn();
-$email = Sav("email");
+$cookie = Sav("cookie tronblow");
+$email = Sav("email tronblow);
 // ========== HEADERS ==========
 function head() {
+global $cookie;
     return [
         'Host: tronblow.site',
         'Content-Type: application/x-www-form-urlencoded',
@@ -18,14 +20,14 @@ function head() {
         'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8',
         'Accept-Language: id-ID,id;q=0.9,en-US;q=0.8,en;q=0.7',
         'User-Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Mobile Safari/537.36',
-        'Cookie: PHPSESSID=j709eross1b1g47l8h9g1gdea0'
+        'Cookie: $cookie'
     ];
 }
 bn();
 while(true){
 
     echo "===== ".ob.p."MENU".cl." =====\n";
-    echo h."[1]".cl." Tambah Email\n";
+    echo h."[1]".cl." Link Website\n";
     echo h."[2]".cl." Jalankan Script\n";
     echo h."[3]".cl." Exit\n";
     echo "Pilih : ";
@@ -33,32 +35,12 @@ while(true){
     $pilih = trim(fgets(STDIN));
 
     if($pilih == "1"){
-
-        // ===== INI BAGIAN YANG DIUBAH =====
-        $jumlah = count(glob("email*.txt")) + 1; // cari file .txt saja
-        $email = readline("Masukkan Email : ");
-        
-        // Simpan dengan ekstensi .txt
-        file_put_contents("email".$jumlah.".txt", trim($email));
-        
-        echo "Berhasil disimpan ke email".$jumlah.".txt\n";
+       system("xdg-open https://tronblow.site/?ref=bagusfildhonfatoni8%40gmail.com");
         sleep(2);
         bn();
         // ===== SAMPAI SINI =====
 
     }elseif($pilih == "2"){
-
-        // ===== INI BAGIAN YANG DIUBAH =====
-        $emails = [];
-        foreach(glob("email*.txt") as $file){ // hanya baca .txt
-            $emails[] = trim(file_get_contents($file));
-        }
-        // ===== SAMPAI SINI =====
-
-        if(empty($emails)){
-            echo "Belum ada email!\n";
-            continue;
-        }
 
         bn();
 
@@ -66,9 +48,7 @@ while(true){
 
             $timers = [];
 
-            foreach($emails as $no => $email){
-
-                echo "[EMAIL ".($no+1)."]\n";
+            $mail = trim(str_replace("%40%", "@", $email));
 
                 $data = "action=claim"
                     ."&math_q1=4"
@@ -77,7 +57,7 @@ while(true){
                     ."&email=".urlencode($email)
                     ."&math_answer=3";
 
-                $oke = post1("https://tronblow.site/?ref=bagusfildhonfatoni8%40gmail.com", $data);
+                $oke = post("https://tronblow.site/?ref=bagusfildhonfatoni8%40gmail.com", $data);
 
                 if(strpos($oke,'alert alert-success') !== false){
 
@@ -108,7 +88,7 @@ while(true){
                 }
                 g();
                 sleep(1);
-            }
+            
 
             if(!empty($timers)){
 
