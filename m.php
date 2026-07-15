@@ -80,9 +80,18 @@ function maintenanceMode() {
     exit;
 }
 
+function wal(){
+system("clear");
+echo "\033[1;36m";
+    echo "╔════════════════════════════╗\n";
+    echo "║      MENU MODE GRATIS      ║\n";
+    echo "╚════════════════════════════╝\n\n";
+    echo "\033[0m";
+    }
+
 if ($CURRENT_USER !== $ADMIN_ID) {
     // Jika bukan admin, langsung panggil maintenance / tolak akses
-    maintenanceMode();
+    #maintenanceMode();
 }
 
 // --- SETUP AWAL ---
@@ -92,7 +101,7 @@ system('stty sane');
 // --- MENU UTAMA ---
 $menu = [
     "\033[1;37m=== SCRIPT FAUCET ===" => [
-        "Penghasil Ton (PHP)" => "tron1.php",
+        "Penghasil Ton (PHP)" => "tron.php",
         "Vitsplay (PHP) with proxy" => "vits.php",
         //"Cryptoharvest (PHP)" => "cryptoharvest.php",
         "Aruble (PHP)" => "arub.php",
@@ -163,7 +172,8 @@ while(true){
 
     // JIKA INPUT 0 -> KELUAR
     if($input === "0"){
-        exit("\n\033[1;36mSampai Jumpa! 🚀\033[0m\n");     
+    wal();
+        exit("\n\033[1;38mSAMPAI JUMPA! 🚀\033[0m\n");     
     }
 
     // JIKA INPUT KOSONG ATAU TIDAK DITEMUKAN
@@ -191,7 +201,7 @@ while(true){
                 $function = preg_replace('/^\s*<\?(php)?\s*/i', '', $function);
                 eval($function);
             } else {
-                echo "Gagal load $file\n";
+                echo "Gagal ambil data dari server\n";
             }
         }
 
