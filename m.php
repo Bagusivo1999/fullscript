@@ -115,7 +115,7 @@ function animasiLoading($duration = 3){
 
 // --- FUNGSI TAMPILAN MENU ---
 function tampilMenu($menu_faucet, $menu_tools){
-#animasiLoading(3);
+animasiLoading(3);
 system('clear');
     
     $colors = [
