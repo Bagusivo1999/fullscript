@@ -66,7 +66,7 @@ function maintenanceMode() {
 
 // --- CEK USER ---
 if ($CURRENT_USER !== $ADMIN_ID) {
-    maintenanceMode();
+    #maintenanceMode();
 }
 
 function wal(){
