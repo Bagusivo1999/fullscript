@@ -127,10 +127,10 @@ t = "\t"
 def banner():
     os.system("clear")
     print(f"{p}Tanggal : {k}{datetime.now().strftime('%A, %d-%m-%Y, %H:%M')}{cl}")
-    print(f"{mr}{p}═══════════════════════════════════════════════{cl}")
+    print(f"{p}═══════════════════════════════════════════════{cl}")
     print(f"{t}Script  : {h}{SCRIPT_NAME}{cl}")     # Pakai variabel
     print(f"{t}Creator : {h}{CREATOR}{cl}")         # Pakai variabel
     print(f"{t}Contact : {mr}{p}{CONTACT}{cl}")     # Pakai variabel
-    print(f"{mr}{p}═══════════════════════════════════════════════{cl}")
+    print(f"{p}═══════════════════════════════════════════════{cl}")
 
 # ===== MAIN =====
