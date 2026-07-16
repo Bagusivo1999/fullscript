@@ -87,6 +87,7 @@ $menu_faucet = [
     "Penghasil Ton (PHP)" => "tron.php",
     "Vitsplay (PHP) with proxy" => "vits.php",
     "Aruble (PHP)" => "arub.php",
+    "Voltly Earn (PYTHON)" => "voly.py",
 ];
 
 //MENU TOOLS HURUF
