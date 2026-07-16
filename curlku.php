@@ -471,7 +471,7 @@ an(" \033[1;34m
   ┃┃┃┣ ┃ ┃ ┃┃┃┃┃┣   ┃ ┣┫ ┃ ┣┫┃┃ ┃ 
   ┗┻┛┗┛┗┛┗┛┗┛┛ ┗┗┛  ┗┛┛┗ ┻ ┻┛┗┛ ┻ \033[0m\n");
 }
-function g(){print p.str_repeat('≈',50).n;}
+function g(){print p.str_repeat('-',50).n;}
 function bn(){
 system("clear"); g();
     echo "\033]2; Mode Gratis - Bot | ".script."\007";

@@ -60,7 +60,7 @@ bn();
 
 $link = readline(p."Masukkan URL : ".cl.hijau1);
 
-$api = "https://api.synoxcloud.xyz/download/all-in-one?url=" . urlencode($link);
+$api = "https://api-nanzz.my.id/docs/api/downloader/all-in-one.php?url=" . urlencode($link);
 
 echo og.p."Mengambil data...".cl.n;
 
@@ -76,7 +76,7 @@ if (!isset($json['status']) || !$json['status']) {
     exit("Link tidak valid atau API error\n");
 }
 
-$data = $json['result']['data'];
+$data = $json['result'];
 
 $id = $data['id'] ?? time();
 

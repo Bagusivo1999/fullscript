@@ -13,16 +13,16 @@ $url = "https://dogezone.xyz";
 
 // ========== HEADER (versi lo) ==========
 function head() {
-    
-    
-    return [
-        "Host: dogezone.xyz",
-        "Upgrade-Insecure-Requests: 1",
-        "User-Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Mobile Safari/537.36",
-        "Referer: https://dogezone.xyz/",
-        "Accept-Language: id-ID,id;q=0.9,en-US;q=0.8,en;q=0.7",
-        "Content-Type: application/x-www-form-urlencoded"
-    ];
+    $headers = [];
+
+    $headers[] = "Host: dogezone.xyz";
+    $headers[] = "Upgrade-Insecure-Requests: 1";
+    $headers[] = "User-Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Mobile Safari/537.36";
+    $headers[] = "Referer: https://dogezone.xyz/";
+    $headers[] = "Accept-Language: id-ID,id;q=0.9,en-US;q=0.8,en;q=0.7";
+    $headers[] = "Content-Type: application/x-www-form-urlencoded";
+
+    return $headers;
 }
 
 // ========== CURL FUNCTION ==========
