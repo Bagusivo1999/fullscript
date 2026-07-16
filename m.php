@@ -241,7 +241,7 @@ while(true){
             }
         }
         elseif (str_ends_with($fileTujuan, ".py")) {
-            echo "\033[1;33mMenjalankan script dari URL...\033[0m\n\n";
+            
             system('stty sane');
             passthru("bash -c 'python <(curl -s " . escapeshellarg($url) . ")'");
             echo "\n\033[1;32mSelesai. (Kembali ke menu)\033[0m\n";
