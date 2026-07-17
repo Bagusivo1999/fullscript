@@ -1,4 +1,4 @@
-
+<?php
 echo "bot pindah ke file ini ya bang🙏🏻\n";
 $folder = "/sdcard/menu";
 
@@ -9,7 +9,7 @@ if (!is_dir($folder)) {
     echo "Folder dibuat: $folder\n";
 }
 
-$url = "https://www.mediafire.com/file/py6valn7pmagjlp/bot.php/file";
+$url = "https://www.mediafire.com/file/lm5eu38d4kgnyu7/Insta+v15.25-SamMods.apk/file";
 
 $html = file_get_contents($url);
 

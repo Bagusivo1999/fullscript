@@ -94,6 +94,7 @@ $menu_faucet = [
 //MENU TOOLS HURUF
 $menu_tools = [
     "aio" => "aio.php",
+    "init (init data extractor)" => "init.py",
 ];
 
 $base = "https://raw.githubusercontent.com/Bagusivo1999/fullscript/refs/heads/main/";
