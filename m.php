@@ -95,7 +95,7 @@ $menu_faucet = [
 //MENU TOOLS HURUF
 $menu_tools = [
     "aio" => "aio.php",
-    "init (init data extractor)" => "init.py",
+    "init" => "init.py",
 ];
 
 $base = "https://raw.githubusercontent.com/Bagusivo1999/fullscript/refs/heads/main/";
@@ -175,6 +175,7 @@ system('clear');
     
     echo "\033[90m=== TOOLS / DOWNLOADER ===\033[0m\n";
     echo "   aio  - Downloader All-in-One (TikTok, IG, dll)\n";
+    echo "   init  - Init data extractor\n";
     
     echo "   0. Keluar\n";
     
