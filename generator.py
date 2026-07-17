@@ -35,6 +35,16 @@ from rich.console import Console
 
 console = Console()
 
+# ============ FUNGSI UNTUK MENDAPATKAN FOLDER PENYIMPANAN ============
+def get_config_folder():
+    """Mengembalikan folder tempat config.py akan disimpan."""
+    try:
+        # Mencoba menggunakan folder dari __file__ (jika dijalankan langsung)
+        return os.path.dirname(os.path.abspath(__file__))
+    except Exception:
+        # Jika gagal (karena lewat pipe/curl), gunakan folder /sdcard/fullscript/
+        return "/sdcard/fullscript"
+
 # ============ FUNGSI SETUP CONFIG ============
 def setup_config():
     """Setup API credentials and save to config.py"""
@@ -45,11 +55,8 @@ def setup_config():
     console.print("[bold #81A1C1]\n📌 Dapatkan API dari: https://my.telegram.org/apps[/bold #81A1C1]")
     console.print("[bold #81A1C1]📌 Login ke Telegram, buat aplikasi baru[/bold #81A1C1]\n")
     
-    # Input API ID
     console.print("[bold #D8DEE9]Masukkan kredensial API Telegram Anda:[/bold #D8DEE9]")
     api_id = input("  API ID: ").strip()
-    
-    # Input API Hash
     api_hash = input("  API Hash: ").strip()
     
     if not api_id or not api_hash:
@@ -57,7 +64,6 @@ def setup_config():
         input("\nTekan Enter untuk keluar...")
         sys.exit(1)
     
-    # Validasi API ID harus angka
     try:
         int(api_id)
     except ValueError:
@@ -65,16 +71,15 @@ def setup_config():
         input("\nTekan Enter untuk keluar...")
         sys.exit(1)
     
-    # ========= PERBAIKAN PENTING DI SINI =========
-    # Menulis config.py dengan tanda petik ganda agar terbaca dengan benar
+    # Simpan config dengan tanda petik
     config_content = f'''# Telegram API Configuration
 API_ID = "{api_id}"
 API_HASH = "{api_hash}"
 '''
-    # ==============================================
     
-    # Ambil folder tempat script ini dieksekusi
-    config_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "config.py")
+    # Dapatkan folder penyimpanan yang aman
+    config_folder = get_config_folder()
+    config_path = os.path.join(config_folder, "config.py")
 
     try:
         with open(config_path, 'w', encoding='utf-8') as f:
@@ -91,6 +96,13 @@ API_HASH = "{api_hash}"
 # ============ FUNGSI LOAD CONFIG ============
 def load_config():
     """Load API credentials from config.py"""
+    config_folder = get_config_folder()
+    config_path = os.path.join(config_folder, "config.py")
+    
+    # Tambahkan folder config ke sys.path agar bisa di-import
+    if config_folder not in sys.path:
+        sys.path.insert(0, config_folder)
+    
     try:
         import config
         if hasattr(config, 'API_ID') and hasattr(config, 'API_HASH'):
@@ -102,25 +114,20 @@ def load_config():
         return None, None
 
 # ============ CEK & LOAD CONFIG UTAMA ============
-# Ambil folder tempat script ini berada
-current_dir = os.path.dirname(os.path.abspath(__file__))
-config_full_path = os.path.join(current_dir, "config.py")
+config_folder = get_config_folder()
+config_full_path = os.path.join(config_folder, "config.py")
 
-# Cek apakah config.py ada di folder yang sama
 if not os.path.exists(config_full_path):
     console.print("[bold #D8DEE9]🔑 Config tidak ditemukan. Silakan setup terlebih dahulu.[/bold #D8DEE9]")
     setup_config()
 
-# Load API credentials (Setelah config dipastikan ada)
 API_ID, API_HASH = load_config()
 
-# Jika gagal load (misal file corrupt), minta setup ulang 1x lagi
 if API_ID is None or API_HASH is None:
     console.print(f"[bold #BF616A]❌ Gagal memuat konfigurasi API. Setup ulang...[/bold #BF616A]")
     setup_config()
     API_ID, API_HASH = load_config()
 
-# Jika setelah setup ulang masih gagal, baru berhenti
 if API_ID is None or API_HASH is None:
     console.print(f"[bold #BF616A]❌ Gagal memuat konfigurasi. Script berhenti.[/bold #BF616A]")
     sys.exit(1)
@@ -129,6 +136,9 @@ if API_ID is None or API_HASH is None:
 # LANJUTKAN KODE GENERATOR / BOT ANDA DI SINI
 # ==========================================
 console.print(f"\n[bold #88C0D0]✅ API Loaded! Silakan masukkan nomor telepon.[/bold #88C0D0]")
+# phone = input("phone: ").strip()
+
+# ... (sisa kode generator Anda yang asli di bawah ini)
 
 
 # ... (sisa kode generator Anda yang asli di bawah ini)
