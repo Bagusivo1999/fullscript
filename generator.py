@@ -1,4 +1,5 @@
-
+import subprocess
+import re
 def sock():
     # Menjalankan perintah ifconfig, mengabaikan pesan error
     result = subprocess.run(
