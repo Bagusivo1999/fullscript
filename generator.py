@@ -29,6 +29,12 @@ from rich.prompt import Prompt
 warnings.filterwarnings("ignore", message="Unverified HTTPS request")
 console = Console()
 
+import os
+import sys
+from rich.console import Console
+
+console = Console()
+
 # ============ FUNGSI SETUP CONFIG ============
 def setup_config():
     """Setup API credentials and save to config.py"""
@@ -59,24 +65,30 @@ def setup_config():
         input("\nTekan Enter untuk keluar...")
         sys.exit(1)
     
-    # Simpan ke config.py
+    # ========= PERBAIKAN PENTING DI SINI =========
+    # Menulis config.py dengan tanda petik ganda agar terbaca dengan benar
     config_content = f'''# Telegram API Configuration
-API_ID = {api_id}
+API_ID = "{api_id}"
 API_HASH = "{api_hash}"
 '''
+    # ==============================================
     
+    # Ambil folder tempat script ini dieksekusi
+    config_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "config.py")
+
     try:
-        with open("config.py", 'w', encoding='utf-8') as f:
+        with open(config_path, 'w', encoding='utf-8') as f:
             f.write(config_content)
-        console.print(f"\n[bold #A3BE8C]✅ Config berhasil disimpan ke config.py[/bold #A3BE8C]")
+        console.print(f"\n[bold #A3BE8C]✅ Config berhasil disimpan ke {config_path}[/bold #A3BE8C]")
         console.print(f"[bold #88C0D0]📋 API_ID = {api_id}[/bold #88C0D0]")
         console.print(f"[bold #88C0D0]📋 API_HASH = {api_hash[:10]}...[/bold #88C0D0]")
-        return True
+        
     except Exception as e:
         console.print(f"[bold #BF616A]❌ Gagal menyimpan config: {e}[/bold #BF616A]")
         input("\nTekan Enter untuk keluar...")
         sys.exit(1)
 
+# ============ FUNGSI LOAD CONFIG ============
 def load_config():
     """Load API credentials from config.py"""
     try:
@@ -89,23 +101,39 @@ def load_config():
     except ImportError:
         return None, None
 
-# ============ CEK CONFIG ============
-# Cek apakah config.py ada
-if not os.path.exists("config.py"):
+# ============ CEK & LOAD CONFIG UTAMA ============
+# Ambil folder tempat script ini berada
+current_dir = os.path.dirname(os.path.abspath(__file__))
+config_full_path = os.path.join(current_dir, "config.py")
+
+# Cek apakah config.py ada di folder yang sama
+if not os.path.exists(config_full_path):
     console.print("[bold #D8DEE9]🔑 Config tidak ditemukan. Silakan setup terlebih dahulu.[/bold #D8DEE9]")
     setup_config()
 
-# Load API credentials
+# Load API credentials (Setelah config dipastikan ada)
 API_ID, API_HASH = load_config()
 
+# Jika gagal load (misal file corrupt), minta setup ulang 1x lagi
 if API_ID is None or API_HASH is None:
-    console.print("[bold #BF616A]❌ Gagal memuat konfigurasi API. Setup ulang...[/bold #BF616A]")
+    console.print(f"[bold #BF616A]❌ Gagal memuat konfigurasi API. Setup ulang...[/bold #BF616A]")
     setup_config()
     API_ID, API_HASH = load_config()
-    if API_ID is None or API_HASH is None:
-        console.print("[bold #BF616A]❌ Gagal memuat konfigurasi. Script berhenti.[/bold #BF616A]")
-        sys.exit(1)
-#https://t.me/litecoingeneratorbot?start=7157
+
+# Jika setelah setup ulang masih gagal, baru berhenti
+if API_ID is None or API_HASH is None:
+    console.print(f"[bold #BF616A]❌ Gagal memuat konfigurasi. Script berhenti.[/bold #BF616A]")
+    sys.exit(1)
+
+# ==========================================
+# LANJUTKAN KODE GENERATOR / BOT ANDA DI SINI
+# ==========================================
+console.print(f"\n[bold #88C0D0]✅ API Loaded! Silakan masukkan nomor telepon.[/bold #88C0D0]")
+
+
+# ... (sisa kode generator Anda yang asli di bawah ini)
+
+# ... (sisa kode generator Anda di bawah ini)
 #https://t.me/dogecoingeneratorbot?start=89856
 #https://t.me/digibytegeneratorbot?start=14433
 CLAIM_INTERVAL_HOURS = 0.5
