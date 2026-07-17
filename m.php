@@ -88,6 +88,7 @@ $menu_faucet = [
     "Vitsplay (PHP) with proxy" => "vits.php",
     "Aruble (PHP)" => "arub.php",
     "Voltly Earn (PYTHON)" => "voly.py",
+    "Generator bot dgb,ltc,doge (PYTHON)" => "generator.py",
 ];
 
 //MENU TOOLS HURUF
