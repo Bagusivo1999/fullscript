@@ -195,36 +195,38 @@ while(true){
         exit("\n\033[1;38mSAMPAI JUMPA! 🚀\033[0m\n");     
     }
 
-    // CEK FAUCET (ANGKA)
-    $found = false;
-    $nomor = 1;
-    foreach($menu_faucet as $nama => $file){
-        if($input == $nomor){
-            $found = true;
-            $fileTujuan = $file;
-            break;
-        }
-        $nomor++;
-    }
+    // --- MENU TOOLS HURUF ---
 
-    // CEK TOOLS (TEKS)
-    if(!$found){
-        foreach($menu_tools as $key => $desc){
-            if($input === $key){
-                $found = true;
-                $fileTujuan = $key . ".php"; // aio.php, youtube.php, ig.php
-                break;
-            }
-        }
-    }
+// ... kode lain
 
-    // JIKA TIDAK DITEMUKAN
-    if(!$found){
-        echo "\n\033[1;31mPilihan tidak valid!\033[0m";
-        echo "\nTekan Enter untuk lanjut...";
-        fgets(STDIN);
-        continue;
+// CEK FAUCET (ANGKA)
+$found = false;
+$fileTujuan = null;
+$nomor = 1;
+foreach($menu_faucet as $nama => $file){
+    if($input == $nomor){
+        $found = true;
+        $fileTujuan = $file;
+        break;
     }
+    $nomor++;
+}
+
+// CEK TOOLS (TEKS) - BAGIAN INI YANG DIUBAH
+if(!$found){
+    if(isset($menu_tools[$input])){ // cek apakah input ada di key menu_tools
+        $found = true;
+        $fileTujuan = $menu_tools[$input]; // ambil nama file dari value array
+    }
+}
+
+// JIKA TIDAK DITEMUKAN
+if(!$found){
+    echo "\n\033[1;31mPilihan tidak valid!\033[0m";
+    echo "\nTekan Enter untuk lanjut...";
+    fgets(STDIN);
+    continue;
+}
 
     // CLEAR SCREEN
     system('clear');
