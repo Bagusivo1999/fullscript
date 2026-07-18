@@ -254,7 +254,7 @@ vpn();
         if(!$httpcode) return "Curl Error : ".curl_error($ch); else{
             $header = substr($response, 0, curl_getinfo($ch, CURLINFO_HEADER_SIZE));
             $body = substr($response, curl_getinfo($ch, CURLINFO_HEADER_SIZE));
-            curl_close($ch);
+            #curl_close($ch);
             return array($header, $body);
         }
     }
