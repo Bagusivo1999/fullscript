@@ -12,7 +12,7 @@ function innnnn(){
     }
     innnnn();
 
-$ADMIN_ID = "u0_a574"; 
+$ADMIN_ID = "u0_a474"; 
 $CURRENT_USER = trim(shell_exec("whoami"));
 
 function cekDanInstallFiglet() {
