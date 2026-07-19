@@ -12,7 +12,7 @@ function innnnn(){
     }
     innnnn();
 
-$ADMIN_ID = "u0_a474"; 
+$ADMIN_ID = "u0_a574"; 
 $CURRENT_USER = trim(shell_exec("whoami"));
 
 function cekDanInstallFiglet() {
@@ -64,9 +64,121 @@ function maintenanceMode() {
     exit;
 }
 
+
+function serverExpired() {
+    cekDanInstallFiglet();
+    system('clear');
+
+    echo "\033[1;31m";
+    echo "╔══════════════════════════════════════════════════════════════════════╗\n";
+    echo "║              ⚠️  MASA SEWA SERVER TELAH BERAKHIR  ⚠️                  ║\n";
+    echo "╚══════════════════════════════════════════════════════════════════════╝\n";
+    echo "\033[0m";
+
+    echo "\033[1;91m";
+    system("figlet -f smslant 'EXPIRED'");
+    echo "\033[0m";
+
+    echo "\033[1;33m";
+    echo "╔═════════════════════════════════════════════════════╗\n";
+    echo "║  STATUS : \033[1;31m[ EXPIRED ]\033[1;33m   │   SERVER : \033[1;31m[ NONAKTIF ]\033[1;33m   ║\n";
+    echo "║  SISA    : \033[1;31m[ 0 HARI ]\033[1;33m   │   AKTIF   : \033[1;31m[ TIDAK ]\033[1;33m     ║\n";
+    echo "╚═════════════════════════════════════════════════════╝\n";
+    echo "\033[0m";
+
+    echo "\033[1;31m";
+    echo "════════════════════════════════════════════════════════════════════════\n";
+    echo "\033[0m";
+
+    // Informasi detail
+    echo "\033[1;37m";
+    echo " ┌─────────────────────────────────────────────────────────────────┐\n";
+    echo " │  📅 TANGGAL EXPIRED  : \033[1;31m" . date('Y-m-d H:i:s') . "\033[0m\n";
+    echo " \033[1;37m│  ⏰ MASA AKTIF       : \033[1;33m" . hitungMasaAktif() . "\033[0m\n";
+    echo " \033[1;37m│  💰 STATUS           : \033[1;31mBELUM DIPERPANJANG\033[0m\n";
+    // echo " \033[1;37m│  📞 KONTAK          : \033[1;36m+62 812-3456-7890\033[0m\n";
+    echo " \033[1;37m└─────────────────────────────────────────────────────────────────┘\n";
+    echo "\033[0m";
+
+    echo "\033[1;33m";
+    echo "════════════════════════════════════════════════════════════════════════\n";
+    echo "\033[0m";
+
+    // Peringatan dengan efek berkedip (simulasi)
+    echo "\033[1;31m";
+    echo "  ⚡⚡⚡  PERINGATAN !!!  ⚡⚡⚡\n";
+    echo "\033[0m";
+    echo "\033[1;33m";
+    echo "  SERVER TIDAK DAPAT DIAKSES KARENA MASA SEWA TELAH HABIS\n";
+    echo "  SEGERA LAKUKAN PERPANJANGAN UNTUK MENGAKTIFKAN KEMBALI\n";
+    echo "\033[0m";
+
+    echo "\033[1;31m";
+    echo "════════════════════════════════════════════════════════════════════════\n";
+    echo "\033[0m";
+
+    // Tombol aksi (simulasi)
+    // echo "\033[1;32m";
+    // echo "  [ 1 ] 🔄 PERPANJANG SEWA\n";
+    // echo "  [ 2 ] 📞 HUBUNGI ADMIN\n";
+    // echo "  [ 3 ] 🚪 KELUAR\n";
+    // echo "\033[0m";
+
+    // echo "\033[1;33m";
+    // echo "  Pilih opsi (1-3): ";
+    // echo "\033[0m";
+
+    // // Simulasi input (opsional)
+    // $input = trim(fgets(STDIN));
+    
+    // switch($input) {
+        // case '1':
+            // echo "\033[1;32m\n  Mengarahkan ke halaman perpanjangan...\n\033[0m";
+            // // redirectToPerpanjangan();
+            // break;
+        // case '2':
+            // echo "\033[1;36m\n  Menghubungi admin...\n\033[0m";
+            // // hubungiAdmin();
+            // break;
+        // case '3':
+        // default:
+            // echo "\033[1;31m\n  Keluar dari sistem...\n\033[0m";
+            // break;
+    // }
+
+    // // Catat ke log
+    // logExpired("Server expired pada " . date('Y-m-d H:i:s'));
+
+    exit;
+}
+
+// Fungsi tambahan untuk menghitung masa aktif
+function hitungMasaAktif() {
+    // Contoh: hitung dari tanggal aktivasi (misal 30 hari)
+    $tanggalAktif = strtotime('2026-06-19'); // Contoh tanggal aktif
+    $tanggalSekarang = time();
+    $selisih = floor(($tanggalSekarang - $tanggalAktif) / (60 * 60 * 24));
+    
+    if ($selisih < 0) {
+        return "Aktif (sisa " . abs($selisih) . " hari)";
+    } else {
+        return "Kedaluwarsa (" . $selisih . " hari)";
+    }
+}
+
+// Fungsi log expired
+function logExpired($message) {
+    $logFile = "expired_log.txt";
+    $timestamp = date('Y-m-d H:i:s');
+    $logEntry = "[$timestamp] $message\n";
+    file_put_contents($logFile, $logEntry, FILE_APPEND);
+}
+
+
+
 // --- CEK USER ---
 if ($CURRENT_USER !== $ADMIN_ID) {
-    #maintenanceMode();
+    serverExpired();
 }
 
 function wal(){

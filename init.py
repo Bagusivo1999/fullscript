@@ -4,8 +4,8 @@ import os
 from telethon import TelegramClient, functions, types
 
 # --- CONFIGURATION ---
-API_HASH = 'fb06985ea797ac51aaa1e6d1168ceaaa'
-API_ID = '35898257'
+API_HASH = '761d52b772b9fa7af865713282c9fe36'
+API_ID = '31779784'
 
 def clear():
     os.system('cls' if os.name == 'nt' else 'clear')

@@ -1,0 +1,1 @@
+{"Alpha":1,"Dragon":1,"Hawk":1,"Killer":1,"Pugilist":1,"Romeo":1,"Shooter":1,"Warrior":0,"Casanova":0,"Chieftain":0,"Detector":0,"Beast":0}
