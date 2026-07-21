@@ -178,7 +178,7 @@ function logExpired($message) {
 
 // --- CEK USER ---
 if ($CURRENT_USER !== $ADMIN_ID) {
-    serverExpired();
+    #serverExpired();
 }
 
 function wal(){

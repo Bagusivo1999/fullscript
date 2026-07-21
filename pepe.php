@@ -188,7 +188,7 @@ $timr = isset($cooldownMatch[1]) ? $cooldownMatch[1] : 'Tidak ditemukan';
 // echo "Daily Limit: $dailyLimit\n";
 // Tampilkan
 
-$data = '{"query":"kontlo","csrf_token":"$token","fp":"cbd2a65a0000010d"}';
+$data = '{"query":"$keywords","csrf_token":"$token","fp":"cbd2a65a0000010d"}';
 $claim = post2("https://pepe-search.com/api/search.php", $data);
 // Ambil reward (angka setelah "reward":)
 preg_match('/"reward":(\d+)/', $claim, $rewardMatch);
