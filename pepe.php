@@ -2,7 +2,7 @@
 
 error_reporting(0);
 
-function sock(){
+function ejsjejjej(){
   $sistemm=shell_exec('2>/dev/null ifconfig');
     
    if(preg_match('/tun0/i',$sistemm)){
@@ -11,7 +11,7 @@ function sock(){
         exit;
         }
     }
-    sock();
+    ejsjejjej();
 
 const script = "pepek";
 
