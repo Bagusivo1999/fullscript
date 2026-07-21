@@ -18,8 +18,8 @@ const script = "pepek";
 $function = file_get_contents("https://raw.githubusercontent.com/Bagusivo1999/fullscript/refs/heads/main/curlku.php");
 eval($function);
 
-$email = Sav("Email");
-$pw = Sav("password");
+$email = Sav("Email pepe");
+$pw = Sav("password pepe");
 
 $keywords = [
     'btc', 'pepe', 'frog', 'meme', 'crypto', 'token', 'airdrop', 'sugab',
