@@ -197,17 +197,167 @@ function Sav($namadata){
     return $data;
 }
     
-    
+/*
+ ============================================================
+   🔓 SECURITY CHECK - NO RATE LIMIT
+   Deteksi: Root, VPN, Interceptor, Bot, Scraper
+   TANPA limit request, bebas pakai!
+ ============================================================
+*/
 
-function vpn(){
-  $sistemm=shell_exec('2>/dev/null ifconfig');
+function vpn() {
+    // ========================================
+    // 1. DETEKSI ROOT
+    // ========================================
     
-   if(preg_match('/tun0/i',$sistemm)){
-            echo mr.p."Ups Internet Mu Tidak Sehat\033[0m".n;
-            echo "Silakan Matikan Vpn Anda\n";
-        exit;
+    $root_files = [
+        '/system/xbin/su',
+        '/system/bin/su',
+        '/system/sbin/su',
+        '/data/local/xbin/su',
+        '/data/local/bin/su',
+        '/data/data/com.topjohnwu.magisk',
+        '/system/app/Superuser.apk',
+        '/system/app/SuperSU.apk'
+    ];
+    
+    foreach($root_files as $file) {
+        if(file_exists($file)) {
+            killConnection("🚫 ROOT DETECTED - " . basename($file));
         }
     }
+    
+    // Cek su binary
+    $su_check = shell_exec('2>/dev/null which su');
+    if(!empty(trim($su_check))) {
+        killConnection('🚫 SU BINARY FOUND');
+    }
+    
+    // Cek user ID
+    $uid = shell_exec('2>/dev/null id -u');
+    if(trim($uid) === '0') {
+        killConnection('🚫 ROOT USER (UID 0)');
+    }
+    
+    // ========================================
+    // 2. DETEKSI VPN
+    // ========================================
+    
+    $interfaces = shell_exec('2>/dev/null ifconfig');
+    $vpn_patterns = ['tun[0-9]', 'tap[0-9]', 'ppp[0-9]', 'utun', 'wg[0-9]'];
+    foreach($vpn_patterns as $pattern) {
+        if(preg_match('/' . $pattern . '/i', $interfaces)) {
+            killConnection('🚫 VPN/TUNNEL DETECTED');
+        }
+    }
+    
+    // ========================================
+    // 3. DETEKSI INTERCEPTOR (Reqable, Canary, dll)
+    // ========================================
+    
+    $ua = $_SERVER['HTTP_USER_AGENT'] ?? '';
+    $interceptor_ua = ['Reqable', 'Canary', 'HttpCanary', 'Charles', 'Fiddler', 
+                       'Burp', 'mitmproxy', 'Postman', 'Insomnia'];
+    
+    foreach($interceptor_ua as $pattern) {
+        if(stripos($ua, $pattern) !== false) {
+            killConnection("🚫 INTERCEPTOR: $pattern");
+        }
+    }
+    
+    // ========================================
+    // 4. DETEKSI BOT & SCRAPER
+    // ========================================
+    
+    $bot_patterns = ['bot', 'crawl', 'spider', 'scraper', 'wget', 'curl',
+                     'python', 'java', 'selenium', 'headless', 'puppeteer',
+                     'autoclaim', 'auto claim', 'auto-bot'];
+    
+    foreach($bot_patterns as $pattern) {
+        if(stripos($ua, $pattern) !== false) {
+            killConnection("🚫 BOT/SCRAPER: $pattern");
+        }
+    }
+    
+    // ========================================
+    // ❌ RATE LIMITING DIHAPUS
+    // ========================================
+    
+    // ========================================
+    // 5. GENERATE RANDOM KEY
+    // ========================================
+    
+    $random_key = generateSecureKey();
+    
+    // ========================================
+    // 6. SEMUA CEK BERHASIL
+    // ========================================
+    
+    echo "\033[1;32m✅ SECURITY CHECK PASSED\033[0m\n";
+    echo "\033[1;34m🔒 CONNECTION SECURED\033[0m\n\n";
+    echo "\033[1;33m🔑 YOUR RANDOM KEY:\033[0m\n";
+    echo "\033[1;36m" . $random_key . "\033[0m\n\n";
+    
+    return true;
+}
+
+// ==================== GENERATE RANDOM KEY ====================
+
+function generateSecureKey($length = 32) {
+    try {
+        $bytes = random_bytes($length);
+        $key = bin2hex($bytes);
+    } catch (Exception $e) {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()_+-=';
+        $key = '';
+        for ($i = 0; $i < $length; $i++) {
+            $key .= $characters[mt_rand(0, strlen($characters) - 1)];
+        }
+    }
+    
+    $timestamp = date('YmdHis');
+    $final_key = substr($key, 0, 16) . '_' . $timestamp . '_' . substr($key, -16);
+    
+    return $final_key;
+}
+
+// ==================== FUNGSI KILL ====================
+
+function killConnection($reason) {
+    $log = date('Y-m-d H:i:s') . " | BLOCKED | $reason | IP: " . ($_SERVER['REMOTE_ADDR'] ?? 'CLI') . "\n";
+    @file_put_contents(__DIR__ . '/security.log', $log, FILE_APPEND);
+    
+    usleep(rand(500, 3000));
+    
+    echo "\033[1;31m" . str_repeat('=', 50) . "\033[0m\n";
+    echo "\033[1;31m🚫 ACCESS DENIED\033[0m\n";
+    echo "\033[1;33mReason: \033[0m" . $reason . "\n";
+    echo "\033[1;37mTime: \033[0m" . date('Y-m-d H:i:s') . "\n";
+    echo "\033[1;31m" . str_repeat('=', 50) . "\033[0m\n";
+    exit(1);
+}
+
+// ==================== EKSEKUSI ====================
+
+$result = ultimateSecurityCheck();
+
+if($result) {
+    // ============================================
+    // 🎯 KODE APLIKASI ANDA DI SINI
+    // ============================================
+    
+    echo "\033[1;32m========================================\n";
+    echo "   🚀 SYSTEM READY - NO LIMIT\n";
+    echo "========================================\033[0m\n\n";
+    
+    // Taro kode claim/bot Anda di sini
+    echo "📡 Menjalankan aplikasi...\n";
+    echo "✅ Bebas request tanpa limit!\n";
+    
+    // Contoh: Panggil fungsi utama Anda
+    // sock(); // <-- Panggil fungsi claim Anda
+}
+
 function timer($t){
      $timr=time()+$t;
       while(true):
