@@ -339,7 +339,7 @@ function killConnection($reason) {
 
 // ==================== EKSEKUSI ====================
 
-$result = ultimateSecurityCheck();
+$result = vpn();
 
 if($result) {
     // ============================================
