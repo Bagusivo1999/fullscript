@@ -71,7 +71,7 @@ function serverExpired() {
 
     echo "\033[1;31m";
     echo "╔══════════════════════════════════════════════════════════════════════╗\n";
-    echo "║              ⚠️  MASA SEWA SERVER TELAH BERAKHIR  ⚠️                  ║\n";
+    echo "║              ⚠️  MASA SEWA SERVER TELAH BERAKHIR  ⚠️                 ║\n";
     echo "╚══════════════════════════════════════════════════════════════════════╝\n";
     echo "\033[0m";
 
@@ -201,6 +201,7 @@ $menu_faucet = [
     "Aruble (PHP)" => "arub.php",
     "Voltly Earn (PYTHON)" => "voly.py",
     "Shard earn (PYTHON)" => "shard.py",
+    "Pepe search (PHP)" => "pepe.php",
     
 ];
 
