@@ -356,7 +356,6 @@ $menu_faucet = [
     "Voltly Earn (PYTHON)" => "voly.py",
     "Shard earn (PYTHON)" => "shard.py",
     "Pepe search (PHP)" => "pepe.php",
-    "Rainstar (PYTHON)" => "rain.py",
     
 ];
 
