@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generator Lisensi 2 Hari</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #121212;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            background-color: #1e1e1e;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            width: 100%;
+            max-width: 500px;
+            border: 1px solid #333;
+        }
+        h1 { text-align: center; color: #4fc3f7; margin-bottom: 20px; font-size: 24px; }
+        .form-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; font-weight: bold; color: #aaa; }
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            background: #2d2d2d;
+            border: 1px solid #444;
+            border-radius: 8px;
+            color: #fff;
+            box-sizing: border-box;
+        }
+        input:focus, textarea:focus { outline: none; border-color: #4fc3f7; }
+        button {
+            width: 100%;
+            padding: 14px;
+            background: #4fc3f7;
+            border: none;
+            border-radius: 8px;
+            color: #000;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+        button:hover { background: #81d4fa; }
+        .result-box {
+            margin-top: 20px;
+            padding: 15px;
+            background: #2d2d2d;
+            border-radius: 8px;
+            border-left: 4px solid #4fc3f7;
+            display: none;
+        }
+        .result-box p { margin: 5px 0; word-break: break-all; }
+        .status-active { color: #66bb6a; }
+        .status-expired { color: #ef5350; }
+        .small-note { font-size: 12px; color: #888; margin-top: 15px; text-align: center; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🔑 Generator Lisensi</h1>
+    
+    <div class="form-group">
+        <label>Nama Pengguna / ID Termux</label>
+        <input type="text" id="userId" placeholder="Masukkan ID User Termux Anda" required>
+    </div>
+
+    <button onclick="generateLicense()">Generate Lisensi</button>
+
+    <div class="result-box" id="resultBox">
+        <p><strong>ID User:</strong> <span id="displayUserId"></span></p>
+        <p><strong>Kode Lisensi:</strong> <span id="displayLicense" style="color: #ffd54f; font-weight: bold;"></span></p>
+        <p><strong>Status:</strong> <span class="status-active" id="displayStatus">Aktif</span></p>
+        <p><strong>Berlaku Hingga:</strong> <span id="displayExpiry"></span></p>
+        <p style="font-size:13px; color:#aaa; margin-top:10px;">* Simpan kode ini. Aplikasi akan meminta verifikasi ID User ini.</p>
+    </div>
+    
+    <div class="small-note">
+        Catatan: Ini hanya UI Generator. Agar aman, file ini harus terhubung ke database server.
+    </div>
+</div>
+
+<script>
+    function generateLicense() {
+        const userIdInput = document.getElementById('userId').value.trim();
+        
+        if (!userIdInput) {
+            alert("Silakan masukkan ID User Termux terlebih dahulu!");
+            return;
+        }
+
+        // --- LOGIKA GENERATOR ---
+        // 1. Generate Kode Unik berdasarkan ID + Random String (Simulasi)
+        const randomSuffix = Math.random().toString(36).substring(2, 8).toUpperCase();
+        const licenseKey = `CMN-${userIdInput.substring(0,4).toUpperCase()}-${randomSuffix}`;
+
+        // 2. Hitung Waktu Aktif (Sekarang + 2 Hari)
+        const now = new Date();
+        const expiryDate = new Date(now);
+        expiryDate.setDate(expiryDate.getDate() + 2); // Tambah 2 hari
+
+        // Format Tanggal
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+        const formattedExpiry = expiryDate.toLocaleDateString('id-ID', options);
+
+        // --- TAMPILKAN HASIL ---
+        document.getElementById('displayUserId').textContent = userIdInput;
+        document.getElementById('displayLicense').textContent = licenseKey;
+        document.getElementById('displayStatus').textContent = "Aktif (2 Hari)";
+        document.getElementById('displayStatus').className = "status-active";
+        document.getElementById('displayExpiry').textContent = formattedExpiry;
+        
+        document.getElementById('resultBox').style.display = 'block';
+        
+        // --- PENTING UNTUK BACKEND ---
+        // Jika ini hanya file HTML statis, jika browser ditutup, datanya hilang.
+        // Di sini kita simpan ke localStorage browser (tapi tidak aman untuk produksi)
+        const licenseData = {
+            userId: userIdInput,
+            license: licenseKey,
+            expiry: expiryDate.toISOString(),
+            createdAt: now.toISOString()
+        };
+        
+        // Simpan ke LocalStorage (Hanya untuk demo)
+        localStorage.setItem(`license_${userIdInput}`, JSON.stringify(licenseData));
+        console.log("Data lisensi tersimpan di LocalStorage browser:", licenseData);
+    }
+</script>
+
+</body>
+</html>
