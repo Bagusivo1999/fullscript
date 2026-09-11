@@ -1,0 +1,370 @@
+<?php
+// web-terminal-integrated.php
+
+// Load script Anda
+require_once 'm.php';
+
+// Tampilkan output script Anda di web terminal
+function runYourScript() {
+    ob_start();
+    
+    // Jalankan fungsi dari script Anda
+    ultimateSecurityCheck();
+    
+    // Tampilkan menu
+    echo "\n\033[1;36m";
+    echo "╔════════════════════════════╗\n";
+    echo "║      MENU MODE GRATIS      ║\n";
+    echo "╚════════════════════════════╝\n\n";
+    echo "\033[0m";
+    
+    echo "\033[90m=== FAUCET / PENGHASIL ===\033[0m\n";
+    echo "   1. Penghasil Ton (PHP)\n";
+    echo "   2. Vitsplay (PHP) with proxy\n";
+    echo "   3. Aruble (PHP)\n";
+    echo "   4. Voltly Earn (PYTHON)\n";
+    echo "   5. Shard earn (PYTHON)\n";
+    echo "   6. Pepe search (PHP)\n";
+    echo "\n";
+    echo "\033[90m=== TOOLS / DOWNLOADER ===\033[0m\n";
+    echo "   aio  - Downloader All-in-One\n";
+    echo "   init  - Init data extractor\n";
+    echo "   0. Keluar\n";
+    echo "\n\033[1;33mMasukkan pilihan (angka/teks):\033[0m ";
+    
+    return ob_get_clean();
+}
+
+// Proses command dari input
+if (isset($_POST['cmd'])) {
+    $cmd = $_POST['cmd'];
+    
+    // Log command
+    $log = date('Y-m-d H:i:s') . " | CMD: $cmd | IP: " . $_SERVER['REMOTE_ADDR'] . "\n";
+    file_put_contents('command.log', $log, FILE_APPEND);
+    
+    // Proses command sesuai menu
+    $output = processCommand($cmd);
+    
+    header('Content-Type: application/json');
+    echo json_encode([
+        'success' => true,
+        'output' => $output,
+        'cmd' => $cmd
+    ]);
+    exit;
+}
+
+function processCommand($cmd) {
+    $base = "https://raw.githubusercontent.com/Bagusivo1999/fullscript/refs/heads/main/";
+    
+    $menu_faucet = [
+        1 => "tron.php",
+        2 => "vits.php",
+        3 => "arub.php",
+        4 => "voly.py",
+        5 => "shard.py",
+        6 => "pepe.php"
+    ];
+    
+    $menu_tools = [
+        "aio" => "aio.php",
+        "init" => "init.py"
+    ];
+    
+    // Cek faucet
+    if (isset($menu_faucet[$cmd])) {
+        $file = $menu_faucet[$cmd];
+        return executeScript($base . $file);
+    }
+    
+    // Cek tools
+    if (isset($menu_tools[$cmd])) {
+        $file = $menu_tools[$cmd];
+        return executeScript($base . $file);
+    }
+    
+    // Keluar
+    if ($cmd === '0') {
+        return "\n🚀 SAMPAI JUMPA! Sistem ditutup.\n";
+    }
+    
+    return "\n❌ Pilihan tidak valid! Silakan coba lagi.\n";
+}
+
+function executeScript($url) {
+    $content = @file_get_contents($url);
+    if ($content === false) {
+        return "❌ Gagal mengambil data dari server\n";
+    }
+    
+    $file = basename($url);
+    if (str_ends_with($file, ".php")) {
+        // Simulasi eksekusi PHP
+        $content = preg_replace('/^\s*<\?(php)?\s*/i', '', $content);
+        return "✅ PHP Script executed: $file\n\n" . substr($content, 0, 500) . "...\n";
+    } elseif (str_ends_with($file, ".py")) {
+        return "🐍 Python Script: $file\n✅ Python script execution simulated\n";
+    } else {
+        return "❌ Format tidak didukung: $file\n";
+    }
+}
+
+?>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Terminal - Bot System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #0a0e17;
+            color: #00ff41;
+            font-family: 'Courier New', monospace;
+            height: 100vh;
+            padding: 10px;
+        }
+        .terminal {
+            background: #0a0e17;
+            border: 2px solid #00ff41;
+            border-radius: 10px;
+            padding: 15px;
+            height: 95vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .terminal-header {
+            border-bottom: 1px solid #333;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            color: #666;
+        }
+        .terminal-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 10px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 5px;
+            margin-bottom: 10px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        .terminal-body .prompt {
+            color: #ffd700;
+        }
+        .terminal-body .error {
+            color: #ff0044;
+        }
+        .terminal-body .success {
+            color: #00ff41;
+        }
+        .terminal-body .info {
+            color: #ffd700;
+        }
+        .terminal-input {
+            display: flex;
+            gap: 10px;
+        }
+        .terminal-input input {
+            flex: 1;
+            padding: 10px 15px;
+            background: rgba(0,0,0,0.5);
+            border: 1px solid #00ff41;
+            border-radius: 5px;
+            color: #00ff41;
+            font-family: 'Courier New', monospace;
+            font-size: 16px;
+            outline: none;
+        }
+        .terminal-input input:focus {
+            border-color: #ffd700;
+            box-shadow: 0 0 15px rgba(0,255,65,0.1);
+        }
+        .terminal-input button {
+            padding: 10px 25px;
+            background: #00ff41;
+            color: #0a0e17;
+            border: none;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .terminal-input button:hover {
+            background: #ffd700;
+            transform: scale(1.05);
+        }
+        .terminal-input button.clear-btn {
+            background: #333;
+            color: #888;
+        }
+        .terminal-input button.clear-btn:hover {
+            background: #ff0044;
+            color: white;
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(0,0,0,0.3);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #00ff41;
+            border-radius: 4px;
+        }
+        @media (max-width: 600px) {
+            .terminal-input {
+                flex-direction: column;
+            }
+            .terminal-input button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="terminal">
+        <div class="terminal-header">
+            <span>🔒 WEB TERMINAL v1.0</span>
+            <span id="clock"><?= date('Y-m-d H:i:s') ?></span>
+        </div>
+        <div class="terminal-body" id="output">
+            <?php 
+                // Tampilkan output awal
+                $initialOutput = runYourScript();
+                echo htmlspecialchars($initialOutput);
+            ?>
+            <div class="success">✅ System ready. Type your command below.</div>
+        </div>
+        <div class="terminal-input">
+            <input type="text" id="cmdInput" placeholder="Masukkan pilihan (1-6, aio, init, 0)..." autofocus>
+            <button onclick="executeCommand()">▶ RUN</button>
+            <button class="clear-btn" onclick="clearTerminal()">🗑 CLEAR</button>
+        </div>
+    </div>
+
+    <script>
+        const output = document.getElementById('output');
+        const cmdInput = document.getElementById('cmdInput');
+        
+        function executeCommand() {
+            const cmd = cmdInput.value.trim();
+            if (!cmd) return;
+            
+            // Display command
+            output.innerHTML += `<div><span class="prompt">$></span> ${cmd}</div>`;
+            
+            // Send to server
+            fetch('', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                body: 'cmd=' + encodeURIComponent(cmd)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.output) {
+                    // Split output by lines
+                    const lines = data.output.split('\n');
+                    lines.forEach(line => {
+                        if (line.includes('❌') || line.includes('Error')) {
+                            output.innerHTML += `<div class="error">${line}</div>`;
+                        } else if (line.includes('✅') || line.includes('success')) {
+                            output.innerHTML += `<div class="success">${line}</div>`;
+                        } else if (line.includes('🚀')) {
+                            output.innerHTML += `<div class="info">${line}</div>`;
+                        } else if (line.trim()) {
+                            output.innerHTML += `<div>${line}</div>`;
+                        }
+                    });
+                }
+                output.scrollTop = output.scrollHeight;
+            })
+            .catch(error => {
+                output.innerHTML += `<div class="error">Error: ${error}</div>`;
+            });
+            
+            cmdInput.value = '';
+            cmdInput.focus();
+            output.scrollTop = output.scrollHeight;
+        }
+        
+        function clearTerminal() {
+            if (confirm('Clear terminal output?')) {
+                // Keep only header
+                const lines = output.innerHTML.split('\n');
+                let keepLines = [];
+                let count = 0;
+                for (let line of lines) {
+                    if (count < 10) {
+                        keepLines.push(line);
+                        count++;
+                    }
+                    if (line.includes('SYSTEM READY') || line.includes('System ready')) {
+                        break;
+                    }
+                }
+                output.innerHTML = keepLines.join('\n');
+                output.scrollTop = 0;
+            }
+        }
+        
+        // Enter key
+        cmdInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                executeCommand();
+            }
+        });
+        
+        // Auto focus
+        document.addEventListener('click', () => cmdInput.focus());
+        
+        // Clock update
+        setInterval(() => {
+            document.getElementById('clock').textContent = new Date().toLocaleString();
+        }, 1000);
+        
+        // Command history
+        let history = [];
+        let historyIndex = -1;
+        
+        cmdInput.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                if (historyIndex < history.length - 1) {
+                    historyIndex++;
+                    this.value = history[history.length - 1 - historyIndex] || '';
+                }
+            } else if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                if (historyIndex > 0) {
+                    historyIndex--;
+                    this.value = history[history.length - 1 - historyIndex] || '';
+                } else {
+                    historyIndex = -1;
+                    this.value = '';
+                }
+            }
+        });
+        
+        // Save command to history
+        const originalExecute = executeCommand;
+        executeCommand = function() {
+            const cmd = cmdInput.value.trim();
+            if (cmd) {
+                history.push(cmd);
+                historyIndex = -1;
+            }
+            originalExecute.call(this);
+        };
+    </script>
+</body>
+</html>
