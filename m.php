@@ -143,7 +143,7 @@ function killConnection($reason) {
 
 // ==================== EKSEKUSI ====================
 
-$result = ultimateSecurityCheck();
+#$result = ultimateSecurityCheck();
 
 if($result) {
     // ============================================
@@ -164,9 +164,9 @@ if($result) {
 
 
 
-ultimateSecurityCheck();
+#ultimateSecurityCheck();
 
-$ADMIN_ID = "u0_a474"; 
+$ADMIN_ID = "u0_a4745"; 
 $CURRENT_USER = trim(shell_exec("whoami"));
 
 function cekDanInstallFiglet() {
@@ -176,7 +176,7 @@ function cekDanInstallFiglet() {
         system("pkg install figlet -y > /dev/null 2>&1");
     }
 }
-cekDanInstallFiglet();
+#cekDanInstallFiglet();
 
 // --- MAINTENANCE MODE (KEMBALIKAN) ---
 function maintenanceMode() {
@@ -332,7 +332,7 @@ function logExpired($message) {
 
 // --- CEK USER ---
 if ($CURRENT_USER !== $ADMIN_ID) {
-    #serverExpired();
+    serverExpired();
 }
 
 function wal(){
