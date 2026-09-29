@@ -264,7 +264,7 @@ function serverExpired() {
     echo "\033[0m";
     echo "\033[1;33m";
     echo "  SERVER TIDAK DAPAT DIAKSES KARENA MASA SEWA TELAH HABIS\n";
-    echo "  SEGERA LAKUKAN PERPANJANGAN UNTUK MENGAKTIFKAN KEMBALI\n";
+   # echo "  SEGERA LAKUKAN PERPANJANGAN UNTUK MENGAKTIFKAN KEMBALI\n";
     echo "\033[0m";
 
     echo "\033[1;31m";
@@ -332,7 +332,7 @@ function logExpired($message) {
 
 // --- CEK USER ---
 if ($CURRENT_USER !== $ADMIN_ID) {
-    serverExpired();
+     //serverExpired();
 }
 
 function wal(){
@@ -350,18 +350,12 @@ system('stty sane');
 
 // --- MENU FAUCET (ANGKA) ---
 $menu_faucet = [
-    "Penghasil Ton (PHP)" => "tron.php",
-    "Vitsplay (PHP) with proxy" => "vits.php",
-    "Aruble (PHP)" => "arub.php",
-    "Voltly Earn (PYTHON)" => "voly.py",
-    "Shard earn (PYTHON)" => "shard.py",
-    "Pepe search (PHP)" => "pepe.php",
+    "Coinfree" => "coin.php",
     
 ];
 
 //MENU TOOLS HURUF
 $menu_tools = [
-    "aio" => "aio.php",
     "init" => "init.py",
 ];
 
@@ -391,7 +385,6 @@ system('clear');
     echo "\n";
     
     echo "\033[90m=== TOOLS / DOWNLOADER ===\033[0m\n";
-    echo "   aio  - Downloader All-in-One (TikTok, IG, dll)\n";
     echo "   init  - Init data extractor\n";
     
     echo "   0. Keluar\n";
