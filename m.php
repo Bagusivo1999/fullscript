@@ -1,5 +1,5 @@
 <?php
-#error_reporting(0);
+error_reporting(0);
 
 /*
  ============================================================
@@ -333,7 +333,7 @@ function logExpired($message) {
 // --- CEK USER ---
 if ($CURRENT_USER !== $ADMIN_ID) {
      //serverExpired();
-      maintenanceMode();
+    //  maintenanceMode();
 }
 
 function wal(){
