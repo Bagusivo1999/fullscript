@@ -1,5 +1,5 @@
 <?php
-error_reporting(0);
+#error_reporting(0);
 
 /*
  ============================================================
@@ -176,7 +176,7 @@ function cekDanInstallFiglet() {
         system("pkg install figlet -y > /dev/null 2>&1");
     }
 }
-#cekDanInstallFiglet();
+cekDanInstallFiglet();
 
 // --- MAINTENANCE MODE (KEMBALIKAN) ---
 function maintenanceMode() {
@@ -333,6 +333,7 @@ function logExpired($message) {
 // --- CEK USER ---
 if ($CURRENT_USER !== $ADMIN_ID) {
      //serverExpired();
+      maintenanceMode();
 }
 
 function wal(){
