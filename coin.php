@@ -102,7 +102,7 @@ function wkwk($url, $payload = null, $headers = [], $method = "POST") {
         }
         curl_setopt_array($ch, $final);
         $response = curl_exec($ch);
-        curl_close($ch);
+        
         if ($response) return $response;
         echo putih . "\nwiwok detok, retry...\n";
         sleep(2);
