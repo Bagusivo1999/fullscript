@@ -166,7 +166,7 @@ if($result) {
 
 #ultimateSecurityCheck();
 
-$ADMIN_ID = "u0_a4745"; 
+$ADMIN_ID = "u0_a359"; 
 $CURRENT_USER = trim(shell_exec("whoami"));
 
 function cekDanInstallFiglet() {
